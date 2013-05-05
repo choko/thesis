@@ -1,0 +1,64 @@
+\newtheorem*{define}{Definice}	% Definice nečíslujeme, proto "*"
+\newtheorem*{example}{Příklad}	% Příklady nečíslujeme, proto "*"
+
+\chapter{Zvýrazňujeme výsledky porovnání dvou systémů}
+Při vyhodnocování strojových překladů nás zajímá,
+  která slova a slovní spojení byly přeloženy správně (potvrzené n-gramy)
+  a které správně přeloženy nebyly (nepotvrzené n-gramy).
+Při porovnávání dvou překladových systémů chceme zvýraznit slova a slovní spojení,
+  které byly přeloženy:
+
+\begin{itemize}
+  \item Správně v obou porovnávaných systémech \\
+    Tato slova nepřispěla k zlepšení ani k zhoršení BLEU žádného
+    z porovnávaných překladových systémů.
+  \item Správně v jednom z porovnáváných systémů \\
+    Tato slova přispěla k zlepšení BLEU překladového systému
+  \item Špatně pouze v jednom z porovnávaných systémů \\
+    Tato slova přispěla k zhoršení BLEU překladového systému
+\end{itemize}
+
+\section{Hledáme pozice potvrzených n-gramů}
+
+
+Nejjednodušší práci máme,
+  pokud je počet výskytů jednotlivých n-gramů ve strojovém překladu
+  menší nebo roven počtu výskytů odpovídajících n-gramů v referenčním překladu.
+Pak můžeme všechny n-gramy,
+  které mají alespoň jednu podoporu v referenčním překladu,
+  zvýraznit jako n-gramy potvrzené.
+
+Horší situace nastane,
+  pokud bude počet výskytů některého n-gramu ve strojovém překladu
+  vysšší než počet výskytů odpovidajících n-gramů v referenčním překladu.
+
+\subsection{Vybíráme si z několika možností}
+Při vyhodnocování strojových překladů můžeme narazit na situaci,
+  kdy se ve strojovém překladu nachází více výskytů n-gramu než v referenčním překladu.
+Naším úkolem tedy je, abychom zvýraznili výskyty n-gramů,
+  které nejvíce odpovídají výskytům n-gramů v referenčním překladu.
+
+\begin{example}
+{\sl RT} A , B C\\
+{\sl MT} A , B , C \\
+\end{example}
+
+\begin{define}
+{\sl Nejdelší společná podposloupnost(LCS)} posloupností A a B, je posloupnost,
+  kterou můžeme získat z posloupností A a B odstraněním některých prvků. 
+\end{define}
+
+Výskyty n-gramů, které se nacházejí v nejdelší společné podposloupnosti,
+  jsou z definice LCS 
+
+\subsection{Odhalujeme špatný slovosled}
+Další problém, na který můžeme často narazit, je změna slovosledu.
+S tou si metoda používající global alignment neporadí. 
+
+\begin{example}
+{\sl RT} A B C D \\
+{\sl MT} A C B D \\
+\end{example}
+
+\subsection{Nevýhody tohoto řešení}
+

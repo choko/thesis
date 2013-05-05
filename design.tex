@@ -1,0 +1,292 @@
+\chapter{Návrh aplikace}
+MT-ComparEval slouží k porovnávání a vyhodnocování překladů.
+Hlavním požadavkem při vývoji aplikace bylo,
+  aby bylo možné jednoduše sputit aplikaci na vývojářově počítači.
+Proto byly použity technologie,
+  které jsou běžně dostupné na většině linuxových distribucí.
+Jako hlavní programovací jazyk byl použit jazyk PHP ve verzi 5.4 
+  s použitím frameworku Nette
+  a jako databáze byla použita databáze SQLite3.
+Jazyk PHP ve verzi 5.4 má v sobě obsažen jednoduchý webový server,
+  tudíž je možné aplikaci bez vetších obtíží spustit na vývojářském počítači.
+V případě, že by měla aplikace běžet na serveru,
+  je možné použít např. Apache HTTP Server.
+Pokud by měla aplikace zpracovávat velké množství překladů,
+  je možné použít i jiné databáze,
+  ale bude potřeba přizpůsobit konfiguraci aplikace.
+Na frontendu byl použit javascript s frameworkem AngularJS.
+
+
+MT-ComparEval je webová aplikace skládající se ze tří částí:
+
+\begin{itemize}
+	\item Serverové části pro import jednotlivých překladů
+	\item Serverové části pro vykreslování šablon a REST API
+	\item Frontendové části pro interaktivní porovnávání překladů
+\end{itemize}
+
+\section{Import překladů}
+Aplikace MT-ComparEval byla navržena tak,
+  aby jí bylo možné snadno zasadit do vývojového procesu strojových překladů.
+Nepředpokládali jsme,
+  že by si uživatel manuálně nahrával jednotlivé překlady k porovnání.
+Spíše se předpokládá, že uživatel bude mít nastavený vývojový proces tak,
+  že po každém úspešném překladu se výsledný překlad nahraje do naší aplikace,
+  kde si uživatel bude moci prohlédnout daný překlad v porovnání s ostatními překlady.
+
+
+Vyhodnocování projektu probíhá proti referenčnímu překladu od překladatele.
+Aby uživatelé mohli porovnávat své překladové systémy proti různým referenčním překladům,
+  je možné si v naší aplikaci vytvořit různé "Experimenty". 
+
+Experiment obsahuje zdrojový text, z kterého vznikaly překlady, a referenční překlad.
+Každý experiment je uložen jako adresář,
+  který obsahuje soubor se zdrojovým textem, referenčním překladem
+  a konfigurační soubor, pomocí něhož je možné přidat některá metadata k překladu.
+V současné době aplikace umožňuje mít pouze jeden referenční překlad v experimentu,
+  protože i ve většině soutěží se používá pouze jeden referenční překlad.
+
+Do každého experimentu si může uživatel libovolně nahrávat nové strojové překlady.
+V aplikaci tyto překlady nazývame "Tasky".
+Každý task je uložen jako podadresář adresáře s experimentem
+  a obsahuje soubor se strojovým překladem
+  a konfigurační sobour, pomocí něhož je možné přidat některá metadata k překladu. 
+U všech souborů s překlady předpokládáme že jsou zalignované.
+
+\subsection{Import experimentů}
+Všechny experimenty, které chceme naimportovat do naší aplikace,
+  se musí uložit do adresáře ./data v kořenu aplikace.
+Nad tímto adresářem bdí proces, který hlídá,
+  jestli zde nepřibyl nějaký nový experiment.
+V případě, že objeví nějaký nový experiment,
+  spustí proces, který tento experiment naimportuje.
+
+Při importu experimentu se nahrají všechny zdrojové věty
+  a referenční překlady do databáze,
+  abychom je mohli později použít při importu tasků
+  nebo zobrazování výsledků.
+
+Po úspěšném importu je do adresáře s experimentem přidán soubor,
+  který nám označí daný experiment jako úspěšně naimportovaný.
+Toho využijeme při importu tasků,
+  abychom se nepokoušeli importovat tasky v experimentech,
+  které ještě nebyly úspěšně naimportovány.
+Zárověň tento zámek využijeme proto,
+  abychom některý experiment nenaimportovali vícekrát.
+
+%% TODO zamek pro neuspesne importy
+Při importu experimentů může dojít k různým chybám -
+  ať už na straně uživatele nebo na straně MT-ComparEval.
+V případě, že nějaká chyba nastane,
+  je do adresáře s experimentem přidán soubor,
+  který nám označí,
+  že při importu experimentu došlo k chybě
+  a neměli bychom se ho pokoušet importovat znovu.
+Když uživatel opraví chybu,
+  která způsobila neúspěch importu,
+  může tento soubor odstranit
+  a MT-ComparEval se pokusí daný experiment znovu naimportovat.
+
+\subsection{Import tasků}
+Tasky, které chceme naimportovat do naší aplikace,
+  se musí uložit do adresářů experimentů,
+  ke kterým daný task patří.
+Nad těmito adresáři bdí stejný proces,
+  jako proces pro import experimentů.
+Tento proces hledá nový task ve všech již 
+  naimportovaných experimentech.
+
+Při importu tasku se nahrají všechny přeložené věty do databáze.
+Zaroveň musíme celý task vyhodnotit a předpočítat hodnoty,
+  které později použijeme na frontendu.
+Mezi tyto hodnoty patří:
+\begin{itemize}
+	\item Metriky pro celý překlad a jednotlivé věty
+	\item Hodnoty pro Bootstrap Resampling 
+	\item Zlepšující/zhoršující n-gramy
+\end{itemize}
+
+\subsubsection{Předzpracování vět}
+Jelikož se při importu tasků mnohé výpočty opakují
+  ( počítání metrik, boostrap resampling, hledání společných n-gramů, \dots ),
+  chceme si je předpočítat,
+  abychom je mohli později použít a nemuseli je pokaždé počítat znovu.
+
+Pokud chceme,
+  aby naše výsledky výpočtu metrik byly stejné jako u jiných nástrojů,
+  musíme text nejprve znormalizovat.
+Znormalizování nám přidá mezery před a za všechna interpunkční znaménka.
+Tím nám oddělí všechny slova a diakritiku - dále je budeme nazývat tokeny.
+Znormalizovaný text můžeme tokenizovat (rozdělit na jednotlivá slova a diakritiku).
+S takto získanými tokeny můžeme počítat libovolné metriky,
+  aniž bychom se museli bát,
+  že se naše výsledky budou lišit od výsledků jiných nástrojů.
+
+Dalším krokem při předzpracování je získaní všech n-gramů z referenčního a strojového překladu.
+N-gramem rozumíme posloupnout n po sobě jdoucích slov.
+V nástroji MT-ComparEval počítáme pouze s n-gramy délky 1-4,
+  tudíž při předzpracování hledáme pouze n-gramy těchto délek. 
+
+Z n-gramů ze strojového překladu najdeme potvrzené n-gramy
+  ( vyskytují se i mezi referenčními n-gramy )
+  i n-gramy nepotvrzené.
+Z těchto n-gramů později vypočítáme n-gramy,
+  které nejvíce zlepšují/zhoršují skóre daného systému.
+  
+Jelikož při výpočtu BLEU nepotřebujeme znát jednotlivé n-gramy,
+  z předpočítaných n-gramů si uložíme pouze jejich počty podle délky.
+To nám ušetří mnoho času při výpočtu hodnot pro bootstrap resampling.
+
+\subsubsection{Zpracování vět}
+Hlavním cílem při zpracování vět je spočítat metriky jak pro jednotlivé věty,
+  tak pro celé překlady.
+Pomocí metrik u jednotlivých vět můžeme řadit věty tak,
+  abychom zobrazili pouze věty, 
+  které nás zajímají.
+To jsou věty, u kterých došlo k největší změně.
+%% vlozit screenshot s ukazkami vet
+Pomocí metrik u celých překladů můžeme rozhodnout,
+  který překlad je lepší
+  nebo jestli se námi používaný překladový systém zlepšuje/zhoršuje.
+%% vlozit ukazku vypisu tasku.
+
+Metriky se počítají vždy v páru - case sensitive / case insensitive.
+To proto, že se potvrzený n-gram může nacházet v referenčním překladu na začátku věty,
+  kde bude začínat velkým písmenem,
+  ale ve strojovém překladu se bude nacházet uprostřed věty,
+  kde bude začínat malým písmenem.
+%% vlozit ukazku vety, ktera zacina potvrzeným n-gramem.
+Potom budou dávat obě metriky různé výsledky 
+  a je jen na uživateli,
+  aby si zvolil, která metrika ho více zajímá.
+
+Aby si uživatel mohl doimplementovat další metriky,
+  může TaskImporter použít libovolné množství implemantací rozhrani Metric.
+Díky tomu a i své vlastní iniciativě,
+  může uživatel porovnávat výsledky pomocí různých metrik.
+
+\subsubsection{Dokončení importu}
+Před tím, než nahrajeme data do databáze, je nutné,
+  abychom si dopočítali poslední informace,
+  které potřebujeme ke správnému chodu frontendu,
+  ale které jsou výpočetně náročné,
+  tudíž by trvalo dlouhou dobu,
+  než by je REST API spočítalo.
+
+Mezi tyto informace patří vygenerovaní vzorků pro bootstrap resampling a
+  nalezení nejvíce zlepšujících resp. nejvíce zhoršujících n-gramů.
+
+\subsubsection{Bootstrap resampling}
+%% rozsirit sekci o bootstrap resamplingu
+Abychom mohli efektivně porovnávat dva překlady pomocí metody bootstrap resampling,
+  musíme se předgenerovat velké množství náhodných vzorků.
+My chceme,
+  abychom vždy porovnávali stejné vzorky,
+  ale abychom je nemuseli vždy počítat znovu a znovu.
+Na začátku generování náhodných vzorků tedy nastavíme stejné jadérko generátoru náhodných čísel,
+  tím dosáhneme toho,
+  že všechny vzorky budou obsahovat vždy stejné věty
+  a nemusíme tedy generovat vzorky pro všechny dvojice tásků v experimentu.
+Náhodné vzorky počítáme pro všechny dostupné metriky,
+  jelikož rozhraní pro výpočet jednotlivých metrik nám umožňuje spočítat danou metriku pro libovolnou testovací sadu,
+  můžeme tyto výpočty znovupoužít.
+
+
+\subsubsection{Hledání nejvíce zlepšujících/zhoršujících n-gramů}
+Nástroj MT-ComparEval nabízí i výpis nejvíce zlepšujících resp. nejvíce zhoršujících n-gramů.
+Ty získáme tak, že vezmeme všechny potvrzené resp. nepotrvzené n-gramy
+  a uděláme rozdíl obou porovnávaných překladů.
+N-gramy,
+  které mají největší rozdíl mezi jednotlivými překlady,
+  jsou nejvíce zlepšující resp. nejvíce zhoršující.
+
+Jelikož potvrzených resp. nepotvrzených n-gramů může být velké množství
+  a nalezení nejvíce zlepšujících resp. nejvíce zhoršujících n-gramů může být pomalé,
+  je potřeba,
+  abychom našli všechny zlepšující resp. zhoršující n-gramy předem.
+Při importu tasku tedy vezmeme všechny ostatní tasky z daného experimentu
+  a pro ně předpočítáme 10 nejvíce zlepšujících resp. zhoršujících n-gramů. 
+
+Abychom udělali počítání zlepšujících resp. zhoršujících n-gramů co nejefektivnější,
+  používáme algoritmus podobný mergesortu,
+  který z databáze postupně načítá n-gramy seřazené podle textu a věty, v které se nacházejí, 
+  a slévá je dohromady tak, že:
+
+\begin{itemize}
+  \item Pokud jsou oba n-gramy stejné, můžeme je vyhodit.
+    Pouze zaktualizujeme počet výskytů n-gramů v jednotlivých překladech. 
+  \item Pokud se n-gramy liší, přídáme zlepšující resp. zhoršující n-gram k překladu,
+    v kterém se nachází "menší n-gram". \\
+    "Menší n-gram" je ten, který se nachází ve větě s nižším pořadovým číslem
+    nebo je lexikograficky menší.
+\end{itemize}
+
+Na závěr vybereme 10 nejlepších resp. nejhorších n-gramů
+  a uložíme si je pro pozdější použití.
+Tímto alogirtmem dosáhneme lineární pamětové složitosti a
+  lineární časové složitosti v závislosti na počtu potvrzených resp. nepotvrzených n-gramů.
+
+%% TODO dodelat vypnuti predpocitani tasku
+I přes to, že časová složitost předpočítání je lineární,
+  může být předpočítání pro všechny ostatní tasky časově náročné
+  ( časová složitost je lineárně závislá na počtu tásků v experimentu ),
+  proto je možné toto předpočítání v konfiguraci jednotlivých tásků vypnout.
+V porovnání dvou tasků pak nebudou předpočítané n-gramy k dispozici
+  a je potřeba spustit skript,
+  který je pro daný task zpětně dopočítá.
+
+\subsubsection{Uložení předpočítaných dat do databáze}
+Předpočitáná data pro jednotlivé tasky ukládáme do databáze SQLite3.
+Při importu tásků chceme uložit velké množství dat,
+  což by mohlo trvat velmi dlouho.
+Proto jsou všechna data uložena v jedné transakci,
+  která je mnohem rychlejší,
+  než postupné ukládání.
+Navíc tím získáme jistotu,
+  že se nám do databáze nedostanou tasky,
+  jejichž import se z různých důvodů nemusel povést.
+ 
+\subsubsection{Logování importů}
+%% přidat ukázky logů
+Všechny důležité operace spojené s importem tásků či experimentů
+  ( ať už je to načítání konfiguračního souboru, načítání vět ze souborů,
+  počítání metrik, ukládání do databáze nebo některé další ), 
+  jsou logováný do souboru,
+  z kterého později můžeme vyčíst,
+  proč nebyl některý task či experiment úspěšně naimportován. 
+
+
+\section{REST API}
+REST API je implementované v jazyce PHP s použitím frameworku Nette.
+Slouží k předávání předpočítaných informací frontendu,
+  který si je dle potřeby získavá za použití AJAXu.
+Api vždy vrací data ve formátu JSON,
+  který můžeme snadno použít v javascriptu.
+Pomocí api navíc můžeme získavat pouze data,
+  která v danou chvíli potřebujeme.
+Tzn. že nebudeme načítat všechny věty naráz,
+  ale můžeme si je načítat postupně,
+  s tím jak si je uživatel prohlíží.
+Stejně tak nemusíme stahovat všechny data pro grafy,
+  ale stačí nám stáhnout data pro právě vybranou metriku.
+
+Pomocí api získáváme většinu dat pro porovnání dvou překladů,
+  ať už jsou to dostupné metriky,
+  data pro vykreslení grafů právě vybrané metriky,
+  zlepšující resp. zhoršující n-gramy
+  nebo věty,
+  které můžeme řadit podle libovolné metriky a získavat je po částech.
+
+V případě, že bychom chtěli zefektivnit použítí api tak,
+  aby se všechna data musela počítat pouze jednou,
+  můžeme použít reverse proxy cache - např. Varnish Cache.
+To nám může výrazně ušetřit výpočetní výkon a zlepšit dobu odezvy api v případě,
+  že aplikaci bude používat hodně uživatelů
+  a bude v ní nahráno hodně experimentů/tasků.
+
+\section{Frontend}
+
+
+
+
+
