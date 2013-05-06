@@ -285,8 +285,154 @@ To nám může výrazně ušetřit výpočetní výkon a zlepšit dobu odezvy ap
   a bude v ní nahráno hodně experimentů/tasků.
 
 \section{Frontend}
+Na frontendu byl použit CSS framework Bootstrap od firmy Twitter,
+  díky kterému bylo jednoduché vytvořit poměrně působivý design,
+  a javascriptový framework AngularJS.
+Jedná se o MVC framework vyvíjený ve firmě Google,
+  mezi jehož hlavní přednosti patří 2-way data binding -
+  tzn. že při změně v modelu nebo nějaké uživatelské interakci se stránky automaticky překreslí.
+Díky tomu je možné deklarativně popsat chování stránek,
+  které pak si při každé uživatelské akci stáhnou potřebná data z api
+  a není tak potřeba psát kód pro různé situace.
+
+Na frontendu se nacházejí tři typy stránek:
+\begin{itemize}
+  \item Seznam všech experimentů
+  \item Seznam všech tásků v daném experimentu
+  \item Porovnání dvou tásků
+\end{itemize}
+
+Seznamy experimentů a tásků slouží pouze k výběru tásků,
+  které chceme porovnávat,
+  proto se jedná pouze o výpis jmen s upřesňujícími informacemi.
+%% TODO přidat graf vývoje 
+V seznamu tásků daného experimentů navíc můžeme vidět graf s vývojem jednotlivých metrik tásků.
+Pomocí něho si můžeme rychle udělat přehled,
+  jak se překlady zlepšují resp. zhoršují.
+Pokud by nám informace z grafu nestačili,
+  je možné najít přesné hodnoty metrik v tabulkách u jednotlivých tásků.
+Na základě těchto informací si můžeme vybrat,
+  které tásky má smysl porovnávat.
+Díky jednoduchému procházení experimentů a tásku se můžeme zaměřit na nejdůležitější část aplikace
+  - porovnávání dvou tásků.
+
+Dva tásky můžeme porovnávat na základě několika kritérií,
+  kterým odpovídá záložka na stránce s porovnáním dvou tásků:
+%% TODO přidat obrázek s výběrem záložek
+\begin{itemize}
+  \item Sentences - porovnání na základě překladu jednotlivých vět
+  \item Statistics - porovnání na základě výsledků jednotlivých metrik
+  \item Confirmed n-grams - porovnání na základě nejvíce zlepšujících n-gramů
+  \item Unconfirmed n-grams - porovnání na základě nejvíce zhoršujících n-gramů
+\end{itemize}
+
+Abychom nemuseli složitě přecházet mezi stránkami,
+  když chceme porovnávat jiné tásky z experimentu,
+  je možné měnit tásky přímo v porovnání.
 
 
+\subsubsection{Porovnání na základě překladu jednotlivých vět}
+Při porovnávání dvou překladů nás nejvíce zajímají věty,
+  které se nejvíce zlepšily resp. zhoršily.
+To poznáme tak, že se rozdíl nejvíce liší. 
+Proto jsou věty vždy seřazeny podle rozdílů metrik.
+Metriky můžeme libovolně měnit a stránka se automaticky zaktualizuje.
+Zároveň se změnou metriky můžeme ovlivnit v jakém pořadí budou věty načítány,
+  jestli nás zajímají věty, které se nejvíce zlepšily resp. zhoršily.
+Jelikož načtení všech vět by mohlo být náročné,
+  načítají se vždy věty s tím,
+  jak se uživatel postupně posouvá stránkou.
+Nezřídka kdy nám stačí prohlédnout pouze několik vět,
+  abychom si udělali obrázek,
+  v čem se dva porovnávané tásky nejvíce liší.
+Aby si mohl uživatel vybrat,
+  které překlady ho zajímají,
+  může si skrýt a zobrazit zdorojovou větu, referenční překlad nebo porovnávané překlady.
+Toho může využít, když ho zajímá např. pouze porovnání jednoho překladu s referencí a
+  ostátní překlady by ho mohly rušit.
+
+%% vložit obrázky s porovnáváním vět a zvýrazněnými potvrzenými, zlepšujícími nebo zhoršujícími n-gramy
+Aby uživatel mohl snáz porovnávat překlady vět,
+  může si dle chuti zapnout / vypnout zvýraznění všech potvrzených n-gramů,
+  zlepšujících n-gramů nebo zhoršujících n-gramů.
+Za zlepšující n-gramy jsou považovány ty potvrzené n-gramy,
+  které se nacházejí pouze v jednom z porovnávaných překladů.
+To stejné platí pro zhoršující n-gramy,
+  které ale vybíráme z nepotvrzených n-gramů.
+Na základě barevného podbarvení jednotlivých slov pak uživatel může poznat,
+  která slova jsou přeložena lépe či hůře.
+
+Další možností jak rychle porovnat překlady je zvýraznit diff mezi překladem a referenčním překladem.
+Ve většině případů se toto zvýraznění nebude odlišovat od zvýraznění potvrzených n-gramů -
+  zvýrazněné potvrzené n-gramy se nacházejí jak v referenčním tak v porovnávaném překladu
+  a nezvýrazněná slova se nenacházejí v jednom z překladů.
+Jediný rozdíl mezi těmito zvýrazněními nastane,
+  když se bude lišit slovosled porovnávaných překladů,
+  pak může být povrzený n-gram označen za chybějicí resp. přebývající.
+
+V prototypu aplikace bylo možné zvýraznit i diff mezi oběma překlady,
+  avšak tato možnost vracela stejné výsledky jako zvýraznění zlepšujících a zhoršujících n-gramů,
+  a proto byla z finální verze odstraněna,
+  aby uživatele nemátla.
+
+\subsubsection{Porovnání na základě výsledků jednotlivých metrik}
+%% vlozit obrazek s porovnáním vysledku dvou tasku
+Rychlý přehled o kvalitě jednotlivých překladů si můžeme udělat pohledem na výsledky jednotlivých metrik.
+Ať už se jedná o data v tabulce s metrikami nebo graf hodnot jednotlivých metrik,
+  graf rozdílů aktuální metriky u vět nebo graf bootstrap resamplingu.
+Grafy se automaticky překreslují při změně metriky,
+  podle které se mají řadit vadit,
+  tím si může uživatel zobrazit grafy pro všechny nabízené metriky.
 
 
+\subsubsection{Porovnání na základě nejvíce zlepšujících resp. zhoršujících n-gramů}
+%% vlozit obrázek s výpisem nejvíce zlepšujících / zhoršujících n-gramů
+Dobrý obrázek o zlepšení / zhoršení překladu si můžeme udělat,
+  když se podíváme,
+  v kterých n-gramech se dané překlady nejvíce liší,
+  ať už se jedná o zlepšující n-gramy nebo n-gramy zhoršující.
+Nástroj MT-ComparEval vypisuje seznam zlepšujících resp. zhoršujících n-gramů seskupených podle délky,
+  pomocí něhož můžeme filtrovat věty a prohlížet si pouze ty,
+  v kterých se daný zlepšující resp. zhoršující n-gram nachází.
+Vybraný n-gram je následně ve všech větách zvýrazněn,
+  aby uživatel mohl rychle zjistit, kde se nachází -
+  může se totiž stát, že se daný n-gram ve věte bude nacházet vicekrát,
+  ale pouze některý z nich bude zlepšující resp. zhoršující.
+
+Jelikož se daný n-gram může nacházet v mnoha větách,
+  nenačítáme všechny věty naráz,
+  ale věty jsou načítány postupně,
+  stejně jako když procházíme věty v normálním režimu.
+Stejně tak se může stát,
+  že se v jedné věte vyskytne zlepšující n-gram vícekrát
+  ( typicky se to stává u interpunkce, spojek nebo předložek ),
+  tyto věty nás zajímají více než věty,
+  v kterých je výskytů daného n-gramu méně.
+Proto jsou věty při filtrování podle zlepšujicího resp. zhoršujícího n-gramu,
+  vždy řazeny podle počtu výskytů daného n-gramu ve větě
+  a nejde je řadit podle rozdílu metrik jako v normálním módu.
+
+%% vlozit obrazek zhorsujiciho n-gramu, ktery obsahuje zlepsujici n-gram
+Při zobrazování delších zhoršujících n-gramů může nastat situace,
+  že si uživatel nechá zvýraznit všechny zhoršující n-gramy,
+  ale vybraný zhoršující n-gram nebude zvýrazněn.
+Dokonce se může stat, 
+  že si uživatel nechá zvýraznit všechny potvrzené n-gramy
+  a část vybraného zhoršujícího n-gramu bude zvýrazněna.
+Toto je úplně normální jev,
+  který je způsoben výběrem potvrzených n-gramů,
+  je jedno, kde se daný potvrzený n-gram nachází,
+  stačí,
+  že se někde ve větě objeví a už je prohlášen za potvrzený.
+Změnou slovosledu pak může dojít i k situaci,
+  kdy se zhoršující n-gram velké délky bude skládat z potvrzených n-gramů délky kratší,
+  které se nacházeli na různých pozicích ve větě. 
+Například stačí, aby byly ve správném pořadí,
+  ale bylo mezi nimi vypuštěno alespoň jedno slovo.
+Proto je lepší,
+  aby uživatel porovnával překlady spíše podle n-gramů s menší délkou -
+  typicky podle 1-gramů a 2-gramů.
+Aby mělo smysl porovnávat překlady podle delších n-gramů,
+  musel by být překladač otestován na velké počtu vět tak,
+  aby se zlepšení resp. zhoršení dostatečně projevilo.
 
