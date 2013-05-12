@@ -1,5 +1,208 @@
 \chapter{Uživatelská dokumentace}
-\section{Instalace}
+Nástroj MT-ComparEval byl vyvinut jako webová aplikace,
+  která poběží na serveru s Linuxem,
+  proto je třeba,
+  aby uživatelé používali tento operační systém.
+Dále musí být na uživatelském počítači nainstalované PHP 5.4 a databáze SQLite 3.
+
+\section{Instalace a spuštění programu}
+Instalace není vůbec náročná,
+  stačí spustit script \textbf{./bin/install.sh},
+  který připraví vše potřebné pro běh programu. 
+Jelikož chceme,
+  aby uživatel nemusel používat webserver Apache nebo jiné webservery,
+  musí si uživatel před každým spuštěním aplikace zapnout lokální server pomocí skriptu \textbf{./bin/server.sh},
+  který spustí aplikaci na adrese \textbf{http://localhost:8080}.
+Poslední věc,
+  kterou je třeba při spouštění aplikace udělat je,
+  aby uživatel spustil program,
+  který kontroluje nově přidané experimenty a tasky.
+Ten se spustí pomocí skriptu \textbf{./bin/watcher.sh}.
+Pro celkové zjednodušení spouštění aplikace byl přidán skript,
+  který všechny tyto kroky sjednotí do jednoho,
+  a proto je možné spustit celou aplikaci pomocí příkazu \textbf{./bin/server.sh}.
+
+V případě, že má uživatel nainstalován nějaký webový server
+  a chce ho použít pro provoz nástroje MT-ComparEval,
+  může ho použít jako v případě ostatních webových stránek,
+  ale nesmí zapomenout spustit skript pro kontrolu nově přidaných experimentů a tasků.
+
 \section{Import experimentů}
-\section{Import tásků}
-\section{Porovnání tásků}
+Aby uživatel mohl porovnávat překlady,
+  musí nejprve vytvořit experiment,
+  v jehož rámci bude jednotlivé překlady vyhodnocovat.
+Každý experiment je uložen ve vlastním podadresáři adresáře \textbf{./data},
+  do kterého uživatel musí nahrát zdrojový text a referenční překlad.
+Výchozí jména souborů jsou \textbf{source.txt} pro zdrojový překlad
+  a \textbf{reference.txt} pro referenční překlad.
+U všech souborů s větami se předpokladá,
+  že každá věta či souvětí je na vlastním řádku
+  a je zachováno pořadí vět.
+Tzn. že první řádek v souboru se zdrojovým textem je přeložen na prvním řádku souboru s referenčním a strojovým překladem.
+Jako jméno experimentu je použito jméno adresáře.
+
+\subsection{Konfigurace experimentu}
+Tento přístup je trošku omezený a nenabízí uživatelům možnosti konfigurace.
+Proto je možné,
+  aby si uživatel v konfiguračním souboru \textbf{./config.neon} předefinoval výchozí hodnoty.
+Je tak možné změnit jméno experimentu, popisek experimentu nebo jména souborů,
+  v kterých se bude hledat zdrojový text či referenční překlad.
+
+Konfigurace experimentu by mohla vypadat například takto: \\
+
+\begin{verbatim}
+name: Nakonfigurovaný experiment
+description: Ukázka konfigurace experimentu
+source: zdrojovy_text.txt
+reference: referencni_preklad.txt
+\end{verbatim}
+
+Pole name odpovídá názvu experimentu, které bude použito místo jména adresáře.
+Description je jednořádkový popis experimentu,
+  který odpovídá např. hlavičce commit message.
+Source a reference jsou relativní jména souborů,
+  ze kterých bude načten zdrojový text resp. referenční překlad.
+
+Informace o importu experimentu je možné nalézt
+  jak v lokálním logu každého experimentu v souboru \textbf{./data/experiment/import.log},
+  tak v globálním logu všech importů v souboru \textbf{./log/import.log}.
+Z toho logu uživatel může poznat,
+  jestli byl daný experiment úspěšně naimportován,
+  případně k jakému problému při importu došlo.
+
+V případě, že se import nezdaří,
+  může uživatel opravit chyby,
+  kvůli kterým byl import přerušen,
+  a znovu experiment nahrát do daného adresáře.
+Musí však smazat soubor \textbf{./data/experiment/.notimported},
+  který zabraňuje dalším importům u experimentů,
+  při jejichž importu došlo k chybě.
+
+
+\section{Import tasků}
+Překlad,
+  který cheme importovat k porovnání v rámci experimentu,
+  v nástroji MT-ComparEval nazýváme task.
+Tasky nahráváme jako podadresáře adresáře experimentu,
+  s jehož referenčním překladem chceme daný překlad porovnat.
+Jediný soubor, který musíme do tohoto podadresáře nahrát je \textbf{translation.txt},
+  v kterém budou všechny přeložené věty.
+Jméno tasku je stejné jako jméno podadresáře.
+
+\subsection{Konfigurace tasku}
+Stejně jako u experimentů je možné task konfigurovat.
+Task má konfigurovatelne jméno - name, popisek - description,
+  relativní cestu k souboru - translation nebo volbu,
+  zda chceme předpočítávat zlepšující a zhoršující n-gramy - precompute\_ngrams.
+U všech tasků, pokud uživatel neřekne jinak, 
+  jsou tyto n-gramy předpočítány.
+Konfigurace tasku může vypadat například takto:
+
+\begin{verbatim}
+name: Nakonfigurovaný task
+description: Ukázka konfigurace task
+translation: preklad.txt
+precompute_ngrams: false
+\end{verbatim}
+
+Záznam o průběhu importu je uložen v adresáři tasku v soboru \textbf{import.log},
+  pomocí něhož můžeme odhalit případné problémy při importu
+  a následně je odstranit stejným způsobem jako tomu bylo při importu experimentu.
+
+V obou konfiguračních souborech nemusíme konfigurovat všechny položky,
+  když nějakou z nich vynecháme,
+  bude použita její výchozí hodnota. 
+
+\section{Webové prostředí}
+Porovnávání tasků je realizováno pomocí webové aplikace,
+  která při zapnutém lokálním serveru běží na adrese \textbf{localhost:8080}.
+Uživatel si nejprve musí zvolit experiment,
+  jehož tasky chce porovnávat a následně si z těchto tasků vybere dva k porovnání.
+%% vložit obrázek s výpisem experimentu
+%% vlozit obrázek s výpisem tasku
+
+V případě,
+  že uživatel už nebude v budoucnosti chtět používat experiment nebo task,
+  může je smazat pomocí příslušného odkazu ve webovém prostředí.
+
+\subsection{Porovnávání tasků}
+K porovnání dvou tasků můžeme přistoupit z několika pohledů,
+  každému možnému způsobu porovnání odpovídá jedna záložka v horním menu stránky s porovnáním.
+Kvalitu překladu tasku můžeme posuzovat na základě překladu jednotlivých vět,
+  vypočtených metrik nebo nalezených vylepšujících resp. zhoršujících n-gramů.
+Při porovnávání si uživatel může zvolit metriku,
+  podle níž se bude řídit výpis vět nebo grafů metrik.
+Změnou metriky se tak mění pořadí vět -
+  ve výchozím nastavení se zobrazují od nejlepší po nejhorší,
+  ale toto pořadí lze stejně jako metrika snadno změnit,
+  a grafy s rozdílem hodnot metriky na úrovni jednotlivých vět
+  a grafem s hodnotami z bootstrap resamplingu.
+
+V případě potřeby je možné přímo v porovnání měnit jaké tasky se mají porovnávat,
+  to se může hodit,
+  když nás zajímá,
+  jak by jeden z porovnávaných tasku obstál v porovnání s jiným.
+%% vložit obrázek s horní lištou
+
+\subsubsection{Věty}
+Záložka \textbf{Sentences} slouží k zobrazení všech vět z obou překladů.
+U každé věty se zobrazuje zdrojový text,
+  referenční překlad, oba porovnávané překlady
+  a metriky jednotlivých překladů.
+Každou z těchto informací je možné zobrazit/skrýt pomocí panelu \textbf{Options}.
+Jak již bylo zmíněno dříve,
+  věty jsou seřazeny podle rozdílu aktivní metriky,
+  kterou je možné kdykoliv změnit.
+Věty se po každé změně metriky načítají znovu,
+  aby vždy byly správně seřazeny.
+Načítání vět probíhá po částech,
+  s tím jak uživatel posouvá stránku,
+  nové věty se načítají až ve chvili,
+  kdy se dostane na konec stránky.
+%% vložit obrázek s výpisem vět
+
+V panelu \textbf{Options} se dá zapnout i zvýraznění potvrzených n-gramů, zlepšujících nebo zhoršujících n-gramů.
+N-gramy jsou zvýrazněny pomocí barvy pozadí.
+Všechny potvrzené n-gramy jsou zvýrazněny pastelovou barvou v referenčním i porovnávaném překladu,
+  zlepšující n-gramy jsou zvýrazněny v porovnávaných překladech sytou barvou
+  a zhoršující n-gramy jsou zvýrazněny pastelovou červenou barvou.
+%% vložit věty se zvýrazněnými potvrzenými n-gramy
+%% vložit věty se zvýrazněnými vylepšujícími n-gramy
+%% vložit věty se zvýrazněnými zhoršujícími n-gramy
+
+Kromě zvýraznění n-gramů lze zobrazit Diff mezi referenčním překladem a jedním z porovnávaných překladů.
+Diff je zvýrazněn pomocí barevného podtržení jednotlivých slov,
+  zelené podtržení znamená, že se podtržené slovo nachazí v referenčním i porovnávaném překladu,
+  a červené podtržení znamená, že se podtržené slovo nachází pouze v jednom z překladů.
+%% vložit věty se zvýrazněným diffem
+
+\subsubsection{Statistiky}
+V záložce \textbf{Statistics} může uživatel nalézt porovnání všech spočtených metrik pro oba tasky.
+Zároveň s tímto porovnáním se zde nachází i grafy s rozdíly hodnot metrik na úrovni jednotlivých vět,
+  podle kterého si uživatel může udělat úsudek,
+  jak moc se jednotlivé překlady liší,
+  a který z nich je lepší či horší.
+Druhý graf, který se nachází na této záložce,
+  je graf hodnot z bootstrap resamplingu,
+  na jehož základě může uživatel určit,
+  který a zda nějaký task je signifikantě lepší.
+%% vložit obrázek s výpisem statistik
+
+\subsubsection{Vylepšující a zhoršující n-gramy}
+Na záložkách \textbf{Confirmed n-grams} a \textbf{Unconfirmed n-grams} jsou vypsány tabulky s nejvíce zlepšujícími resp. zhoršujícími n-gramy.
+Kliknutím na některý z n-gramů jsou zobrazeny věty,
+  ve kterých se daný zlepšující resp. zhoršující n-gram nachází.
+%% vložit obrázek s vylepšujícími n-gramy
+Tento n-gram je ve větách zvýrazněn černým rámečkem,
+  aby bylo na první pohled patrné,
+  kde se nachází.
+Věty se zlepšujícími resp. zhoršujícími n-gramy nejsou řazeny podle vybrané metriky,
+  ale počtu výskytu daného n-gramu ve větě.
+%% vložit obrázek se zobrazeným vylepšujícím n-gramem
+
+Pokud uživatel nechce mít zobrazené pouze věty s vybraným n-gramem,
+  může se snadno vrátit k výpisu všech vět.
+%% vložit obrázek s volbou pro změnu metriky
+
+
+

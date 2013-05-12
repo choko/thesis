@@ -1,4 +1,4 @@
-%%% Hlavní soubor. Zde se definují základní parametry a odkazuje se na ostatní části. %%%
+%% Hlavní soubor. Zde se definují základní parametry a odkazuje se na ostatní části. %%%
 
 %% Verze pro jednostranný tisk:
 % Okraje: levý 40mm, pravý 25mm, horní a dolní 25mm
@@ -37,6 +37,9 @@
 %% Ostatní balíčky
 \usepackage{graphicx}
 \usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{tikz}
 
 %% Balíček hyperref, kterým jdou vyrábět klikací odkazy v PDF,
 %% ale hlavně ho používáme k uložení metadat do PDF (včetně obsahu).
@@ -117,7 +120,7 @@ Název katedry nebo ústavu
 
 \begin{tabular}{rl}
 
-Vedoucí bakalářské práce: & Jméno a příjmení s~tituly \\
+Vedoucí bakalářské práce: & Mgr. Martin Popel \\
 \noalign{\vspace{2mm}}
 Studijní program: & Informatika  \\
 \noalign{\vspace{2mm}}
@@ -182,7 +185,7 @@ Název práce
 % přesně dle zadání
 
 Autor:
-Jméno a příjmení autora
+Ondřej Klejch
 
 Katedra:  % Případně Ústav:
 Název katedry či ústavu, kde byla práce oficiálně zadána
@@ -206,7 +209,7 @@ Title:
 % přesný překlad názvu práce v angličtině
 
 Author:
-Jméno a příjmení autora
+Ondřej Klejch
 
 Department:
 Název katedry či ústavu, kde byla práce oficiálně zadána
@@ -238,8 +241,10 @@ Keywords:
 \tableofcontents
 
 %%% Jednotlivé kapitoly práce jsou pro přehlednost uloženy v samostatných souborech
+\include{intro}
 \include{analysis}
 \include{design}
+\include{metrics}
 \include{matching-ngrams}
 \include{users}
 \include{programmers}
