@@ -1,5 +1,5 @@
 \chapter{Návrh aplikace}
-MT-ComparEval slouží k porovnávání a vyhodnocování překladů.
+MT-ComparEval slouží k porovnávání a vyhodnocování strojových překladů.
 Hlavním požadavkem při vývoji aplikace bylo,
   aby bylo možné jednoduše sputit aplikaci na vývojářově počítači.
 Proto byly použity technologie,
@@ -34,10 +34,9 @@ Spíše se předpokládá, že uživatel bude mít nastavený vývojový proces 
   že po každém úspěšném překladu se výsledný překlad nahraje do naší aplikace,
   kde si uživatel bude moci prohlédnout daný překlad v porovnání s ostatními překlady.
 
-
 Vyhodnocování projektu probíhá proti referenčnímu překladu od překladatele.
 Aby uživatelé mohli porovnávat své překladové systémy proti různým referenčním překladům,
-  je možné si v naší aplikaci vytvořit různé "experimenty". 
+  je možné si v naší aplikaci vytvořit různé uv{experimenty}. 
 
 Experiment obsahuje zdrojový text, z kterého vznikaly překlady, a referenční překlad.
 Každý experiment je uložen jako adresář,
@@ -47,12 +46,12 @@ V současné době aplikace umožňuje mít pouze jeden referenční překlad v 
   protože i ve většině soutěží se používá pouze jeden referenční překlad.
 
 Do každého experimentu si může uživatel libovolně nahrávat nové strojové překlady.
-V aplikaci tyto překlady nazývame "tasky".
+V aplikaci tyto překlady nazývame uv{tasky}.
 Každý task je uložen jako podadresář adresáře s experimentem
   a obsahuje soubor se strojovým překladem
   a konfigurační sobour. 
 
-U všech souborů s překlady předpokládáme, že jsou zalignované.
+U všech souborů s překlady předpokládáme, že jsou zarovnané po větách.
 Konfigurační soubory v obou případech slouží k přidání metainformací o experimentu/tasku,
   které mohou být později použity ve webové aplikaci.
 
@@ -62,7 +61,7 @@ Všechny experimenty, které chceme naimportovat do naší aplikace,
 Nad tímto adresářem bdí proces, který hlídá,
   jestli zde nepřibyl nějaký nový experiment.
 V případě, že objeví nějaký nový experiment,
-  spustí proces, který tento experiment naimportuje.
+  spustí další proces, který tento experiment naimportuje.
 
 Při importu experimentu se nahrají všechny zdrojové věty
   a referenční překlady do databáze,
@@ -74,7 +73,7 @@ Po úspěšném importu je do adresáře s experimentem přidán soubor,
 Toho využijeme při importu tasků,
   abychom se nepokoušeli importovat tasky v experimentech,
   které ještě nebyly úspěšně naimportovány.
-Zárověň tento zámek využijeme proto,
+Zárověň tento zámek využijeme k tomu,
   abychom některý experiment nenaimportovali vícekrát.
 
 %% TODO zamek pro neuspesne importy
@@ -218,8 +217,8 @@ Abychom udělali počítání zlepšujících resp. zhoršujících n-gramů co 
   \item Pokud jsou oba n-gramy stejné, můžeme pokračovat ve výpočtu s další dvojicí.
     Pouze zaktualizujeme počet výskytů n-gramů v jednotlivých překladech. 
   \item Pokud se n-gramy liší, přidáme zlepšující resp. zhoršující n-gram k překladu,
-    ve kterém se nachází "menší n-gram". \\
-    "Menší n-gram" je ten, který se nachází ve větě s nižším pořadovým číslem
+    ve kterém se nachází uv{menší n-gram}. \\
+    uv{Menší n-gram} je ten, který se nachází ve větě s nižším pořadovým číslem
     nebo je lexikograficky menší.
 \end{itemize}
 
@@ -375,11 +374,6 @@ Ve většině případů se toto zvýraznění nebude odlišovat od zvýrazněn�
 Jediný rozdíl mezi těmito zvýrazněními nastane,
   když se bude lišit slovosled porovnávaných překladů,
   pak může být povrzený n-gram označen za chybějicí resp. přebývající.
-
-V prototypu aplikace bylo možné zvýraznit i diff mezi oběma překlady,
-  avšak tato možnost vracela stejné výsledky jako zvýraznění zlepšujících a zhoršujících n-gramů,
-  a proto byla z finální verze odstraněna,
-  aby uživatele nemátla.
 
 \subsubsection{Porovnání na základě výsledků jednotlivých metrik}
 %% vlozit obrazek s porovnáním vysledku dvou tasku

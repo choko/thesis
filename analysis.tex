@@ -1,29 +1,121 @@
-\chapter{Analýza}
-Vývoj nástroje MT-ComparEval byl
+\chapter{Motivace}
+V této kapitole budou v krátkosti představeny všechny důvody,
+  proč a jak byl vyvinut nástroj MT-ComparEval.
+Všechny důvody pak budou více rozebrány v~následujících kapitolách.
 
-\section{Funkční požadavky}
-Hlavní požadavek na funkcionalitu byl,
-  aby nástroj bylo možné jednoduše spouštět na vývojářově počítači.
+\section{Experimenty a tasky}
+Při vyhodnocování strojových překladů porovnání s referenčním překladem
+  (dále budeme používat pouze reference).
+Strojové překladače mohou být zaměřeny na různé domény textu (např. novinové články, beletrie apod.) 
+  nebo na různé jazykové páry (např. z angličtiny do češtiny, z němčiny do češtiny apod.).
+Aby uživatelé nástroje MT-ComparEval mohli snadno vyhodnocovat své strojové překladače na různých doménách nebo pro různé jazykové páry,
+  mohou si vytořit různé \uv{experimenty},
+  v rámci kterých mohou porovnávat své překlady s příslušnými referencemi.
+Na Obrázku \ref{img:experiments} je vidět příklad vytvořených experimentů z různých domén a jazykových párů.
+\begin{figure}
+	\caption{Přehled vytvořených experimentů v nástroji MT-ComparEval}
+	\label{img:experiments}
+\end{figure}
+
+V každém experimentu pak uživatel může vytvářet \uv{tasky},
+  které později může vyhodnocovat a porovnávat.
+Výpis tasků jednoho z experimentů je ukázán na Obrázku \ref{img:tasks}.
+\begin{figure}
+	\caption{Přehled vytvořených tasků v jednom z experimentů v nástroji MT-ComparEval}
+	\label{img:tasks}
+\end{figure}
+
+O významu experimentů, tasků a jiných pojmů je možné se více dozvědět ve~\ref{chap:experiments}.~kapitole.
 
 
+\section{Metriky strojového překladu}
+Aby bylo možné jednotlivé překlady porovnávat,
+  byly vynalezeny metriky 
+V nástroji MT-ComparEval jsou metriky počítány na úrovni celých tasků 
+  (na Obrázku \ref{img:compare_metrics_tasks} je vidět porovnání metrik dvou tásků)
+  nebo na úrovni jednotlivých vět
+  (Obrázek \ref{img:compare_metrics_sentences} ukazuje porovnání metrik pro dva různé překlady).
+Metrikami strojových překladů se více zabývá \ref{chap:metrics}. kapitola.
+V té budou představeny všechny metriky,
+  které jsou použity v nástroji MT-ComparEval.
 
-\section{Podobné aplikace}
-Vývoj nástroje MT-ComparEval byl v určitých oblastech inspirován nástroji,
-  které už mohou vývojáři běžně využívat při své práci.
-Z těchto nástrojů jsme se snažili vybrat ty nejdůležitější vlastnosti,
-  které jsme později zkombinovali do jednoho funkčního celku.
-V následující části budou tyto nástroje podrobněji představeny.
+\begin{figure}
+	\caption{Porovnání metrik dvou tasků v nástroji MT-ComparEval.}
+	\label{img:compare_metrics_tasks}
+\end{figure}
 
-\subsection{mteval-11b.pl}
-Je skipt napsaný v jazyce Perl, který umožňuje počítat metriky BLEU a NIST.
-Tento skript je celosvětově používaný,
-  a proto byl použit pro kontrolu,
-  že metriku BLEU v MT-ComparEval počítáme správně.
+\begin{figure}
+	\caption{Porovnání metrik dvou překladů v nástroji MT-ComparEval.}
+	\label{img:compare_metrics_sentences}
+\end{figure}
 
-V současné době už existuje verze mteval-13a.pl,
-  v které mimojiné přibyla možnost počítat metriky pro jednotlivé segmenty v překladu.
-Postup, který k tomu použila je dále analyzován v kapitole Metriky strojového překladu.
 
-\subsection{iBLEU}
+\section{Porovnávaní dvou strojových překladů}
+Kvalitu strojových překladačů je možné vyhodnotit i porovnáním jednotlivých vět.
+Nástroj MT-ComparEval umožňuje procházet věty seřazené podle metriky strojových překladů 
+  a hledat v těchto větách rozdíly,
+  které ovlivnily výsledné metriky.
+Aby uživatelé mohli hledat rozdíly mezi větami,
+  je možné zobrazit potvrzené n-gramy (n-gramy, které se nacházeji v referenci i strojovém překladu),
+  zlepšující n-gramy (potvrzené n-gramy, které se nacházejí pouze v jednom z porovnávaných překladů)
+  nebo zhoršující n-gramy (nepotvrzené n-gramy, které se nacházejí pouze v jednom z porovnávaných překladů).
+Na Obrázku \ref{img:compare_sentences} je vidět porovnání dvou překladů se zvýrazněnými n-gramy.
 
-\subsection{EMS - An Experimental Management System}
+Strojové překlady nemusejí být porovnávány pouze na základě strojových metrik,
+  další informací,
+  díky které je možné si udělat lepší představu o vlastnostech strojového překladače,
+  jsou přehledy nejvíce zlepšujících a zhoršujících n-gramů v jednotlivých překladech.
+Nástroj MT-ComparEval nabízí přehled nejvíce zlepšujících a zhoršujících n-gramů
+  v jednotlivých překladech.
+Takový přehled je možné vidět i na obrázku \ref{img:confirmed_ngrams}.
+
+Přehledy zlepšujících i zhoršujicích n-gramů mohou byt použity k filtrování vět,
+  aby si uživatel mohl snadno prohlédnout věty,
+  ve kterých se dané n-gramy nacházejí.
+Na Obrázku \ref{img:filtered_sentences} je vidět výpis vět vyfiltrovaných podle zlepšujícího n-gramu.
+
+
+\begin{figure}
+	\caption{
+		Porovnání dvou překladů v nástroji MT-ComparEval.
+		Pastelovými odstíny žluté a modré barvy jsou zvýrazněny potvrzené n-gramy,
+		sytými odstíny žluté a modré barvy jsou zvýrazněny zlepšující n-gramy
+		a červenou barvou jsou zvýrazněny zhoršující n-gramy.
+	}
+	\label{img:compare_sentences}
+\end{figure}
+
+\begin{figure}
+	\caption{Přehled nejvíce zlepšujících n-gramů v jednotlivých překladech.}
+	\label{img:confirmed_ngrams}
+\end{figure}
+
+\begin{figure}
+	\caption{Výpis vět, v kterých se nachází zlepšující n-gram ??}
+	\label{img:filtered_sentences}
+\end{figure}
+
+O algoritmech,
+  které byly použity při porovnávání dvou překladů a hledání pozic potvrzených n-gramů,
+  pojednává \ref{chap:compare}. kapitola.
+
+
+\section{Automatizace a snadné použití}
+Nástroj MT-ComparEval byl navržen tak,
+  aby bylo možné jeho použití co nejvíce automatizovat.
+Uživatelé tak nemusí ručne vytvářet každý task,
+  ale mohou si napsat jednoduché skripty,
+  pomocí nichž mohou vytvářet tasky automaticky při každém commitu, buildu,\dots
+
+V \ref{chap:users}. kapitole je možné najít informace,
+  jak se používá nástroj MT-ComparEval
+  a jak je možné nasadit ho do vývojového procesu.
+
+\section{Rozšiřitelnost}
+Každý uživatel může preferovat různé metriky pro vyhodnocování strojových překladů.
+V nástroji MT-ComparEval jsou předprogramovány pouze některé.
+  avšak uživatel si může snadno doimplementovat svoje vlastní.
+
+O tom, jak si uživatel může doprogramovat vlastní metriky nebo jak byl nástroj MT-ComparEval vyvinut,
+  je možné se dočíst v \ref{chap:programmers}. kapitole.
+
