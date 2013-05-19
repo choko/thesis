@@ -443,3 +443,20 @@ Aby mělo smysl porovnávat překlady podle delších n-gramů,
   musel by být překladač otestován na velké počtu vět tak,
   aby se zlepšení resp. zhoršení dostatečně projevilo.
 
+\section{Zobrazení potvrzených n-gramů a diffu pomocí}
+Pro správné zobrazení potvrzených n-gramů a diffu je potřeba,
+  abychom mohli každému tokenu říci,
+  jestli se nachází v nějakém potvrzeném n-gramu nebo jestli byl do věty přidán.
+Zároveň s touto informací chceme,
+  aby jednotlivá zvýraznění bylo možné libovolně kombinovat.
+Technicky tento problém byl vyřešen pomoci CSS tříd,
+  kdy každému tokenu byly přiřazeny třídy v závislosti na informacích,
+  které jsme si vypočítali pomocí výše uvedených postupů.
+Zapnutí a vypnutí jednotlivých kombinací je pak otázkou přiřazení příslušné třídy kořenovému elementu,
+  v kterém se nacházejí všechny věty.
+Přehlednost těchto kombinací nemusí být vždy zcela ideální, 
+  proto jsme se snažili udělat jednotlivá zvýraznění tak,
+  aby byla co nejjednodušeji modifikovatelná.
+Každý typ zvýraznění tak má vlastní selektor,
+  pomocí kterého může zvýraznění v CSS upravit.
+

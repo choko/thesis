@@ -1,32 +1,29 @@
 \chapwithtoc{Úvod}
-V dnešní době jsou programátoři zvyklí pracovat iterativně.
-Ať už se to týká iterací v rámci agilních metodik
-  nebo krátkých iterací během vývoje - známý je například cyklus z TDD red - green - refactor.
-Vývojáři strojových překladačů nejsou žádnou výjimkou.
-Vývoj strojových překladačů probíhá ve stejných iteracích jako vývoj kteréhokoliv jiného softwaru.
+Současný vývoj softwarových projektů probíhá v kratkých iteracích,
+  aby mohl pružně reagovat na změny v zadání.
+Stejně tak i vývoj strojových překladačů probíhá v krátkých iteracích,
+  aby bylo možné pravidelně ověřovat zlepšení nebo zhoršení kvality překladů.
 Z toho plyne potřeba vývojářů testovat změny,
-  které provedli v rámci iterace
-  - ta mohla trvat 30 sekund, hodinu, den nebo týden.
-V normálním programátorském životě se k tomu používají různé sady testů - od unit testů po akceptační testy.
-Otázka zní - můžeme stejně efektivně testovat i strojové překladače?
+  které provedli v rámci iterace,
+  která mohla trvat 30 sekund, hodinu, den nebo týden.
+K testování funkčnosti softwarových projektů lze použít různé sady testů - od unit testů po akceptační testy.
+Je možné stejným způsobem testovat i kvalitu strojových překladačů?
 
 Je samozřejmé, 
   že vývojáři strojových překladačů testují svůj kód stejně jako ostatní vývojáři.
 Pomocí těchto testů mohou zajistit,
   aby překladač fungoval,
   ale nemohou takto jednoduše zajistit kontrolu kvality překladů.
-Kontrolu překladů si může vývojář provést sám,
-  ale při opakovaném překladu velkých testovacích korpusů ztratí spoustu času a energie,
+Kontrolu překladů může provádět sám vývojář,
+  ale ztratí tím spoustu času a energie,
   kterou by mohl lépe využít při dalším vývoji.
-Ani převedení kontroly kvality na jiného člověka tento problém neřeší,
-  protože takováto kontrola je pomalá a nelze ji pravidelně opakovat.
 
-Žádná kontrola kvality, kterou nejsme schopni zautomatizovat,
+Žádná kontrola kvality, kterou není možné automatizovat,
   vývojářům nepomůže zrychlit vývojový cyklus.
 Proto je třeba,
   aby existoval způsob jak rychle a opakovaně kontrolovat kvalitu překladů.
 
-Kvůli tomuto problému byly vynalezeny metriky strojového překladu,
+Proto byly vynalezeny metriky strojového překladu,
   které umožňují rychle a opakovaně testovat překlady.
 Tyto metriky se snaží hodnotit překlady tak,
   aby jejich výsledky co nejvíce odpovídaly lidskému hodnocení.
@@ -35,7 +32,7 @@ Avšak samotná existence těchto metrik život vývojářů strojových překla
 Je třeba, aby vývojaři měli k dispozici nástroje,
   pomocí kterých budou moci efektivně vyhodnocovat své překlady.
 Pomocí takovýchto nástrojů si vývojáři mohou vyhodnotit,
-  co způsobily změny, které provedly.
+  co způsobily změny, které provedli.
 
 Vývojář by měl mít možnost překlady nejen vyhodnocovat,
   ale i porovnávat.
@@ -49,7 +46,8 @@ Na trhu existuje několik nástrojů,
   které umožňují vyhodnocovat překlady pomocí různých metrik
   nebo porovnávat překlady na základě různých kritérií.
 Důležité je,
-  aby mohl vývojář snadno použít jakýkoliv přístup se mu zlíbí.
+  aby mohl vývojář použít přístup,
+  který mu vyhovuje.
 
 Nástrojem,
   který umožňuje vývojářům efektivně porovnávat a vyhodnocovat překlady,

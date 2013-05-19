@@ -1,6 +1,7 @@
 \chapter{Uživatelská dokumentace}
 \label{chap:users}
 
+\section{Systémové požadavky}
 Nástroj MT-ComparEval byl vyvinut jako webová aplikace,
   která poběží na serveru s Linuxem,
   proto je třeba,
@@ -16,7 +17,7 @@ Jelikož chceme,
   musí si uživatel před každým spuštěním aplikace zapnout lokální server pomocí skriptu \textbf{./bin/server.sh},
   který spustí aplikaci na adrese \textbf{http://localhost:8080}.
 Poslední věc,
-  kterou je třeba při spouštění aplikace udělat je,
+  kterou je třeba při spouštění aplikace udělat, je,
   aby uživatel spustil program,
   který kontroluje nově přidané experimenty a tasky.
 Ten se spustí pomocí skriptu \textbf{./bin/watcher.sh}.
@@ -48,7 +49,7 @@ Tento přístup je trošku omezený a nenabízí uživatelům možnosti konfigur
 Proto je možné,
   aby si uživatel v konfiguračním souboru \textbf{./config.neon} předefinoval výchozí hodnoty.
 Je tak možné změnit jméno experimentu, popisek experimentu nebo jména souborů,
-  v kterých se bude hledat zdrojový text či referenční překlad.
+  ve kterých se bude hledat zdrojový text či referenční překlad.
 
 Konfigurace experimentu by mohla vypadat například takto: \\
 
@@ -69,7 +70,7 @@ Informace o importu experimentu je možné nalézt
   jak v lokálním logu každého experimentu v souboru \textbf{./data/experiment/import.log},
   tak v globálním logu všech importů v souboru \textbf{./log/import.log}.
 Z toho logu uživatel může poznat,
-  jestli byl daný experiment úspěšně naimportován,
+  jestli byl daný experiment úspěšně importován,
   případně k jakému problému při importu došlo.
 
 V případě, že se import nezdaří,
@@ -85,15 +86,15 @@ Musí však smazat soubor \textbf{./data/experiment/.notimported},
 Překlad,
   který cheme importovat k porovnání v rámci experimentu,
   v nástroji MT-ComparEval nazýváme task.
-Tasky nahráváme jako podadresáře adresáře experimentu,
+Tasky nahráváme jako podadresáře v adresáři experimentu,
   s jehož referenčním překladem chceme daný překlad porovnat.
 Jediný soubor, který musíme do tohoto podadresáře nahrát je \textbf{translation.txt},
   v kterém budou všechny přeložené věty.
 Jméno tasku je stejné jako jméno podadresáře.
 
 \subsection{Konfigurace tasku}
-Stejně jako u experimentů je možné task konfigurovat.
-Task má konfigurovatelne jméno - name, popisek - description,
+Stejně jako je možné konfigurovat experiment je možné konfigurovat i task.
+Task má konfigurovatelné jméno - name, popisek - description,
   relativní cestu k souboru - translation nebo volbu,
   zda chceme předpočítávat zlepšující a zhoršující n-gramy - precompute\_ngrams.
 U všech tasků, pokud uživatel neřekne jinak, 
@@ -111,8 +112,8 @@ Záznam o průběhu importu je uložen v adresáři tasku v soboru \textbf{impor
   pomocí něhož můžeme odhalit případné problémy při importu
   a následně je odstranit stejným způsobem jako tomu bylo při importu experimentu.
 
-V obou konfiguračních souborech nemusíme konfigurovat všechny položky,
-  když nějakou z nich vynecháme,
+V obou konfiguračních souborech není nutné konfigurovat všechny položky.
+Pokud bude některá položka vynechána,
   bude použita její výchozí hodnota. 
 
 \section{Webové prostředí}
@@ -124,26 +125,26 @@ Uživatel si nejprve musí zvolit experiment,
 %% vlozit obrázek s výpisem tasku
 
 V případě,
-  že uživatel už nebude v budoucnosti chtět používat experiment nebo task,
-  může je smazat pomocí příslušného odkazu ve webovém prostředí.
+  že uživatel již v budoucnu nebude chtít používat daný experiment nebo task,
+  může jej smazat pomocí příslušného odkazu ve webovém prostředí.
 
 \subsection{Porovnávání tasků}
-K porovnání dvou tasků můžeme přistoupit z několika pohledů,
-  každému možnému způsobu porovnání odpovídá jedna záložka v horním menu stránky s porovnáním.
-Kvalitu překladu tasku můžeme posuzovat na základě překladu jednotlivých vět,
+K porovnání dvou tasků je možné přistoupit z několika pohledů.
+Každému možnému způsobu porovnání odpovídá jedna záložka v horním menu stránky s porovnáním.
+Kvalitu překladu tasku je možné posuzovat na základě překladu jednotlivých vět,
   vypočtených metrik nebo nalezených vylepšujících resp. zhoršujících n-gramů.
 Při porovnávání si uživatel může zvolit metriku,
   podle níž se bude řídit výpis vět nebo grafů metrik.
-Změnou metriky se tak mění pořadí vět -
-  ve výchozím nastavení se zobrazují od nejlepší po nejhorší,
-  ale toto pořadí lze stejně jako metrika snadno změnit,
-  a grafy s rozdílem hodnot metriky na úrovni jednotlivých vět
-  a grafem s hodnotami z bootstrap resamplingu.
+Změnou metriky se tak mění pořadí vět,
+  grafy s rozdílem hodnot metriky na úrovni jednotlivých vět
+  a grafem s hodnotami z párového bootstrap resamplingu.
+Ve výchozím nastavení se věty zobrazují od nejlepší po nejhorší,
+  ale toto pořadí lze stejně jako metrika snadno změnit.
 
 V případě potřeby je možné přímo v porovnání měnit jaké tasky se mají porovnávat,
-  to se může hodit,
-  když nás zajímá,
-  jak by jeden z porovnávaných tasku obstál v porovnání s jiným.
+  což může být velmi výhodné v případě,
+  že uživatele zajímá,
+  jak by jeden z porovnávaných tasků obstál v porovnání s jiným.
 %% vložit obrázek s horní lištou
 
 \subsubsection{Věty}
@@ -159,11 +160,11 @@ Věty se po každé změně metriky načítají znovu,
   aby vždy byly správně seřazeny.
 Načítání vět probíhá po částech,
   s tím jak uživatel posouvá stránku,
-  nové věty se načítají až ve chvili,
+  nové věty se načítají až ve chvíli,
   kdy se dostane na konec stránky.
 %% vložit obrázek s výpisem vět
 
-V panelu \textbf{Options} se dá zapnout i zvýraznění potvrzených n-gramů, zlepšujících nebo zhoršujících n-gramů.
+V panelu \textbf{Options} je možné zapnout i zvýraznění potvrzených n-gramů, zlepšujících nebo zhoršujících n-gramů.
 N-gramy jsou zvýrazněny pomocí barvy pozadí.
 Všechny potvrzené n-gramy jsou zvýrazněny pastelovou barvou v referenčním i porovnávaném překladu,
   zlepšující n-gramy jsou zvýrazněny v porovnávaných překladech sytou barvou
@@ -186,8 +187,8 @@ Zároveň s tímto porovnáním se zde nachází i grafy s rozdíly hodnot metri
   a který z nich je lepší či horší.
 Druhý graf, který se nachází na této záložce,
   je graf hodnot z bootstrap resamplingu,
-  na jehož základě může uživatel určit,
-  který a zda nějaký task je signifikantě lepší.
+  na jehož základě je možné určit,
+  který z tasků je signifikantě lepší.
 %% vložit obrázek s výpisem statistik
 
 \subsubsection{Vylepšující a zhoršující n-gramy}
@@ -201,9 +202,7 @@ Tento n-gram je ve větách zvýrazněn černým rámečkem,
 Věty se zlepšujícími resp. zhoršujícími n-gramy nejsou řazeny podle vybrané metriky,
   ale počtu výskytu daného n-gramu ve větě.
 %% vložit obrázek se zobrazeným vylepšujícím n-gramem
-
-Pokud uživatel nechce mít zobrazené pouze věty s vybraným n-gramem,
-  může se snadno vrátit k výpisu všech vět.
+Uživatel se v případě potřeby může snadno vrátit k výpisu všech vět, pomocí příslušného odkazu.
 %% vložit obrázek s volbou pro změnu metriky
 
 

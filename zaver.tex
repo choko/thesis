@@ -1,9 +1,4 @@
 \chapter{Závěr}
-V této kapitole budou shrnut současný stav aplikace,
-  nápadu na její vylepšení,
-  porovnání s podobnými aplikacemi a
-  na úplný závěr bude zmíněny problémy,
-  na které jsem narazil při vývoji nástroje MT-ComparEval.
 
 \section{Současný stav aplikace}
 Nástroj MT-ComparEval je v současné době plně funkční.
@@ -16,44 +11,40 @@ Při porovnání překladů jedné věty je možné si nechat zvýraznit
   potvrzené n-gramy, zlepšující n-gramy, zhoršující n-gramy, diff mezi překlady
   či jeden z nejvíce zlepšujících nebo zhoršujících n-gramů.
 
-To vše by mělo sloužit k usnadnění vyhodnocování a porovnávání překladů,
-  které musí vývojář strojových překladačů pravidelně provádět.
 
 \section{Nápady na vylepšení}
 I přes to, že nástroj MT-ComparEval umožňuje porovnávat dvě různé verze překladů,
   existuje mnoho způsobů,
   jak by tento nástroj šlo vylepšit.
-Některé z těchto nápadů budou představeny v následující části.
 
 \subsection{Podpora více referencí}
 Při vyhodnocování strojových překladů a počítání metrik používá nástroj MT-ComparEval pouze porovnání s jednou referencí.
-Avšak většina vět může být přeložena různými způsoby,
-  které nemusí odpovídat zvolené referenci.
-Aby bylo možné lépe ohodnotit překlady,
-  mohly by být překlady porovnávány s několika různými referencemi,
-  z nichž by se vybrala ta,
+Protože většina vět může být přeložena různými způsoby,
+  může nastat situace,
+  kdy daný překlad neodpovídá zvolené referenci.
+Aby bylo možné takové překlady lépe ohodnotit,
+  mohly by být překlady porovnávány s několika různými referencemi.
+Z těchto referencí by pak byla vybrána ta,
   pro kterou by daný překlad dosáhl nejlepšího skóre.
-Kvůli tomu by bylo třeba přidat podporu více referencí v experimentu.
+Z tohoto důvodu by bylo dalším možným rozšířením přidání podpory více referencí v experimentu.
 
 \subsection{Více metrik}
-I když metrika BLEU silně odpovídá lidskému hodnocení překladů,
-  nemusí být považována za nejvhodnější pro vyhodnocování překladů.
+I přes to, že metrika BLEU silně odpovídá lidskému hodnocení překladů,
+  nemusí být vždy považována za nejvhodnější pro jejich vyhodnocování.
 Některé strojové překladače jsou speciálně optimalizovány na metriku BLEU,
-  což ve výsledku nemusí dávat zcela vhodné překlady.
-Proto je vhodné,
-  aby byly strojové překladače vyhodnocovány na základě několika metrik.
+  což ale v konečném výsledku nemusí dávat zcela vhodné překlady.
+Proto by bylo dalším vhodným rozšířením,
+  vyhodnocování strojových překladačů na základě několika metrik.
 Mezi metriky,
-  které by bylo vhodné do nástroje MT-ComparEval doprogramovat,
+  které by bylo možné a vhodné do nástroje MT-ComparEval doprogramovat,
   patří např. NIST, METEOR, PORT,~\dots
 
 \subsection{Zobrazení alignmentu}
-Při porovnávání dvou překladů jedné věty,
-  by uživatelům mohla přijít vhod funkce pro zvýraznění slov,
+Při porovnávání dvou překladů jedné věty je velmi užitečná funkce pro zvýraznění slov (nazývaná alignment),
   které odpovídají danému slovu v referenci či dalším strojovém překladu.
-Tomu se říká \textbf{alignment}.
-Díky této funkci by pak uživatelé mohli snadněji analyzovat chovaní strojových překladačů.
+Díky této funkci je pak snadnější analyzovat chovaní strojových překladačů.
 
-Na Obrázku \ref{img:alignment} je možné vidět, jak zvýrazňuje aligment překladač Google Translate.
+Na Obrázku \ref{img:alignment} je ukázáno, jak zvýrazňuje aligment překladač Google Translate.
 \begin{figure}
 	\center
 	\includegraphics[width=0.9\textwidth]{img/alignment.eps}
@@ -63,9 +54,9 @@ Na Obrázku \ref{img:alignment} je možné vidět, jak zvýrazňuje aligment př
 
 \section{Podobné aplikace}
 Vývoj nástroje MT-ComparEval byl v určitých oblastech inspirován nástroji,
-  které už mohou vývojáři běžně využívat při své práci.
+  které už jsou volně dostupné.
 Z těchto nástrojů byly vybrány nejdůležitější vlastnosti,
-  které byly později zkombinovány do jednoho funkčního celku.
+  které byly sloučeny do jednoho funkčního celku.
 V následující části budou tyto nástroje podrobněji představeny.
 
 \subsection{mteval-11b.pl}
@@ -73,26 +64,26 @@ Je skript napsaný v jazyce Perl,
   který umožňuje počítat metriky BLEU a NIST.
 Tento skript je celosvětově používaný,
   a proto byl použit pro kontrolu,
-  že metriku BLEU v MT-ComparEval počítáme správně.
+  že je metrika BLEU v MT-ComparEval počítána správně.
 
 V současné době už existuje verze mteval-13a.pl,
-  v které mimojiné přibyla možnost počítat metriky pro jednotlivé segmenty v překladu.
+  v které mimo jiné přibyla možnost počítat metriky pro jednotlivé segmenty v překladu.
 
 \subsection{iBLEU}
 Nástroj iBLEU umožňuje vyhodnocovat a porovnávat strojové překlady.
 Pokud uživatel nemá žadný jiný strojový překlad,
-  s kterým by chtěl svůj překlad porovnat,
+  se kterým by chtěl svůj překlad porovnat,
   může si větu nechat přeložit překladačem Google Translate\footnote{
     Bohužel Google Translate nenabízí bezplatné api.
   } nebo Bing Translator\footnote{
     Bing Translator nabízí bezplatné api do limitu 2 miliónů přeložených znaků za den.
   }
-  a porovnat svůj překlad s překladem z tohoto nástroje.
+  a porovnat svůj překlad s překladem z těchto nástrojů.
 
-Pomocí tohoto nástroje můžeme počítat BLEU pro celé dokumenty nebo i jednotlivé segmenty
-  a podle jejich výsledku si je můžeme později prohléhnout.
+Pomocí tohoto nástroje můžeme počítat BLEU pro celé dokumenty nebo i jednotlivé segmenty.
+Je také možné si jednotlivé segmenty na základě těchto výsledků prohléhnout.
 
-Pokud uživatel porovnává svůj strojový překlad pouze s referenčním překladem,
+Pokud uživatel porovnává svůj překlad pouze s referencí,
   je zvýrazněn jejich diff.
 V případě, že uživatel porovnává dva strojové překlady,
   je zobrazen diff těchto překladů.
@@ -126,7 +117,7 @@ Pro n-gramy také počítá precision a recall.
   \label{img:ems-sentence}
 \end{figure}
 
-Ve webovém prostředí je též možné vyhledávat věty,
+Ve webovém prostředí je také možné vyhledávat věty,
   ve kterých byl použit n-gram.
 Jednotlivá užití n-gramů jsou pak rozřazena do skupin podle správnosti překladu.
 Na Obrázku \ref{img:ems-word} je možné vidět seznam vět,
@@ -153,34 +144,28 @@ Webové prostředí nástroje EMS nabízí i další možnosti porovnání přek
 Při vývoji nástroje MT-ComparEval jsem narazil na mnoho problémů.
 Ať už se jednalo o volbu jazyka, frameworku či databáze.
 
-Z počátku byl nástroj MT-ComparEval vyvíjen v jazyce Perl,
-  ale po několika neúspěšných pokusech byl nahrazen za jazyk PHP,
-  ve kterém jsem více zběhlý.
-Jelikož většina nástrojů pro strojový překlad je vyvíjena v jazyce Perl,
-  nelze mu připisovat žádné mínusové body.
-Chyba byla v tomto případě na mé straně.
-
-Aby bylo možné snadno nainstalovat nástroj MT-ComparEval na vývojářově počítači,
+Aby bylo možné snadno nainstalovat nástroj MT-ComparEval na vybraném počítači,
   byla jako databáze zvolena databáze SQLite 3.
 Ta vyhovuje většině požadavků.
-Bohužel jsem strávil hodně času s odhalováním chyb,
+Bohužel bylo hodně času věnováno odhalování chyb,
   způsobených tím,
   že SQLite 3 zamyká zvláštním způsobem datový soubor,
-  a proto není možné používat databázi v různých procesech.
+  a proto není možné používat databázi v dalších procesech.
 Při normálním použití na webu se s touto chybou nepotkáme,
   protože procesy databázi používají pouze během zpracování HTTP požadavku.
 Avšak při použití dlouho trvajících procesů pro import experimentů a tasků
   vždy docházelo ke kolizím při přístupu k databázi,
-  které vyústili v pád importu.
+  které vyústily v pád importu.
 Proto musel být návrh importu zcela přepracován a nyní by měl fungovat podle představ.
+Nyní už import funguje správně a neměl by při něm nastat výše zmíněný problém.
 
 
 V duchu TDD\footnote{Test-Driven-Development}
   jsem se snažil před vlastní implementací napsat testy pomocí nástroje Behat.\footnote{http://www.behat.org}
 Ten slouží k BDD\footnote{Behaviour-Driven-Development}.
-Pro všechny kroky importů byly napsáný specifikace chování, které byly nástrojem Behat otestovány.
+Pro všechny kroky importů byly napsány specifikace chování, které byly nástrojem Behat otestovány.
 Ovšem později se ukázalo, že tento přístup k testování nebyl úplně vhodný, a testy pomocí tohoto nástroje jsem přestal psát.
 Vše bylo způsobeno tím, že byla porušena pyramida testů\footnote{http://martinfowler.com/bliki/TestPyramid.html},
-  jelikož všechny testy odpovídali funkčním testům.
-Lepší přístup by byl vytvořit pro všechny funkční požadavky unit testy,
+  jelikož všechny testy odpovídaly pouze funkčním testům.
+Lepším řešením by bylo vytvořit pro všechny funkční požadavky unit testy,
   jejichž spuštění by trvalo kratší dobu.
