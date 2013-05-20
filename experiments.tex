@@ -1,7 +1,7 @@
 \chapter{Názvosloví MT-ComparEval}
 \label{chap:experiments}
 
-Správné pochopení pojmů \textbf{experiment},\textbf{task}, \textbf{n-gram}, \dots je důležité k pochopení fungování celého nástroje MT-ComparEval.
+Správné pochopení pojmů \textbf{experiment},\textbf{task}, \textbf{\mbox{n-gram}}, \dots je důležité k pochopení fungování celého nástroje MT-ComparEval.
 Proto v této kapitole bude podrobněji vysvětleno,
   co tyto pojmy znamenají a jaké jsou mezi nimi vztahy.
 
@@ -32,32 +32,32 @@ O vytváření experimentů a tasků i o dalších možnostech použití nástro
 \section{N-gramy}
 Při vysvětlování počítání strojových metrik
   nebo popisu, jak jsou porovnávány dva překlady jedné věty,
-  jsou často použity termíny spojené se slovem n-gram.
+  jsou často použity termíny spojené se slovem \mbox{n-gram}.
 Proto budou všechny tyto termíny v této části vysvětleny,
   aby pozdější výklad byl jasný a nemuselo se odbíhat od tématu.
 
 Posloupnost n po sobě jdoucích slov\footnote{
-  Často se používá i výraz \textbf{token}. Token může být jak slovo, tak interpunkční znaménko a do n-gramů mohou patřit i interpunkční znaménka}
-  se nazývá \textbf{n-gram}.
+  Často se používá i výraz \textbf{token}. Token může být jak slovo, tak interpunkční znaménko a do \mbox{n-gramů} mohou patřit i interpunkční znaménka}
+  se nazývá \textbf{\mbox{n-gram}}.
 N-gramy,
   které se nacházejí i v referenci i ve strojovém překladu,
-  se v rámci nástroje MT-ComparEval nazývají \textbf{potvrzené n-gramy}.
-Potvrzené n-gramy,
+  se v rámci nástroje MT-ComparEval nazývají \textbf{potvrzené \mbox{n-gramy}}.
+Potvrzené \mbox{n-gramy},
   které se při porovnávání dvou překladů nacházejí pouze v jednom z nich,
-  jsou nazývány \textbf{zlepšující n-gramy}.
+  jsou nazývány \textbf{zlepšující \mbox{n-gramy}}.
 N-gramy,
   které nejsou potvrzené referencí
   a při porovnávání dvou překladů se nacházejí pouze v jednom z nich,
-  jsou nazývany \textbf{zhoršující n-gramy}.
-O významu jednotlivých typů n-gramů je možné si udělat lepší představu na Obrázku \ref{img:n-grams}.
+  jsou nazývany \textbf{zhoršující \mbox{n-gramy}}.
+O významu jednotlivých typů \mbox{n-gramů} je možné si udělat lepší představu na Obrázku \ref{img:n-grams}.
 
 \begin{figure}
 
 	\caption{
 		Porovnání dvou překladů v nástroji MT-ComparEval.
-		Pastelovými odstíny žluté a modré barvy jsou zvýrazněny potvrzené n-gramy,
-		sytými odstíny žluté a modré barvy jsou zvýrazněny zlepšující n-gramy
-		a červenou barvou jsou zvýrazněny zhoršující n-gramy.
+		Pastelovými odstíny žluté a modré barvy jsou zvýrazněny potvrzené \mbox{n-gramy},
+		sytými odstíny žluté a modré barvy jsou zvýrazněny zlepšující \mbox{n-gramy}
+		a červenou barvou jsou zvýrazněny zhoršující \mbox{n-gramy}.
 	}
 	\label{img:n-grams}
 \end{figure}

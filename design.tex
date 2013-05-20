@@ -118,7 +118,7 @@ Pokud chceme,
   aby naše výsledky výpočtu metrik byly stejné jako u jiných nástrojů,
   musíme text nejprve znormalizovat.
 Znormalizování nám přidá mezery před a za všechna interpunkční znaménka.
-Tím nám oddělí všechna slova a diakritiku - dále je budeme nazývat tokeny.
+Tím nám oddělí všechna slova a diakritiku -- dále je budeme nazývat tokeny.
 Znormalizovaný text můžeme tokenizovat (rozdělit na jednotlivá slova a diakritiku).
 S takto získanými tokeny můžeme počítat libovolné metriky,
   aniž bychom se museli bát,
@@ -152,7 +152,7 @@ Pomocí metrik u celých překladů můžeme rozhodnout,
   nebo jestli se námi používaný překladový systém zlepšuje/zhoršuje.
 %% vlozit ukazku vypisu tasku.
 
-Metriky se počítají vždy v páru - case sensitive / case insensitive.
+Metriky se počítají vždy v páru -- case sensitive / case insensitive.
 To proto, že se potvrzený n-gram může nacházet v referenčním překladu na začátku věty,
   kde bude začínat velkým písmenem,
   ale ve strojovém překladu se bude nacházet uprostřed věty,
@@ -280,7 +280,7 @@ Pomocí api získáváme většinu dat pro porovnání dvou překladů,
 
 V případě, že bychom chtěli zefektivnit použítí api tak,
   aby se všechna data musela počítat pouze jednou,
-  můžeme použít reverse proxy cache - např. Varnish Cache.
+  můžeme použít reverse proxy cache -- např. Varnish Cache.
 To nám může výrazně ušetřit výpočetní výkon a zlepšit dobu odezvy api v případě,
   že aplikaci bude používat hodně uživatelů
   a bude v ní nahráno hodně experimentů/tasků.
@@ -316,16 +316,16 @@ Pokud by nám informace z grafu nestačily,
 Na základě těchto informací si můžeme vybrat,
   které tasky má smysl porovnávat.
 Díky jednoduchému procházení experimentů a tasku se můžeme zaměřit na nejdůležitější část aplikace
-  - porovnávání dvou tasků.
+  -- porovnávání dvou tasků.
 
 Dva tasky můžeme porovnávat na základě několika kritérií,
   kterým odpovídá záložka na stránce s porovnáním dvou tasků:
 %% TODO přidat obrázek s výběrem záložek
 \begin{itemize}
-  \item Sentences - porovnání na základě překladu jednotlivých vět
-  \item Statistics - porovnání na základě výsledků jednotlivých metrik
-  \item Confirmed n-grams - porovnání na základě nejvíce zlepšujících n-gramů
-  \item Unconfirmed n-grams - porovnání na základě nejvíce zhoršujících n-gramů
+  \item Sentences -- porovnání na základě překladu jednotlivých vět
+  \item Statistics -- porovnání na základě výsledků jednotlivých metrik
+  \item Confirmed n-grams -- porovnání na základě nejvíce zlepšujících n-gramů
+  \item Unconfirmed n-grams -- porovnání na základě nejvíce zhoršujících n-gramů
 \end{itemize}
 
 Abychom nemuseli složitě přecházet mezi stránkami,

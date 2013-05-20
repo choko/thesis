@@ -94,11 +94,11 @@ Jméno tasku je stejné jako jméno podadresáře.
 
 \subsection{Konfigurace tasku}
 Stejně jako je možné konfigurovat experiment je možné konfigurovat i task.
-Task má konfigurovatelné jméno - name, popisek - description,
-  relativní cestu k souboru - translation nebo volbu,
-  zda chceme předpočítávat zlepšující a zhoršující n-gramy - precompute\_ngrams.
+Task má konfigurovatelné jméno -- name, popisek -- description,
+  relativní cestu k souboru -- translation nebo volbu,
+  zda chceme předpočítávat zlepšující a zhoršující \mbox{n-gramy} -- precompute\_ngrams.
 U všech tasků, pokud uživatel neřekne jinak, 
-  jsou tyto n-gramy předpočítány.
+  jsou tyto \mbox{n-gramy} předpočítány.
 Konfigurace tasku může vypadat například takto:
 
 \begin{verbatim}
@@ -132,7 +132,7 @@ V případě,
 K porovnání dvou tasků je možné přistoupit z několika pohledů.
 Každému možnému způsobu porovnání odpovídá jedna záložka v horním menu stránky s porovnáním.
 Kvalitu překladu tasku je možné posuzovat na základě překladu jednotlivých vět,
-  vypočtených metrik nebo nalezených vylepšujících resp. zhoršujících n-gramů.
+  vypočtených metrik nebo nalezených vylepšujících resp. zhoršujících \mbox{n-gramů}.
 Při porovnávání si uživatel může zvolit metriku,
   podle níž se bude řídit výpis vět nebo grafů metrik.
 Změnou metriky se tak mění pořadí vět,
@@ -164,16 +164,16 @@ Načítání vět probíhá po částech,
   kdy se dostane na konec stránky.
 %% vložit obrázek s výpisem vět
 
-V panelu \textbf{Options} je možné zapnout i zvýraznění potvrzených n-gramů, zlepšujících nebo zhoršujících n-gramů.
+V panelu \textbf{Options} je možné zapnout i zvýraznění potvrzených \mbox{n-gramů}, zlepšujících nebo zhoršujících \mbox{n-gramů}.
 N-gramy jsou zvýrazněny pomocí barvy pozadí.
-Všechny potvrzené n-gramy jsou zvýrazněny pastelovou barvou v referenčním i porovnávaném překladu,
-  zlepšující n-gramy jsou zvýrazněny v porovnávaných překladech sytou barvou
-  a zhoršující n-gramy jsou zvýrazněny pastelovou červenou barvou.
-%% vložit věty se zvýrazněnými potvrzenými n-gramy
-%% vložit věty se zvýrazněnými vylepšujícími n-gramy
-%% vložit věty se zvýrazněnými zhoršujícími n-gramy
+Všechny potvrzené \mbox{n-gramy} jsou zvýrazněny pastelovou barvou v referenčním i porovnávaném překladu,
+  zlepšující \mbox{n-gramy} jsou zvýrazněny v porovnávaných překladech sytou barvou
+  a zhoršující \mbox{n-gramy} jsou zvýrazněny pastelovou červenou barvou.
+%% vložit věty se zvýrazněnými potvrzenými \mbox{n-gramy}
+%% vložit věty se zvýrazněnými vylepšujícími \mbox{n-gramy}
+%% vložit věty se zvýrazněnými zhoršujícími \mbox{n-gramy}
 
-Kromě zvýraznění n-gramů lze zobrazit Diff mezi referenčním překladem a jedním z porovnávaných překladů.
+Kromě zvýraznění \mbox{n-gramů} lze zobrazit Diff mezi referenčním překladem a jedním z porovnávaných překladů.
 Diff je zvýrazněn pomocí barevného podtržení jednotlivých slov,
   zelené podtržení znamená, že se podtržené slovo nachazí v referenčním i porovnávaném překladu,
   a červené podtržení znamená, že se podtržené slovo nachází pouze v jednom z překladů.
@@ -191,17 +191,17 @@ Druhý graf, který se nachází na této záložce,
   který z tasků je signifikantě lepší.
 %% vložit obrázek s výpisem statistik
 
-\subsubsection{Vylepšující a zhoršující n-gramy}
-Na záložkách \textbf{Confirmed n-grams} a \textbf{Unconfirmed n-grams} jsou vypsány tabulky s nejvíce zlepšujícími resp. zhoršujícími n-gramy.
-Kliknutím na některý z n-gramů jsou zobrazeny věty,
-  ve kterých se daný zlepšující resp. zhoršující n-gram nachází.
-%% vložit obrázek s vylepšujícími n-gramy
-Tento n-gram je ve větách zvýrazněn černým rámečkem,
+\subsubsection{Vylepšující a zhoršující \mbox{n-gramy}}
+Na záložkách \textbf{Confirmed \mbox{n-grams}} a \textbf{Unconfirmed \mbox{n-grams}} jsou vypsány tabulky s nejvíce zlepšujícími resp. zhoršujícími \mbox{n-gramy}.
+Kliknutím na některý z \mbox{n-gramů} jsou zobrazeny věty,
+  ve kterých se daný zlepšující resp. zhoršující \mbox{n-gram} nachází.
+%% vložit obrázek s vylepšujícími \mbox{n-gramy}
+Tento \mbox{n-gram} je ve větách zvýrazněn černým rámečkem,
   aby bylo na první pohled patrné,
   kde se nachází.
-Věty se zlepšujícími resp. zhoršujícími n-gramy nejsou řazeny podle vybrané metriky,
-  ale počtu výskytu daného n-gramu ve větě.
-%% vložit obrázek se zobrazeným vylepšujícím n-gramem
+Věty se zlepšujícími resp. zhoršujícími \mbox{n-gramy} nejsou řazeny podle vybrané metriky,
+  ale počtu výskytu daného \mbox{n-gramu} ve větě.
+%% vložit obrázek se zobrazeným vylepšujícím \mbox{n-gramem}
 Uživatel se v případě potřeby může snadno vrátit k výpisu všech vět, pomocí příslušného odkazu.
 %% vložit obrázek s volbou pro změnu metriky
 

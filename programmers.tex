@@ -113,12 +113,12 @@ Mezi tyto hodnoty patří:
 \begin{itemize}
 	\item metriky pro celý překlad a jednotlivé věty
 	\item hodnoty pro Bootstrap Resampling 
-	\item zlepšující/zhoršující n-gramy
+	\item zlepšující/zhoršující \mbox{n-gramy}
 \end{itemize}
 
 \subsubsection{Předzpracování vět}
 Jelikož se při importu tasků mnohé výpočty opakují
-  ( počítání metrik, boostrap resampling, hledání společných n-gramů, \dots ),
+  ( počítání metrik, boostrap resampling, hledání společných \mbox{n-gramů}, \dots ),
   chceme si je předpočítat,
   abychom je mohli později použít a nemuseli je pokaždé počítat znovu.
 
@@ -126,25 +126,25 @@ Pokud chceme,
   aby naše výsledky výpočtu metrik byly stejné jako u jiných nástrojů,
   musíme text nejprve znormalizovat.
 Znormalizování nám přidá mezery před a za všechna interpunkční znaménka.
-Tím nám oddělí všechna slova a diakritiku - dále je budeme nazývat tokeny.
+Tím nám oddělí všechna slova a diakritiku -- dále je budeme nazývat tokeny.
 Znormalizovaný text můžeme tokenizovat (rozdělit na jednotlivá slova a diakritiku).
 S takto získanými tokeny můžeme počítat libovolné metriky,
   aniž bychom se museli bát,
   že se naše výsledky budou lišit od výsledků jiných nástrojů.
 
-Dalším krokem při předzpracování je získaní všech n-gramů z referenčního a strojového překladu.
+Dalším krokem při předzpracování je získaní všech \mbox{n-gramů} z referenčního a strojového překladu.
 N-gramem rozumíme posloupnout n po sobě jdoucích slov.
-V nástroji MT-ComparEval počítáme pouze s n-gramy délky 1-4,
-  tudíž při předzpracování hledáme pouze n-gramy těchto délek. 
+V nástroji MT-ComparEval počítáme pouze s \mbox{n-gramy} délky 1-4,
+  tudíž při předzpracování hledáme pouze \mbox{n-gramy} těchto délek. 
 
-Z n-gramů ze strojového překladu najdeme potvrzené n-gramy
-  ( vyskytují se i mezi referenčními n-gramy )
-  i n-gramy nepotvrzené.
-Z těchto n-gramů později vypočítáme n-gramy,
+Z \mbox{n-gramů} ze strojového překladu najdeme potvrzené \mbox{n-gramy}
+  ( vyskytují se i mezi referenčními \mbox{n-gramy} )
+  i \mbox{n-gramy} nepotvrzené.
+Z těchto \mbox{n-gramů} později vypočítáme \mbox{n-gramy},
   které nejvíce zlepšují/zhoršují skóre daného systému.
   
-Jelikož při výpočtu BLEU nepotřebujeme znát jednotlivé n-gramy,
-  z předpočítaných n-gramů si uložíme pouze jejich počty podle délky.
+Jelikož při výpočtu BLEU nepotřebujeme znát jednotlivé \mbox{n-gramy},
+  z předpočítaných \mbox{n-gramů} si uložíme pouze jejich počty podle délky.
 To nám ušetří mnoho času při výpočtu hodnot pro bootstrap resampling.
 
 \subsubsection{Zpracování vět}
@@ -160,12 +160,12 @@ Pomocí metrik u celých překladů můžeme rozhodnout,
   nebo jestli se námi používaný překladový systém zlepšuje/zhoršuje.
 %% vlozit ukazku vypisu tasku.
 
-Metriky se počítají vždy v páru - case sensitive / case insensitive.
-To proto, že se potvrzený n-gram může nacházet v referenčním překladu na začátku věty,
+Metriky se počítají vždy v páru -- case sensitive / case insensitive.
+To proto, že se potvrzený \mbox{n-gram} může nacházet v referenčním překladu na začátku věty,
   kde bude začínat velkým písmenem,
   ale ve strojovém překladu se bude nacházet uprostřed věty,
   kde bude začínat malým písmenem.
-%% vlozit ukazku vety, ktera zacina potvrzeným n-gramem.
+%% vlozit ukazku vety, ktera zacina potvrzeným \mbox{n-gramem}.
 Potom budou dávat obě metriky různé výsledky 
   a je jen na uživateli,
   aby si zvolil, která metrika ho více zajímá.
@@ -183,7 +183,7 @@ Před tím, než nahrajeme data do databáze, je nutné,
   než by je REST API spočítalo.
 
 Mezi tyto informace patří vygenerovaní vzorků pro bootstrap resampling a
-  nalezení nejvíce zlepšujících resp. nejvíce zhoršujících n-gramů.
+  nalezení nejvíce zlepšujících resp. nejvíce zhoršujících \mbox{n-gramů}.
 
 \subsubsection{Bootstrap resampling}
 %% rozsirit sekci o bootstrap resamplingu
@@ -201,46 +201,46 @@ Náhodné vzorky počítáme pro všechny dostupné metriky,
   můžeme tyto výpočty znovu použít.
 
 
-\subsubsection{Hledání nejvíce zlepšujících/zhoršujících n-gramů}
-Nástroj MT-ComparEval nabízí i výpis nejvíce zlepšujících resp. nejvíce zhoršujících n-gramů.
-Ty získáme tak, že vezmeme všechny potvrzené resp. nepotvrzené n-gramy
+\subsubsection{Hledání nejvíce zlepšujících/zhoršujících \mbox{n-gramů}}
+Nástroj MT-ComparEval nabízí i výpis nejvíce zlepšujících resp. nejvíce zhoršujících \mbox{n-gramů}.
+Ty získáme tak, že vezmeme všechny potvrzené resp. nepotvrzené \mbox{n-gramy}
   a uděláme rozdíl obou porovnávaných překladů.
 N-gramy,
   které mají největší rozdíl mezi jednotlivými překlady,
   jsou nejvíce zlepšující resp. nejvíce zhoršující.
 
-Jelikož potvrzených resp. nepotvrzených n-gramů může být velké množství
-  a nalezení nejvíce zlepšujících resp. nejvíce zhoršujících n-gramů může být pomalé,
+Jelikož potvrzených resp. nepotvrzených \mbox{n-gramů} může být velké množství
+  a nalezení nejvíce zlepšujících resp. nejvíce zhoršujících \mbox{n-gramů} může být pomalé,
   je potřeba,
-  abychom našli všechny zlepšující resp. zhoršující n-gramy předem.
+  abychom našli všechny zlepšující resp. zhoršující \mbox{n-gramy} předem.
 Při importu tasku tedy vezmeme všechny ostatní tasky z daného experimentu
-  a pro ně předpočítáme 10 nejvíce zlepšujících resp. zhoršujících n-gramů. 
+  a pro ně předpočítáme 10 nejvíce zlepšujících resp. zhoršujících \mbox{n-gramů}. 
 
-Abychom udělali počítání zlepšujících resp. zhoršujících n-gramů co nejefektivnější,
+Abychom udělali počítání zlepšujících resp. zhoršujících \mbox{n-gramů} co nejefektivnější,
   používáme algoritmus podobný mergesortu,
-  který z databáze postupně načítá n-gramy seřazené podle textu a věty, ve které se nacházejí, 
+  který z databáze postupně načítá \mbox{n-gramy} seřazené podle textu a věty, ve které se nacházejí, 
   a slévá je dohromady tak, že:
 
 \begin{itemize}
-  \item Pokud jsou oba n-gramy stejné, můžeme pokračovat ve výpočtu s další dvojicí.
-    Pouze zaktualizujeme počet výskytů n-gramů v jednotlivých překladech. 
-  \item Pokud se n-gramy liší, přidáme zlepšující resp. zhoršující n-gram k překladu,
-    ve kterém se nachází uv{menší n-gram}. \\
-    uv{Menší n-gram} je ten, který se nachází ve větě s nižším pořadovým číslem
+  \item Pokud jsou oba \mbox{n-gramy} stejné, můžeme pokračovat ve výpočtu s další dvojicí.
+    Pouze zaktualizujeme počet výskytů \mbox{n-gramů} v jednotlivých překladech. 
+  \item Pokud se \mbox{n-gramy} liší, přidáme zlepšující resp. zhoršující \mbox{n-gram} k překladu,
+    ve kterém se nachází uv{menší \mbox{n-gram}}. \\
+    uv{Menší \mbox{n-gram}} je ten, který se nachází ve větě s nižším pořadovým číslem
     nebo je lexikograficky menší.
 \end{itemize}
 
-Na závěr vybereme 10 nejlepších resp. nejhorších n-gramů
+Na závěr vybereme 10 nejlepších resp. nejhorších \mbox{n-gramů}
   a uložíme si je pro pozdější použití.
 Tímto alogirtmem dosáhneme lineární paměťové složitosti a
-  lineární časové složitosti v závislosti na počtu potvrzených resp. nepotvrzených n-gramů.
+  lineární časové složitosti v závislosti na počtu potvrzených resp. nepotvrzených \mbox{n-gramů}.
 
 %% TODO dodelat vypnuti predpocitani tasku
 I přes to, že časová složitost předpočítání je lineární,
   může být předpočítání pro všechny ostatní tasky časově náročné
   (časová složitost je lineárně závislá na počtu tasků v experimentu),
   proto je možné toto předpočítání v konfiguraci jednotlivých tasků vypnout.
-V porovnání dvou tasků pak nebudou předpočítané n-gramy k dispozici
+V porovnání dvou tasků pak nebudou předpočítané \mbox{n-gramy} k dispozici
   a je potřeba spustit skript,
   který je pro daný task zpětně dopočítá.
 
@@ -282,13 +282,13 @@ Stejně tak nemusíme stahovat všechna data pro grafy,
 Pomocí api získáváme většinu dat pro porovnání dvou překladů,
   ať už jsou to dostupné metriky,
   data pro vykreslení grafů právě vybrané metriky,
-  zlepšující resp. zhoršující n-gramy
+  zlepšující resp. zhoršující \mbox{n-gramy}
   nebo věty,
   které můžeme řadit podle libovolné metriky a získavat je po částech.
 
 V případě, že bychom chtěli zefektivnit použítí api tak,
   aby se všechna data musela počítat pouze jednou,
-  můžeme použít reverse proxy cache - např. Varnish Cache.
+  můžeme použít reverse proxy cache -- např. Varnish Cache.
 To nám může výrazně ušetřit výpočetní výkon a zlepšit dobu odezvy api v případě,
   že aplikaci bude používat hodně uživatelů
   a bude v ní nahráno hodně experimentů/tasků.
@@ -324,16 +324,16 @@ Pokud by nám informace z grafu nestačily,
 Na základě těchto informací si můžeme vybrat,
   které tasky má smysl porovnávat.
 Díky jednoduchému procházení experimentů a tasku se můžeme zaměřit na nejdůležitější část aplikace
-  - porovnávání dvou tasků.
+  -- porovnávání dvou tasků.
 
 Dva tasky můžeme porovnávat na základě několika kritérií,
   kterým odpovídá záložka na stránce s porovnáním dvou tasků:
 %% TODO přidat obrázek s výběrem záložek
 \begin{itemize}
-  \item Sentences - porovnání na základě překladu jednotlivých vět
-  \item Statistics - porovnání na základě výsledků jednotlivých metrik
-  \item Confirmed n-grams - porovnání na základě nejvíce zlepšujících n-gramů
-  \item Unconfirmed n-grams - porovnání na základě nejvíce zhoršujících n-gramů
+  \item Sentences -- porovnání na základě překladu jednotlivých vět
+  \item Statistics -- porovnání na základě výsledků jednotlivých metrik
+  \item Confirmed \mbox{n-grams} -- porovnání na základě nejvíce zlepšujících \mbox{n-gramů}
+  \item Unconfirmed \mbox{n-grams} -- porovnání na základě nejvíce zhoršujících \mbox{n-gramů}
 \end{itemize}
 
 Abychom nemuseli složitě přecházet mezi stránkami,
@@ -364,24 +364,24 @@ Aby si mohl uživatel vybrat,
 Toho může využít, když ho zajímá např. pouze porovnání jednoho překladu s referencí a
   ostátní překlady by ho mohly rušit.
 
-%% vložit obrázky s porovnáváním vět a zvýrazněnými potvrzenými, zlepšujícími nebo zhoršujícími n-gramy
+%% vložit obrázky s porovnáváním vět a zvýrazněnými potvrzenými, zlepšujícími nebo zhoršujícími \mbox{n-gramy}
 Aby uživatel mohl snáz porovnávat překlady vět,
-  může si dle chuti zapnout / vypnout zvýraznění všech potvrzených n-gramů,
-  zlepšujících n-gramů nebo zhoršujících n-gramů.
-Za zlepšující n-gramy jsou považovány ty potvrzené n-gramy,
+  může si dle chuti zapnout / vypnout zvýraznění všech potvrzených \mbox{n-gramů},
+  zlepšujících \mbox{n-gramů} nebo zhoršujících \mbox{n-gramů}.
+Za zlepšující \mbox{n-gramy} jsou považovány ty potvrzené \mbox{n-gramy},
   které se nacházejí pouze v jednom z porovnávaných překladů.
-To stejné platí pro zhoršující n-gramy,
-  které ale vybíráme z nepotvrzených n-gramů.
+To stejné platí pro zhoršující \mbox{n-gramy},
+  které ale vybíráme z nepotvrzených \mbox{n-gramů}.
 Na základě barevného podbarvení jednotlivých slov pak uživatel může poznat,
   která slova jsou přeložena lépe či hůře.
 
 Další možností jak rychle porovnat překlady je zvýraznit diff mezi překladem a referenčním překladem.
-Ve většině případů se toto zvýraznění nebude odlišovat od zvýraznění potvrzených n-gramů -
-  zvýrazněné potvrzené n-gramy se nacházejí jak v referenčním tak v porovnávaném překladu
+Ve většině případů se toto zvýraznění nebude odlišovat od zvýraznění potvrzených \mbox{n-gramů} -
+  zvýrazněné potvrzené \mbox{n-gramy} se nacházejí jak v referenčním tak v porovnávaném překladu
   a nezvýrazněná slova se nenacházejí v jednom z překladů.
 Jediný rozdíl mezi těmito zvýrazněními nastane,
   když se bude lišit slovosled porovnávaných překladů,
-  pak může být povrzený n-gram označen za chybějicí resp. přebývající.
+  pak může být povrzený \mbox{n-gram} označen za chybějicí resp. přebývající.
 
 \subsubsection{Porovnání na základě výsledků jednotlivých metrik}
 %% vlozit obrazek s porovnáním vysledku dvou tasku
@@ -393,60 +393,60 @@ Grafy se automaticky překreslují při změně metriky,
   tím si může uživatel zobrazit grafy pro všechny nabízené metriky.
 
 
-\subsubsection{Porovnání na základě nejvíce zlepšujících resp. zhoršujících n-gramů}
-%% vlozit obrázek s výpisem nejvíce zlepšujících / zhoršujících n-gramů
+\subsubsection{Porovnání na základě nejvíce zlepšujících resp. zhoršujících \mbox{n-gramů}}
+%% vlozit obrázek s výpisem nejvíce zlepšujících / zhoršujících \mbox{n-gramů}
 Dobrý obrázek o zlepšení / zhoršení překladu si můžeme udělat,
   když se podíváme,
-  v kterých n-gramech se dané překlady nejvíce liší,
-  ať už se jedná o zlepšující n-gramy nebo n-gramy zhoršující.
-Nástroj MT-ComparEval vypisuje seznam zlepšujících resp. zhoršujících n-gramů seskupených podle délky,
+  v kterých \mbox{n-gramech} se dané překlady nejvíce liší,
+  ať už se jedná o zlepšující \mbox{n-gramy} nebo \mbox{n-gramy} zhoršující.
+Nástroj MT-ComparEval vypisuje seznam zlepšujících resp. zhoršujících \mbox{n-gramů} seskupených podle délky,
   pomocí něhož můžeme filtrovat věty a prohlížet si pouze ty,
-  v kterých se daný zlepšující resp. zhoršující n-gram nachází.
-Vybraný n-gram je následně ve všech větách zvýrazněn,
+  v kterých se daný zlepšující resp. zhoršující \mbox{n-gram} nachází.
+Vybraný \mbox{n-gram} je následně ve všech větách zvýrazněn,
   aby uživatel mohl rychle zjistit, kde se nachází -
-  může se totiž stát, že se daný n-gram ve větě bude nacházet vícekrát,
+  může se totiž stát, že se daný \mbox{n-gram} ve větě bude nacházet vícekrát,
   ale pouze některý z nich bude zlepšující resp. zhoršující.
 
-Jelikož se daný n-gram může nacházet v mnoha větách,
+Jelikož se daný \mbox{n-gram} může nacházet v mnoha větách,
   nenačítáme všechny věty naráz,
   ale věty jsou načítány postupně,
   stejně jako když procházíme věty v normálním režimu.
 Stejně tak se může stát,
-  že se v jedné větě vyskytne zlepšující n-gram vícekrát
+  že se v jedné větě vyskytne zlepšující \mbox{n-gram} vícekrát
   ( typicky se to stává u interpunkce, spojek nebo předložek ),
   tyto věty nás zajímají více než věty,
-  ve kterých je výskytů daného n-gramu méně.
-Proto jsou věty při filtrování podle zlepšujícího resp. zhoršujícího n-gramu vždy řazeny podle počtu výskytů daného n-gramu ve větě
+  ve kterých je výskytů daného \mbox{n-gramu} méně.
+Proto jsou věty při filtrování podle zlepšujícího resp. zhoršujícího \mbox{n-gramu} vždy řazeny podle počtu výskytů daného \mbox{n-gramu} ve větě
   a nejde je řadit podle rozdílu metrik jako v normálním módu.
 
-%% vlozit obrazek zhorsujiciho n-gramu, ktery obsahuje zlepsujici n-gram
-Při zobrazování delších zhoršujících n-gramů může nastat situace,
-  že si uživatel nechá zvýraznit všechny zhoršující n-gramy,
-  ale vybraný zhoršující n-gram nebude zvýrazněn.
+%% vlozit obrazek zhorsujiciho \mbox{n-gramu}, ktery obsahuje zlepsujici \mbox{n-gram}
+Při zobrazování delších zhoršujících \mbox{n-gramů} může nastat situace,
+  že si uživatel nechá zvýraznit všechny zhoršující \mbox{n-gramy},
+  ale vybraný zhoršující \mbox{n-gram} nebude zvýrazněn.
 Dokonce se může stát, 
-  že si uživatel nechá zvýraznit všechny potvrzené n-gramy
-  a část vybraného zhoršujícího n-gramu bude zvýrazněna.
+  že si uživatel nechá zvýraznit všechny potvrzené \mbox{n-gramy}
+  a část vybraného zhoršujícího \mbox{n-gramu} bude zvýrazněna.
 Toto je úplně normální jev,
-  který je způsoben výběrem potvrzených n-gramů,
-  je jedno, kde se daný potvrzený n-gram nachází,
+  který je způsoben výběrem potvrzených \mbox{n-gramů},
+  je jedno, kde se daný potvrzený \mbox{n-gram} nachází,
   stačí,
   že se někde ve větě objeví a už je prohlášen za potvrzený.
 Změnou slovosledu pak může dojít i k situaci,
-  kdy se zhoršující n-gram velké délky bude skládat z potvrzených n-gramů délky kratší,
+  kdy se zhoršující \mbox{n-gram} velké délky bude skládat z potvrzených \mbox{n-gramů} délky kratší,
   které se nacházely na různých pozicích ve větě. 
 Například stačí, aby byly ve správném pořadí,
   ale bylo mezi nimi vypuštěno alespoň jedno slovo.
 Proto je lepší,
-  aby uživatel porovnával překlady spíše podle n-gramů s menší délkou -
+  aby uživatel porovnával překlady spíše podle \mbox{n-gramů} s menší délkou -
   typicky podle 1-gramů a 2-gramů.
-Aby mělo smysl porovnávat překlady podle delších n-gramů,
+Aby mělo smysl porovnávat překlady podle delších \mbox{n-gramů},
   musel by být překladač otestován na velké počtu vět tak,
   aby se zlepšení resp. zhoršení dostatečně projevilo.
 
-\section{Zobrazení potvrzených n-gramů a diffu pomocí}
-Pro správné zobrazení potvrzených n-gramů a diffu je potřeba,
+\section{Zobrazení potvrzených \mbox{n-gramů} a diffu pomocí}
+Pro správné zobrazení potvrzených \mbox{n-gramů} a diffu je potřeba,
   abychom mohli každému tokenu říci,
-  jestli se nachází v nějakém potvrzeném n-gramu nebo jestli byl do věty přidán.
+  jestli se nachází v nějakém potvrzeném \mbox{n-gramu} nebo jestli byl do věty přidán.
 Zároveň s touto informací chceme,
   aby jednotlivá zvýraznění bylo možné libovolně kombinovat.
 Technicky tento problém byl vyřešen pomoci CSS tříd,

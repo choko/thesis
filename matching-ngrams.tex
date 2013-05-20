@@ -2,36 +2,36 @@
 \label{chap:compare}
 
 Při zobrazování rozdílů dvou překladů mohou být zvýrazněna slova či slovní spojení,
-  která byla přeložena správně (potvrzené n-gramy),
+  která byla přeložena správně (potvrzené \mbox{n-gramy)},
   nebo která zlepšila či zhoršila překlad.
 
 Druhou možností pro porovnávání překladů je zobrazení rozdílů porovnávaného překladu s referencí.
-Pomocí této volby můžeme odhalit n-gramy,
+Pomocí této volby můžeme odhalit \mbox{n-gramy},
   které se nacházejí na špatných pozicích ve větě,
   což může být způsobeno špatným slovosledem v překladu.
 
-Při hledání potvrzených, zlepšujících n-gramů, zhoršujících n-gramů nebo zobrazování diffu můžeme narazit na několik problémů,
+Při hledání potvrzených, zlepšujících \mbox{n-gramů}, zhoršujících \mbox{n-gramů} nebo zobrazování diffu můžeme narazit na několik problémů,
   které si vysvětlíme v následující kapitole.
 
-\section{Hledání potvrzených n-gramů}
+\section{Hledání potvrzených \mbox{n-gramů}}
 Jelikož se ve větách mohou slova či tokeny libovolně opakovat,
   můžeme narazit na situaci,
-  kdy budeme mít více kandidátů na potvrzený n-gram.
+  kdy budeme mít více kandidátů na potvrzený \mbox{n-gram}.
 Člověk snadno rozezná,
-  který n-gram je potvrzený,
+  který \mbox{n-gram} je potvrzený,
   ale v dlouhých větách by to mohlo být časově náročné,
   proto jsme chtěli najít algoritmus,
-  který by ze všech kandidátů na potvrzený n-gram našel ty,
-  které jsou s největší pravděpodobností potvrzené n-gramy.
+  který by ze všech kandidátů na potvrzený \mbox{n-gram} našel ty,
+  které jsou s největší pravděpodobností potvrzené \mbox{n-gramy}.
 
-Pro znázornění hledání potvrzených n-gramů je použit graf reprezentující porovnání dvou vět.
+Pro znázornění hledání potvrzených \mbox{n-gramů} je použit graf reprezentující porovnání dvou vět.
 Tento graf se používá i pro výpočtu diffu nebo LCS,
   které později budeme používat.
 Každá hrana v tomto grafu odpovídá jednomu slovu z porovnávaných vět.
 Horizontální čáry v grafu reprezentují slova, která jsou v překladu navíc oproti referenci. 
 Pro vertikální čáry to platí naopak, t.j. reprezentují slova, která jsou v referenci navíc oproti překladu.
 Diagonální čáry reprezentují shodu mezi referencí a překladem.
-Kandidáty na potvrzený n-gram mohou být reprezentováni jako diagonální hrany v grafu,
+Kandidáty na potvrzený \mbox{n-gram} mohou být reprezentováni jako diagonální hrany v grafu,
   který představuje porovnání dvou vět.
 Ukázkový graf je možné vidět na Obrázku \ref{img:graph-1}.
 
@@ -81,16 +81,16 @@ Ukázkový graf je možné vidět na Obrázku \ref{img:graph-1}.
 \end{figure}
 
 V případě,
-  že počet kandidátů na potvrzený n-gram je stejný jako počet potvrzených n-gramů,
+  že počet kandidátů na potvrzený \mbox{n-gram} je stejný jako počet potvrzených \mbox{n-gramů},
   je řešení našeho problému jednoduché.
 V grafu to odpovídá situaci,
   kdy se v řádku a sloupci nachází stejný počet diagonálních čar.
 V případě,
-  že se nějaký potvrzený n-gram vyskytuje vícekrát,
+  že se nějaký potvrzený \mbox{n-gram} vyskytuje vícekrát,
   je vždy použit první ještě nepoužitý kandidát.
-Všichni kandidáti na potvrzený n-gram jsou potvrzené n-gramy,
+Všichni kandidáti na potvrzený \mbox{n-gram} jsou potvrzené \mbox{n-gramy},
   a tak je můžeme patřičně zvýraznit.
-Ve všech obrázcích budou potvrzené n-gramy zvýrazněny červenou barvou (to je možné vidět na Obrázku \ref{img:graph-2}).
+Ve všech obrázcích budou potvrzené \mbox{n-gramy} zvýrazněny červenou barvou (to je možné vidět na Obrázku \ref{img:graph-2}).
 
 \begin{figure}[h!]
 	\centering
@@ -130,7 +130,7 @@ Ve všech obrázcích budou potvrzené n-gramy zvýrazněny červenou barvou (to
 	\end{tikzpicture}
 
 	\caption{
-		Ukázka grafu porovnání dvou vět se zvýrazněnými potvrzenými n-gramy. \\
+		Ukázka grafu porovnání dvou vět se zvýrazněnými potvrzenými \mbox{n-gramy}. \\
 		\textbf{Reference}: Jájo, já mám hlad. \\
 		\textbf{Překlad}: Jájo, já jsem hladový.
 	}
@@ -138,7 +138,7 @@ Ve všech obrázcích budou potvrzené n-gramy zvýrazněny červenou barvou (to
 \end{figure}
 
 Těžší situace nastane,
-  když je kandidátů na potvzený n-gram více než výskytů daného n-gramů v referenci.
+  když je kandidátů na potvzený \mbox{n-gram} více než výskytů daného \mbox{n-gramů} v referenci.
 Pro lepší představu je možné se podívat na Obrázek \ref{img:graph-3}.
 
 \begin{figure}[h!]
@@ -184,7 +184,7 @@ Pro lepší představu je možné se podívat na Obrázek \ref{img:graph-3}.
 	\end{tikzpicture}
 
 	\caption{
-		Ukázka grafu s referencí a překladem, ve kterém se nachází více kandidátů pro n-gram \uv{Jájo,}. \\
+		Ukázka grafu s referencí a překladem, ve kterém se nachází více kandidátů pro \mbox{n-gram} \uv{Jájo,}. \\
 		\textbf{Reference}: Jájo, já mám hlad. \\
 		\textbf{Překlad}: Jájo, Jájo, já jsem hladový.
 	}
@@ -194,13 +194,13 @@ Pro lepší představu je možné se podívat na Obrázek \ref{img:graph-3}.
 To je poměrně častý jev,
   který je k vidění např. u předložek, spojek nebo interpunkce.
 V takovéto situaci by měly být vybrány takoví kandidáti,
-  kteří se nacházejí v nejdelších možných potvrzených n-gramech.
-K hledaní kandidátů nacházejících se v nejdelších potvrzených n-gramech je možné použít algoritmus pro hledání nejdelší společné podposloupnosti(LCS).
+  kteří se nacházejí v nejdelších možných potvrzených \mbox{n-gramech}.
+K hledaní kandidátů nacházejících se v nejdelších potvrzených \mbox{n-gramech} je možné použít algoritmus pro hledání nejdelší společné podposloupnosti(LCS).
 Nejdelší společná podposloupnost leží na nejkratší monotónní cestě v grafu,
   která vede z levého horního do pravého dolního rohu.
 V obrázku budeme znázorňovat tuto cestu zelenou barvou.
 Všichni kandidáti, kteří se nacházejí na této cestě,
-  vždy patří mezi potvrzené n-gramy.
+  vždy patří mezi potvrzené \mbox{n-gramy}.
 Výsledek použití algoritmu pro hledání nejdelší společné cesty je možné vidět na Obrázku \ref{img:graph-4}.
 
 \begin{figure}[h!]
@@ -248,18 +248,18 @@ Výsledek použití algoritmu pro hledání nejdelší společné cesty je možn
 		  \draw [ultra thick, blue] (5,3)--(5,1)--(7,1);
 	\end{tikzpicture}
 
-	\caption{Ukázka grafu s referencí a překladem, ve kterém se nachází více kandidátů pro n-gram \uv{Jájo,}.
-		Zde je už zvýrazněna nejdelší společná podposloupnost, pomocí které je možné určit potvrzené n-gramy. \\
+	\caption{Ukázka grafu s referencí a překladem, ve kterém se nachází více kandidátů pro \mbox{n-gram} \uv{Jájo,}.
+		Zde je už zvýrazněna nejdelší společná podposloupnost, pomocí které je možné určit potvrzené \mbox{n-gramy}. \\
 		\textbf{Reference}: Jájo, já mám hlad.\\
 		\textbf{Překlad}: Jájo, Jájo, já jsem hladový.
 	}
 	\label{img:graph-4}
 \end{figure}
 
-Tímto postupem je možné nalézt pozice všech potvrzených n-gramů,
+Tímto postupem je možné nalézt pozice všech potvrzených \mbox{n-gramů},
   které se nacházejí v nejdelší společné podposloupnosti.
-Ale ne všechny potvrzené n-gramy se zde musí nacházet.
-Například při změně pořadí slov v překladu se potvrzený n-gram nemusí nacházet v nejdelší společné podposloupnosti.
+Ale ne všechny potvrzené \mbox{n-gramy} se zde musí nacházet.
+Například při změně pořadí slov v překladu se potvrzený \mbox{n-gram} nemusí nacházet v nejdelší společné podposloupnosti.
 Tuto situaci ilustruje Obrázek \ref{img:graph-5}.
 
 \begin{figure}[h!]
@@ -334,7 +334,7 @@ Tuto situaci ilustruje Obrázek \ref{img:graph-5}.
 	\end{tikzpicture}
 
 	\caption{
-		Ukázka grafu s referencí a překladem, ve kterém se nachází více kandidátů pro n-gramy \uv{Oto} a \uv{,}. \\
+		Ukázka grafu s referencí a překladem, ve kterém se nachází více kandidátů pro \mbox{n-gramy} \uv{Oto} a \uv{,}. \\
 		\textbf{Reference}: Máš hlad, Oto? Chceš se najíst?\\
 		\textbf{Překlad}: Oto, máš hlad? Chceš se něčeho najíst, Oto?
 	}
@@ -343,23 +343,23 @@ Tuto situaci ilustruje Obrázek \ref{img:graph-5}.
 
 I tato situace může nastat poměrně často,
   a proto musel být nalezen způsob,
-  jak z kandidátů potvrzených n-gramů,
+  jak z kandidátů potvrzených \mbox{n-gramů},
   kteří se nacházejí mimo nejdelší společnou podposloupnost,
-  budou vybrány potvrzené n-gramy. 
+  budou vybrány potvrzené \mbox{n-gramy}. 
 
 
 Při vymýšlení algoritmu pro řešení této situace byl použit stejný předpoklad jako v minulém případě.
-To je, že z kadidátů potvrzených n-gramů budou vybráni vždy ti kandidáti,
-  kteří se nacházejí uvnitř nejdelších potvrzených n-gramů.
+To je, že z kadidátů potvrzených \mbox{n-gramů} budou vybráni vždy ti kandidáti,
+  kteří se nacházejí uvnitř nejdelších potvrzených \mbox{n-gramů}.
 Každý token v překladu může být ohodnocen pomocí skóre,
-  které určuje v kolika kandidátech potvrzených n-gramů a již potvrzených n-gramech se daný token nachází.
-Z kadidátů na potvrzený n-gram pak jsou vybráni ti,
-  kteří mají největší skóre celého n-gramu,
-  které se spočítá jako součet skóre tokenů v n-gramu.
+  které určuje v kolika kandidátech potvrzených \mbox{n-gramů} a již potvrzených \mbox{n-gramech} se daný token nachází.
+Z kadidátů na potvrzený \mbox{n-gram} pak jsou vybráni ti,
+  kteří mají největší skóre celého \mbox{n-gramu},
+  které se spočítá jako součet skóre tokenů v \mbox{n-gramu}.
 Aby dále nebyli zvýhodňováni kandidáti,
   kteří byli součástí delších nezvolených kandidátů,
-  musí být po každé volbě potvrzených n-gramů upraveno skóre u tokenů patřících do kandidátů potvrzených,
-  kteří nebyli zvoleni za potvrzené n-gramy.
+  musí být po každé volbě potvrzených \mbox{n-gramů} upraveno skóre u tokenů patřících do kandidátů potvrzených,
+  kteří nebyli zvoleni za potvrzené \mbox{n-gramy}.
 Výsledek použítí tohoto algoritmu je zachycen na Obrázku \ref{img:graph-6}.
 
 \begin{figure}[h!]
@@ -435,9 +435,9 @@ Výsledek použítí tohoto algoritmu je zachycen na Obrázku \ref{img:graph-6}.
 	\end{tikzpicture}
 
 	\caption{
-		Ukázka grafu s referencí a překladem, ve kterém se nachází více kandidátů pro n-gramy \uv{Oto} a \uv{,}.
-		Pozice těchto n-gramů byla nalezena pomocí metody s počítáním skóre.
-		I když nalezené pozice n-gramů \uv{Oto} a \uv{,} neodpovídají lidskému úsudku,
+		Ukázka grafu s referencí a překladem, ve kterém se nachází více kandidátů pro \mbox{n-gramy} \uv{Oto} a \uv{,}.
+		Pozice těchto \mbox{n-gramů} byla nalezena pomocí metody s počítáním skóre.
+		I když nalezené pozice \mbox{n-gramů} \uv{Oto} a \uv{,} neodpovídají lidskému úsudku,
 		jsou tyto pozice nalezené správně vzhledem k metrice BLEU. \\
 		\textbf{Reference}: Máš hlad, Oto? Chceš se najíst?\\
 		\textbf{Překlad}: Oto, máš hlad? Chceš se něčeho najíst, Oto?
@@ -451,22 +451,22 @@ Aby oba dva přístupy mohly být zkombinovány do jednoho algoritmu a
   které se nacházejí v nejdelší společné podposloupnosti reference a překladu.
 Tyto tokeny budou mít vždy vyšší skóre než jejich konkurenti,
   a proto nemůže dojít k situaci,
-  že by token ležící v nejdelší společené podposloupnosti nebyl částí potvrzeného n-gramu.
-Nalezení potvrzených n-gramů pak může být provedeno pouze pomocí počítání skóre.
+  že by token ležící v nejdelší společené podposloupnosti nebyl částí potvrzeného \mbox{n-gramu}.
+Nalezení potvrzených \mbox{n-gramů} pak může být provedeno pouze pomocí počítání skóre.
 
 
 Avšak i kombinace těchto dvou přístupů nemusí vždy fungovat.
-Jelikož tento algoritmus počítá pouze s n-gramy do délky čtyř tokenů,
-  potvrzené n-gramy,
+Jelikož tento algoritmus počítá pouze s \mbox{n-gramy} do délky čtyř tokenů,
+  potvrzené \mbox{n-gramy},
   které se nenacházejí v nejdelší společné podposloupnosti a jsou delší než sedm tokenů,
   nemusejí být správně označeny za potvrzené.
-U takovýchto n-gramů záleží pouze na pořadí, v jakém se ve větě vyskytují.
-Část n-gramu,
+U takovýchto \mbox{n-gramů} záleží pouze na pořadí, v jakém se ve větě vyskytují.
+Část \mbox{n-gramu},
   který se ve větě vyskytne dříve,
-  bude prohlášen za potvrzený n-gram.
+  bude prohlášen za potvrzený \mbox{n-gram}.
 
 V praxi se ale tyto případy moc nevyskytují -
-  nestává se často, že by se ve větě nacházelo více kandidátů pro n-gram délky vyšší než sedm tokenů,
+  nestává se často, že by se ve větě nacházelo více kandidátů pro \mbox{n-gram} délky vyšší než sedm tokenů,
   proto by tento algoritmus měl ve většině případů fungovat dobře.
 
 
