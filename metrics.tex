@@ -11,16 +11,16 @@ Proto byly vytvořeny metriky,
   ale je možné je rychle spočítat,
   aplikovat na různé jazyky a opakovat dle libosti.
 Mezi tyto metriky patří i metrika BLEU,
-  která je zvolena jako výchozí metrika v nástroji MT-ComparEval.
+  která je zvolena jako výchozí metrika v~nástroji MT-ComparEval.
 
 Při počítání metrik strojových překladů se snažíme zjistit,
   jak moc se strojový překlad podobá překladu od člověka -- tzv. referenčnímu překladu.
 Čím více se podobá strojový překlad překladu referenčnímu,
   tím je lepší.
-To ovšem neznamená, že překlad s nižší hodnotou metriky je špatný.
+To ovšem neznamená, že překlad s~nižší hodnotou metriky je špatný.
 Překlad totiž můžeme provést několika různými způsoby 
   ( např. můžeme změnit slovosled, použít synonyma, \dots ),
-  z nichž se pouze jeden bude shodovat s referenčním překladem.
+  z~nichž se pouze jeden bude shodovat s~referenčním překladem.
 Tento problém může zmírnit použití více referenčních překladů,
   ale úplně odstranit ho nelze.
 Některé překladatelské systémy jsou optimalizovány pro určité metriky,
@@ -35,31 +35,31 @@ Hlavním důvodem je to,
   že hodně odpovídá lidskému vyhodnocení překladu
   a je možné ji rychle spočítat.
 Rychlost výpočtu metrik je pro vývojáře překladových systémů velmi důležitá,
-  protože vývojáři potřebují každou změnu v systému otestovat,
+  protože vývojáři potřebují každou změnu v~systému otestovat,
   aby si mohli být jisti,
   že překladový systém nepokazili.
 
 Při počítání metriky BLEU počítáme precision \mbox{n-gramů},
   což nám říká,
-  kolik \mbox{n-gramů} z vyhodnocovaného překladu se nachází i v referenčním překladu.	
-$$ \text{PRECISION} = \frac{\lvert \lbrace \text{\mbox{n-gramy} z referenčního překladu} \rbrace \cap \lbrace \text{\mbox{n-gramy} z vyhodnocovaného překladu} \rbrace \rvert}{\lvert \lbrace \text{\mbox{n-gramy} z vyhodnocovaného překladu} \rbrace \rvert}$$
+  kolik \mbox{n-gramů} z~vyhodnocovaného překladu se nachází i v~referenčním překladu.	
+$$ \text{PRECISION} = \frac{\lvert \lbrace \text{\mbox{n-gramy} z~referenčního překladu} \rbrace \cap \lbrace \text{\mbox{n-gramy} z~vyhodnocovaného překladu} \rbrace \rvert}{\lvert \lbrace \text{\mbox{n-gramy} z~vyhodnocovaného překladu} \rbrace \rvert}$$
 
 Pří hledání potvrzených \mbox{n-gramů} si musíme dát pozor na překlady,
-  ve kterých se nachází více stejných \mbox{n-gramů} než je daných \mbox{n-gramů} v referenčním překladu.
-V takovém případě vezmeme vždy jen
-  $min( \lvert \lbrace \text{\mbox{n-gramy} z referenčního překladu} \rbrace \cap \lbrace \text{\mbox{n-gramy} z vyhodnocovaného překladu} \rbrace \rvert, \lvert \lbrace \text{\mbox{n-gramy} z referenčního překladu} \rbrace \rvert )$
-V článku o BLEU pomocí takto nalezených potvrzených \mbox{n-gramů} počítají modified \mbox{n-gram} precision:
-$$ \text{MODIFIED PRECISION} = \frac{ \lvert \text{potvrzené \mbox{n-gramy}} \rvert }{ \lvert \text{\mbox{n-gramy} z vyhodnocovaného překladu} \rvert } $$
+  ve kterých se nachází více stejných \mbox{n-gramů} než je daných \mbox{n-gramů} v~referenčním překladu.
+V~takovém případě vezmeme vždy jen
+  $min( \lvert \lbrace \text{\mbox{n-gramy} z~referenčního překladu} \rbrace \cap \lbrace \text{\mbox{n-gramy} z~vyhodnocovaného překladu} \rbrace \rvert, \lvert \lbrace \text{\mbox{n-gramy} z~referenčního překladu} \rbrace \rvert )$
+V~článku o~BLEU pomocí takto nalezených potvrzených \mbox{n-gramů} počítají modified \mbox{n-gram} precision:
+$$ \text{MODIFIED PRECISION} = \frac{ \lvert \text{potvrzené \mbox{n-gramy}} \rvert }{ \lvert \text{\mbox{n-gramy} z~vyhodnocovaného překladu} \rvert } $$
 
 
 
 
 \section{BLEUS}
 Abychom mohli počítat metriku BLEU i pro jedntolivé věty,
-  musíme se vypořádat s tím,
-  že se v některých větách nemusí vyskytovat žádné potvrzené 1-gramy, 2-gramy, 3-gramy nebo 4-gramy.
-V tom případě by výsledná metrika těchto vět byla rovna nule,
-  i když by se v nich nějaký potvrzený \mbox{n-gram} nacházel.
+  musíme se vypořádat s~tím,
+  že se v~některých větách nemusí vyskytovat žádné potvrzené 1-gramy, 2-gramy, 3-gramy nebo 4-gramy.
+V~tom případě by výsledná metrika těchto vět byla rovna nule,
+  i když by se v~nich nějaký potvrzený \mbox{n-gram} nacházel.
 Tento problém řeší vylepšení metriky BLEU -- metrika BLEUS. %% přidat citaci
 Ta připočítává +1 ke všem \mbox{n-gramům} delším než jedna.
 Tím pádem můžeme spočítat metriku i pro věty,
@@ -70,13 +70,13 @@ Zároveň dokážeme ohodnotit úplně špatný překlad nulovou metrikou,
 Skript mteval-13a.pl, %% přidat citaci
   který je ve světě považován za autoritu pro vyhodnocování překladů,
   používá jiný způsob vyhlazování.
-Místo přičítání +1 ke všem \mbox{n-gramům} má speciální vzoreček pro počítání precision o chybějících potvrzených \mbox{n-gramů}.
-Precision je rovna $1 / 2^k$, kde $k = 1$ u první n takové,
-  že v překladu není žádný potvrzený \mbox{n-gram}.
+Místo přičítání +1 ke všem \mbox{n-gramům} má speciální vzoreček pro počítání precision o~chybějících potvrzených \mbox{n-gramů}.
+Precision je rovna $1 / 2^k$, kde $k = 1$ u~první n takové,
+  že v~překladu není žádný potvrzený \mbox{n-gram}.
 
 Rozdíl obou metrik si můžeme demonstrovat na větě délky 4,
   která obsahuje pouze jeden potvrzený 2-gram
-  (z čehož plyne, že obsahuje i dva potvrzené 1-gramy).
+  (z~čehož plyne, že obsahuje i dva potvrzené 1-gramy).
 
 \begin{tabular}{| l | c | c || c | c |}
 \hline
@@ -97,11 +97,11 @@ To, že se metriky liší,
   nám vůbec nevadí,
   protože obě metriky ve většině případů dokáží rozpoznat lepší překlad od horšího.
 
-Problém, se kterým se vyhlazování u obou přístupů nedokáže vypořádat, je,
-  když porovnáváme dva překlady, z nichž jeden je kratší než 4 slova. 
-Vyhlazovaní u mteval používá výjimku u precision \mbox{n-gramů},
+Problém, se kterým se vyhlazování u~obou přístupů nedokáže vypořádat, je,
+  když porovnáváme dva překlady, z~nichž jeden je kratší než 4 slova. 
+Vyhlazovaní u~mteval používá výjimku u~precision \mbox{n-gramů},
   kde n je větší než počet slov ve větě. 
-U těchto \mbox{n-gramů} nastavuje precision rovno jedné.
+U~těchto \mbox{n-gramů} nastavuje precision rovno jedné.
 Krátší překlad, který může být horší,
   pak bude vyhodnocen jako lepší než skutečně lepší překlad.
 
@@ -123,42 +123,42 @@ délka & počet potvrzených & celkový počet & BLEUS & mteval \\
 \hline
 \end{tabular}
 
-Jako druhou použijeme větu z předchozího příkladu,
+Jako druhou použijeme větu z~předchozího příkladu,
   pro níž vyšlo vyhlazené BLEUS$ = \frac{1}{2^3 3}$
   a mteval$= \frac{1}{2^4 3}$.
-U horšího překladu tak vyšlo BLEUS $6\times$ větší a mteval $12\times$ větší. 
+U~horšího překladu tak vyšlo BLEUS $6\times$ větší a mteval $12\times$ větší. 
 Díky této nemilé vlastnosti vyhlazování BLEU se může stát,
   že při procházení vět nenajdeme takto špatný překlad,
   protože bude vyhodnocen jako lepší.
 
 \section{Potvrzené \mbox{n-gramy}}
 Abychom částečně napravili chyby popsané výše,
-  můžeme jako metriku zavést počet potvrzených \mbox{n-gramů} v překladu.
+  můžeme jako metriku zavést počet potvrzených \mbox{n-gramů} v~překladu.
 Touto metrikou bude vždy horší překlad označen za horší,
   ale problém nastane při řazení podle absolutního rozdílu,
-  protože v delších větách může být více potvrzených \mbox{n-gramů},
+  protože v~delších větách může být více potvrzených \mbox{n-gramů},
   budou většinou dlouhé věty předcházet kratší věty,
-  u kterých se správnost překladu mohla mnohem více lišit.
+  u~kterých se správnost překladu mohla mnohem více lišit.
 
 \section{Recall}
 Pří výpočtu BLEU se počítá precision \mbox{n-gramů} ze strojového překladu.
-Pokud místo \mbox{n-gramů} ze strojového překladu použijeme \mbox{n-gramy} z referenčního překladu,
+Pokud místo \mbox{n-gramů} ze strojového překladu použijeme \mbox{n-gramy} z~referenčního překladu,
   vyjde nám metrika Recall,
-  která říká s jakou pravděpodobností se nachazí \mbox{n-gram} z referenčního překladu i v překladu strojovém.
+  která říká s~jakou pravděpodobností se nachazí \mbox{n-gram} z~referenčního překladu i v~překladu strojovém.
 $$ RECALL = \prod_{l=1}^{4} \frac{ \lvert \text{potvrzené \mbox{n-gramy} délky l} \rvert }{ \lvert \text{referenční \mbox{n-gramy} délky l} \rvert } $$
 
-Touto metrikou, případně s vyhlazením stejným jako v BLEUs,
+Touto metrikou, případně s~vyhlazením stejným jako v~BLEUs,
   budeme moci vyřešit oba dva výše zmíněné problémy -- 
-  t.j. problém s krátkým překladem a problém s řazením podle potvrzených \mbox{n-gramů}.
+  t.j. problém s~krátkým překladem a problém s~řazením podle potvrzených \mbox{n-gramů}.
 
 Nicméně i Recall má své problémy.
 Strojové překlady,
   které jsou výrazně delší než překlady referenční,
   by mohly mít vysokou hodnotu Recall,
-  ale i tak by se jednalo o špatné překlady,
+  ale i tak by se jednalo o~špatné překlady,
   protože by obsahovaly mnoho nadbytečných slov. 
 Tento problém řeší metrika F-Measure,
-  která bude vysvětlena v následující části.
+  která bude vysvětlena v~následující části.
 
 \section{F-Measure}
 Metrika F-Measure kombinuje Recall i Precision,

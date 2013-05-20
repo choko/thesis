@@ -1,8 +1,8 @@
 \chapter{Názvosloví MT-ComparEval}
 \label{chap:experiments}
 
-Správné pochopení pojmů \textbf{experiment},\textbf{task}, \textbf{\mbox{n-gram}}, \dots je důležité k pochopení fungování celého nástroje MT-ComparEval.
-Proto v této kapitole bude podrobněji vysvětleno,
+Správné pochopení pojmů \textbf{experiment},\textbf{task}, \textbf{\mbox{n-gram}}, \dots je důležité k~pochopení fungování celého nástroje MT-ComparEval.
+Proto v~této kapitole bude podrobněji vysvětleno,
   co tyto pojmy znamenají a jaké jsou mezi nimi vztahy.
 
 \section{Experiment}
@@ -10,51 +10,51 @@ Uživatelé mohou chtít testovat své překladače na různých textových dom�
   nebo testovat své překladače pro různé jazykové páry.
 Nástroj MT-ComparEval musí umožňovat vytvořit různá vyhodnocovací prostředí,
   ve kterých uživatelé mohou testovat své strojové překladače.
-Takovéto testovací prostředí se v nástroji MT-ComparEval nazývá \textbf{experiment}.
+Takovéto testovací prostředí se v~nástroji MT-ComparEval nazývá \textbf{experiment}.
 
 Každý experiment obsahuje vlastní \textbf{zdroj} (věty, které mají být strojovým překladačem přeloženy) a
-  \textbf{referenci} (člověkem přeložené věty, které budou později použity k vyhodnocování jednotlivých strojových překladačů).
+  \textbf{referenci} (člověkem přeložené věty, které budou později použity k~vyhodnocování jednotlivých strojových překladačů).
 Pomocí různých dvojic zdrojů a referencí mohou uživatelé vyhodnocovat strojové překladače na různých testovacích sadách,
-  což se jim může hodit v případě,
+  což se jim může hodit v~případě,
   kdy se překladač na různých zdrojích chová různě.
 
 \section{Task}
-V rámci experimetu uživatelé mohou chtít porovnávat různé překlady zdrojových vět.
-Ať už se jedná o různé verze jednoho strojového překladače nebo různé strojové překladače.
+V~rámci experimetu uživatelé mohou chtít porovnávat různé překlady zdrojových vět.
+Ať už se jedná o~různé verze jednoho strojového překladače nebo různé strojové překladače.
 Aby mohl uživatel vyhodnocovat různé překlady,
   umožňuje nástroj MT-ComparEval nahrávat do experimentů tzv. \textbf{tasky}.
 Každý task reprezentuje jednu verzi překladu zdrojových vět,
-  která později může být porovnána s jinou verzí překladu.
-V rámci této bakalářské práce budou strojové překlady nazývány zkráceně slovem \textbf{překlady}.
+  která později může být porovnána s~jinou verzí překladu.
+V~rámci této bakalářské práce budou strojové překlady nazývány zkráceně slovem \textbf{překlady}.
 
-O vytváření experimentů a tasků i o dalších možnostech použití nástroje MT-ComparEval je možné se dozvědět v \ref{chap:users}. kapitole.
+O~vytváření experimentů a tasků i o~dalších možnostech použití nástroje MT-ComparEval je možné se dozvědět v~\ref{chap:users}. kapitole.
 
 \section{N-gramy}
 Při vysvětlování počítání strojových metrik
   nebo popisu, jak jsou porovnávány dva překlady jedné věty,
   jsou často použity termíny spojené se slovem \mbox{n-gram}.
-Proto budou všechny tyto termíny v této části vysvětleny,
+Proto budou všechny tyto termíny v~této části vysvětleny,
   aby pozdější výklad byl jasný a nemuselo se odbíhat od tématu.
 
 Posloupnost n po sobě jdoucích slov\footnote{
   Často se používá i výraz \textbf{token}. Token může být jak slovo, tak interpunkční znaménko a do \mbox{n-gramů} mohou patřit i interpunkční znaménka}
   se nazývá \textbf{\mbox{n-gram}}.
 N-gramy,
-  které se nacházejí i v referenci i ve strojovém překladu,
-  se v rámci nástroje MT-ComparEval nazývají \textbf{potvrzené \mbox{n-gramy}}.
+  které se nacházejí i v~referenci i ve strojovém překladu,
+  se v~rámci nástroje MT-ComparEval nazývají \textbf{potvrzené \mbox{n-gramy}}.
 Potvrzené \mbox{n-gramy},
-  které se při porovnávání dvou překladů nacházejí pouze v jednom z nich,
+  které se při porovnávání dvou překladů nacházejí pouze v~jednom z~nich,
   jsou nazývány \textbf{zlepšující \mbox{n-gramy}}.
 N-gramy,
   které nejsou potvrzené referencí
-  a při porovnávání dvou překladů se nacházejí pouze v jednom z nich,
+  a při porovnávání dvou překladů se nacházejí pouze v~jednom z~nich,
   jsou nazývany \textbf{zhoršující \mbox{n-gramy}}.
-O významu jednotlivých typů \mbox{n-gramů} je možné si udělat lepší představu na Obrázku \ref{img:n-grams}.
+O~významu jednotlivých typů \mbox{n-gramů} je možné si udělat lepší představu na Obrázku \ref{img:n-grams}.
 
 \begin{figure}
 
 	\caption{
-		Porovnání dvou překladů v nástroji MT-ComparEval.
+		Porovnání dvou překladů v~nástroji MT-ComparEval.
 		Pastelovými odstíny žluté a modré barvy jsou zvýrazněny potvrzené \mbox{n-gramy},
 		sytými odstíny žluté a modré barvy jsou zvýrazněny zlepšující \mbox{n-gramy}
 		a červenou barvou jsou zvýrazněny zhoršující \mbox{n-gramy}.

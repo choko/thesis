@@ -1,53 +1,53 @@
 \chapter{Motivace}
-V této kapitole budou v krátkosti představeny všechny důvody,
+V~této kapitole budou v~krátkosti představeny všechny důvody,
   proč a jak byl vyvinut nástroj MT-ComparEval.
 Všechny důvody pak budou více rozebrány v~následujících kapitolách.
 
 \section{Experimenty a tasky}
-Strojové překlady jsou při vyhodnocování porovnávány s referenčním překladem
+Strojové překlady jsou při vyhodnocování porovnávány s~referenčním překladem
   (dále jen reference).
 Vyhodnocování strojových překladačů může být zaměřeno na různé domény textu (např. novinové články, beletrie apod.) různých délek
-  nebo na různé jazykové páry (např. z angličtiny do češtiny, z němčiny do češtiny apod.).
+  nebo na různé jazykové páry (např. z~angličtiny do češtiny, z~němčiny do češtiny apod.).
 Aby uživatelé nástroje MT-ComparEval mohli snadno vyhodnocovat své strojové překladače na různých doménách nebo pro různé jazykové páry,
   mohou si vytvořit různé \uv{experimenty},
-  v rámci kterých mohou porovnávat své překlady s příslušnými referencemi.
-Obrázek \ref{img:experiments} ukazuje příklad vytvořených experimentů z různých domén a jazykových párů.
+  v~rámci kterých mohou porovnávat své překlady s~příslušnými referencemi.
+Obrázek \ref{img:experiments} ukazuje příklad vytvořených experimentů z~různých domén a jazykových párů.
 \begin{figure}
 	\center
 	\includegraphics[width=0.9\textwidth]{img/experiments.eps}
 
-	\caption{Přehled vytvořených experimentů v nástroji MT-ComparEval}
+	\caption{Přehled vytvořených experimentů v~nástroji MT-ComparEval}
 	\label{img:experiments}
 \end{figure}
 
-V každém experimentu pak uživatel může vytvářet \uv{tasky},
+V~každém experimentu pak uživatel může vytvářet \uv{tasky},
   které později může vyhodnocovat a porovnávat.
-Výpis tasků jednoho z experimentů je ukázán na Obrázku \ref{img:tasks}.
+Výpis tasků jednoho z~experimentů je ukázán na Obrázku \ref{img:tasks}.
 \begin{figure}
-	\caption{Přehled vytvořených tasků v jednom z experimentů v nástroji MT-ComparEval}
+	\caption{Přehled vytvořených tasků v~jednom z~experimentů v~nástroji MT-ComparEval}
 	\label{img:tasks}
 \end{figure}
 
-O významu experimentů, tasků a jiných pojmů je možné se více dozvědět ve~\ref{chap:experiments}.~kapitole.
+O~významu experimentů, tasků a jiných pojmů je možné se více dozvědět ve~\ref{chap:experiments}.~kapitole.
 
 
 \section{Metriky strojového překladu}
-K porovnávání překladů mohou být použity metriky strojového překladu.
-V nástroji MT-ComparEval jsou metriky počítány na úrovni celých tasků 
+K~porovnávání překladů mohou být použity metriky strojového překladu.
+V~nástroji MT-ComparEval jsou metriky počítány na úrovni celých tasků 
   (viz. Obrázek \ref{img:compare_metrics_tasks})
   nebo na úrovni jednotlivých vět
   (viz. Obrázek \ref{img:compare_metrics_sentences}).
 Metrikami strojových překladů se více zabývá \ref{chap:metrics}. kapitola.
-V té budou představeny všechny metriky,
-  které jsou použity v nástroji MT-ComparEval.
+V~té budou představeny všechny metriky,
+  které jsou použity v~nástroji MT-ComparEval.
 
 \begin{figure}
-	\caption{Porovnání metrik dvou tasků v nástroji MT-ComparEval.}
+	\caption{Porovnání metrik dvou tasků v~nástroji MT-ComparEval.}
 	\label{img:compare_metrics_tasks}
 \end{figure}
 
 \begin{figure}
-	\caption{Porovnání metrik dvou překladů v nástroji MT-ComparEval.}
+	\caption{Porovnání metrik dvou překladů v~nástroji MT-ComparEval.}
 	\label{img:compare_metrics_sentences}
 \end{figure}
 
@@ -55,30 +55,30 @@ V té budou představeny všechny metriky,
 \section{Porovnávání dvou strojových překladů}
 Kvalitu strojových překladačů je možné vyhodnotit i porovnáním jednotlivých vět.
 Nástroj MT-ComparEval umožňuje procházet věty seřazené podle metriky strojových překladů 
-  a hledat v těchto větách rozdíly,
+  a hledat v~těchto větách rozdíly,
   které ovlivnily výsledné metriky.
 Aby uživatelé mohli snadněji vyhledat rozdíly mezi větami,
-	  je možné zobrazit potvrzené \mbox{n-gramy} (\mbox{n-gramy}, které se nacházeji v referenci i strojovém překladu),
-	  zlepšující \mbox{n-gramy} (potvrzené \mbox{n-gramy}, které se nachází pouze v jednom z porovnávaných překladů)
-	  nebo zhoršující \mbox{n-gramy} (nepotvrzené \mbox{n-gramy}, které se nachází pouze v jednom z porovnávaných překladů).
+	  je možné zobrazit potvrzené \mbox{n-gramy} (\mbox{n-gramy}, které se nacházeji v~referenci i strojovém překladu),
+	  zlepšující \mbox{n-gramy} (potvrzené \mbox{n-gramy}, které se nachází pouze v~jednom z~porovnávaných překladů)
+	  nebo zhoršující \mbox{n-gramy} (nepotvrzené \mbox{n-gramy}, které se nachází pouze v~jednom z~porovnávaných překladů).
 	Na Obrázku \ref{img:compare_sentences} je vidět porovnání dvou překladů se zvýrazněnými \mbox{n-gramy}.
 
 	Strojové překlady nemusí být porovnávány pouze na základě strojových metrik,
 	  další informací,
-	  díky které je možné si udělat lepší představu o vlastnostech strojového překladače,
-	  jsou přehledy nejvíce zlepšujících a zhoršujících \mbox{n-gramů} v jednotlivých překladech.
+	  díky které je možné si udělat lepší představu o~vlastnostech strojového překladače,
+	  jsou přehledy nejvíce zlepšujících a zhoršujících \mbox{n-gramů} v~jednotlivých překladech.
 	Nástroj MT-ComparEval nabízí přehled nejvíce zlepšujících a zhoršujících \mbox{n-gramů}
-	  v jednotlivých překladech.
+	  v~jednotlivých překladech.
 	Takový přehled je možné vidět i na obrázku \ref{img:confirmed_ngrams}.
 
-	Přehledy zlepšujících i zhoršujicích \mbox{n-gramů} mohou být použity k filtrování vět,
+	Přehledy zlepšujících i zhoršujicích \mbox{n-gramů} mohou být použity k~filtrování vět,
 	  aby si uživatel mohl snadno prohlédnout věty,
 	  ve kterých se dané \mbox{n-gramy} nachází.
 	Na Obrázku \ref{img:filtered_sentences} je vidět výpis vět vyfiltrovaných podle zlepšujícího \mbox{n-gramu}.
 
 	\begin{figure}
 		\caption{
-			Porovnání dvou překladů v nástroji MT-ComparEval.
+			Porovnání dvou překladů v~nástroji MT-ComparEval.
 			Pastelovými odstíny žluté a modré barvy jsou zvýrazněny potvrzené \mbox{n-gramy},
 			sytými odstíny žluté a modré barvy jsou zvýrazněny zlepšující \mbox{n-gramy}
 			a červenou barvou jsou zvýrazněny zhoršující \mbox{n-gramy}.
@@ -87,7 +87,7 @@ Aby uživatelé mohli snadněji vyhledat rozdíly mezi větami,
 	\end{figure}
 
 	\begin{figure}
-		\caption{Přehled nejvíce zlepšujících \mbox{n-gramů} v jednotlivých překladech.}
+		\caption{Přehled nejvíce zlepšujících \mbox{n-gramů} v~jednotlivých překladech.}
 		\label{img:confirmed_ngrams}
 	\end{figure}
 
@@ -96,7 +96,7 @@ Aby uživatelé mohli snadněji vyhledat rozdíly mezi větami,
 		\label{img:filtered_sentences}
 	\end{figure}
 
-	O algoritmech,
+	O~algoritmech,
 	  které byly použity při porovnávání dvou překladů a hledání pozic potvrzených \mbox{n-gramů},
   pojednává \ref{chap:compare}. kapitola.
 
@@ -106,17 +106,17 @@ Nástroj MT-ComparEval byl navržen tak,
   aby bylo možné jeho použití co nejvíce automatizovat.
 Uživatelé proto nemusí ručně vytvářet každý task,
   ale mohou si napsat jednoduché skripty,
-  pomocí nichž mohou vytvářet tasky v nástroji MT-ComparEval automaticky při každé změně strojového překladače.
+  pomocí nichž mohou vytvářet tasky v~nástroji MT-ComparEval automaticky při každé změně strojového překladače.
 
-V \ref{chap:users}. kapitole je možné najít informace,
+V~\ref{chap:users}. kapitole je možné najít informace,
   jak se používá nástroj MT-ComparEval
   a jak je možné nasadit ho do vývojového procesu.
 
 \section{Rozšiřitelnost}
 Nástroj MT-ComparEval si neklade za cíl implementovat co nejvíce metrik,
-  proto jsou v něm předprogramovány pouze některé.
-Zárověň s tím je však umožněno doprogramovat si vlastní metriky.
+  proto jsou v~něm předprogramovány pouze některé.
+Zárověň s~tím je však umožněno doprogramovat si vlastní metriky.
 
-O tom, jak si uživatel může doprogramovat vlastní metriky nebo jak byl nástroj MT-ComparEval vyvinut,
-  je možné se dočíst v \ref{chap:programmers}. kapitole.
+O~tom, jak si uživatel může doprogramovat vlastní metriky nebo jak byl nástroj MT-ComparEval vyvinut,
+  je možné se dočíst v~\ref{chap:programmers}. kapitole.
 
