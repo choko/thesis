@@ -40,8 +40,8 @@ Mezi metriky,
   patří např. NIST, METEOR, PORT,~\dots
 
 \subsection{Zobrazení alignmentu}
-Při porovnávání dvou překladů jedné věty je velmi užitečná funkce pro zvýraznění slov (nazývaná alignment),
-  které odpovídají danému slovu v~referenci či dalším strojovém překladu.
+Při porovnávání dvou překladů jedné věty je velmi užitečná funkce pro zvýraznění slov,
+  které odpovídají danému slovu v~referenci či dalším strojovém překladu -- word alignment (zarovnání slov).
 Díky této funkci je pak snadnější analyzovat chovaní strojových překladačů.
 
 Na Obrázku \ref{img:alignment} je ukázáno, jak zvýrazňuje aligment překladač Google Translate.
@@ -74,7 +74,7 @@ Nástroj iBLEU umožňuje vyhodnocovat a porovnávat strojové překlady.
 Pokud uživatel nemá žadný jiný strojový překlad,
   se kterým by chtěl svůj překlad porovnat,
   může si větu nechat přeložit překladačem Google Translate\footnote{
-    Bohužel Google Translate nenabízí bezplatné api.
+    Bohužel Google Translate už nenabízí bezplatné API.
   } nebo Bing Translator\footnote{
     Bing Translator nabízí bezplatné api do limitu 2 miliónů přeložených znaků za den.
   }
@@ -118,9 +118,8 @@ Pro \mbox{n-gramy} také počítá precision a recall.
 \end{figure}
 
 Ve webovém prostředí je také možné vyhledávat věty,
-  ve kterých byl použit \mbox{n-gram}.
-Jednotlivá užití \mbox{n-gramů} jsou pak rozřazena do skupin podle správnosti překladu.
-Na Obrázku \ref{img:ems-word} je možné vidět seznam vět,
+  ve kterých byl použit zvolený \mbox{n-gram}.
+Jednotlivá užití \mbox{n-gramů} jsou pak rozřazena do skupin podle správnosti překladu (viz Obrázek \ref{img:ems-word}).
   ve kterých bylo použito slovo ??.
 
 \begin{figure}

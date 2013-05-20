@@ -41,6 +41,7 @@
 \usepackage{listings}
 \usepackage{tikz}
 \usepackage{caption}
+\usepackage{float}
 
 %% Balíček hyperref, kterým jdou vyrábět klikací odkazy v PDF,
 %% ale hlavně ho používáme k uložení metadat do PDF (včetně obsahu).
@@ -202,7 +203,7 @@ Tato bakalářská práce se zabývá vývojem nástroje pro porovnávání a vy
 V~tomto nástroji je možné porovnávat překlady na základě několika kritérií.
 Mezi ně patří porovnání podle metrik strojových překladů počítaných pro celé dokumenty nebo jednotlivé věty,
   porovnání kvality překladů jednotlivých vět pomocí zvýraznění potvrzených, zlepšujících nebo zhoršujících \mbox{n-gramů}
-  nebo souhrnu nejvíce zlepšujících či zhoršujících \mbox{n-gramů} v~celém dokumentu.
+  nebo podle souhrnu nejvíce zlepšujících či zhoršujících \mbox{n-gramů} v~celém dokumentu.
 Při porovnávání dvou různých překladů nástroj MT-ComparEval také vykresluje graf s~absolutními rozdíly metrik počítaných pro jednotlivé věty a
   graf s~hodnotami z~párového bootstrap resamplingu.
 

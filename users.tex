@@ -3,9 +3,9 @@
 
 \section{Systémové požadavky}
 Nástroj MT-ComparEval byl vyvinut jako webová aplikace,
-  která poběží na serveru s~Linuxem,
-  proto je třeba,
-  aby uživatelé používali tento operační systém.
+  která poběží na serveru s~Linuxem.\footnote{
+    Pokud je aplikace nainstalována na vzdáleném serveru, může být používána pomocí libovolného moderního webového prohlížeče na libovolném operačním systému.
+  }
 Dále musí být na uživatelském počítači nainstalované PHP 5.4 a databáze SQLite 3.
 
 \section{Instalace a spuštění programu}
@@ -23,7 +23,7 @@ Poslední věc,
 Ten se spustí pomocí skriptu \textbf{./bin/watcher.sh}.
 Pro celkové zjednodušení spouštění aplikace byl přidán skript,
   který všechny tyto kroky sjednotí do jednoho,
-  a proto je možné spustit celou aplikaci pomocí příkazu \textbf{./bin/server.sh}.
+  a proto je možné spustit celou aplikaci pomocí příkazu \textbf{./bin/run.sh}.
 
 V~případě, že má uživatel nainstalován nějaký webový server
   a chce ho použít pro provoz nástroje MT-ComparEval,
@@ -41,11 +41,14 @@ Výchozí jména souborů jsou \textbf{source.txt} pro zdrojový překlad
 U~všech souborů s~větami se předpokladá,
   že každá věta či souvětí je na vlastním řádku
   a je zachováno pořadí vět.
-Tzn. že první řádek v~souboru se zdrojovým textem je přeložen na prvním řádku souboru s~referenčním a strojovým překladem.
+To znamená, že první řádek v~souboru se zdrojovým textem je přeložen na prvním řádku souboru s~referenčním a strojovým překladem,
+  druhý řádek v~souboru se zdrojovým textem odpovídá druhému řádku v souboru s referencí atd..
+Pro správný běh aplikace je nutné, aby soubory se zdrojovým textem a referenčním překladem měly stejný počet řádků.
+Pokud nebudou mít stejný počet řádků, experiment nebude importován.
 Jako jméno experimentu je použito jméno adresáře.
 
 \subsection{Konfigurace experimentu}
-Tento přístup je trošku omezený a nenabízí uživatelům možnosti konfigurace.
+Výše zmíněný přístup je trošku omezený a nenabízí uživatelům možnosti konfigurace.
 Proto je možné,
   aby si uživatel v~konfiguračním souboru \textbf{./config.neon} předefinoval výchozí hodnoty.
 Je tak možné změnit jméno experimentu, popisek experimentu nebo jména souborů,
@@ -90,13 +93,14 @@ Tasky nahráváme jako podadresáře v~adresáři experimentu,
   s~jehož referenčním překladem chceme daný překlad porovnat.
 Jediný soubor, který musíme do tohoto podadresáře nahrát je \textbf{translation.txt},
   v~kterém budou všechny přeložené věty.
+Opět je nutné, aby soubor s přeloženými větami měl stejný počet řádků jako soubor s referenčním překladem.
 Jméno tasku je stejné jako jméno podadresáře.
 
 \subsection{Konfigurace tasku}
 Stejně jako je možné konfigurovat experiment je možné konfigurovat i task.
-Task má konfigurovatelné jméno -- name, popisek -- description,
-  relativní cestu k~souboru -- translation nebo volbu,
-  zda chceme předpočítávat zlepšující a zhoršující \mbox{n-gramy} -- precompute\_ngrams.
+Task má konfigurovatelné jméno (name), popisek (description),
+  relativní cestu k~souboru s překladem (translation) a volbu,
+  zda chceme předpočítávat zlepšující a zhoršující \mbox{n-gramy} (precompute\_ngrams).
 U~všech tasků, pokud uživatel neřekne jinak, 
   jsou tyto \mbox{n-gramy} předpočítány.
 Konfigurace tasku může vypadat například takto:
@@ -130,19 +134,21 @@ V~případě,
 
 \subsection{Porovnávání tasků}
 K~porovnání dvou tasků je možné přistoupit z~několika pohledů.
-Každému možnému způsobu porovnání odpovídá jedna záložka v~horním menu stránky s~porovnáním.
+Každému pohledu odpovídá jedna záložka v~horním menu stránky s~porovnáním.
 Kvalitu překladu tasku je možné posuzovat na základě překladu jednotlivých vět,
-  vypočtených metrik nebo nalezených vylepšujících resp. zhoršujících \mbox{n-gramů}.
+  vypočtených metrik nebo nalezených zlepšujících resp. zhoršujících \mbox{n-gramů}.
 Při porovnávání si uživatel může zvolit metriku,
   podle níž se bude řídit výpis vět nebo grafů metrik.
 Změnou metriky se tak mění pořadí vět,
   grafy s~rozdílem hodnot metriky na úrovni jednotlivých vět
   a grafem s~hodnotami z~párového bootstrap resamplingu.
-Ve výchozím nastavení se věty zobrazují od nejlepší po nejhorší,
-  ale toto pořadí lze stejně jako metrika snadno změnit.
+Ve výchozím nastavení se věty zobrazují od nejvíce zlepšujících po nejvíce zhoršující,
+  ale toto pořadí lze stejně jako metrika snadno změnit.\footnote{
+    Míra zlepšení daného překladu je určena rozdílem aktivní metriky u porovnávaných překladů.
+  }
 
 V~případě potřeby je možné přímo v~porovnání měnit jaké tasky se mají porovnávat,
-  což může být velmi výhodné v~případě,
+  což může být výhodné v~případě,
   že uživatele zajímá,
   jak by jeden z~porovnávaných tasků obstál v~porovnání s~jiným.
 %% vložit obrázek s horní lištou
@@ -173,7 +179,7 @@ Všechny potvrzené \mbox{n-gramy} jsou zvýrazněny pastelovou barvou v~referen
 %% vložit věty se zvýrazněnými vylepšujícími \mbox{n-gramy}
 %% vložit věty se zvýrazněnými zhoršujícími \mbox{n-gramy}
 
-Kromě zvýraznění \mbox{n-gramů} lze zobrazit Diff mezi referenčním překladem a jedním z~porovnávaných překladů.
+Kromě zvýraznění \mbox{n-gramů} lze zobrazit diff mezi referenčním překladem a jedním z~porovnávaných překladů.
 Diff je zvýrazněn pomocí barevného podtržení jednotlivých slov,
   zelené podtržení znamená, že se podtržené slovo nachazí v~referenčním i porovnávaném překladu,
   a červené podtržení znamená, že se podtržené slovo nachází pouze v~jednom z~překladů.
@@ -181,17 +187,15 @@ Diff je zvýrazněn pomocí barevného podtržení jednotlivých slov,
 
 \subsubsection{Statistiky}
 V~záložce \textbf{Statistics} může uživatel nalézt porovnání všech spočtených metrik pro oba tasky.
-Zároveň s~tímto porovnáním se zde nachází i grafy s~rozdíly hodnot metrik na úrovni jednotlivých vět,
-  podle kterého si uživatel může udělat úsudek,
-  jak moc se jednotlivé překlady liší,
-  a který z~nich je lepší či horší.
+Zároveň s~tímto porovnáním se zde nachází i graf s~rozdíly hodnot metrik na úrovni jednotlivých vět,
+  který určuje rozdělení těchto rozdílů.
 Druhý graf, který se nachází na této záložce,
   je graf hodnot z~bootstrap resamplingu,
   na jehož základě je možné určit,
   který z~tasků je signifikantě lepší.
 %% vložit obrázek s výpisem statistik
 
-\subsubsection{Vylepšující a zhoršující \mbox{n-gramy}}
+\subsubsection{Zlepšující a zhoršující \mbox{n-gramy}}
 Na záložkách \textbf{Confirmed \mbox{n-grams}} a \textbf{Unconfirmed \mbox{n-grams}} jsou vypsány tabulky s~nejvíce zlepšujícími resp. zhoršujícími \mbox{n-gramy}.
 Kliknutím na některý z~\mbox{n-gramů} jsou zobrazeny věty,
   ve kterých se daný zlepšující resp. zhoršující \mbox{n-gram} nachází.

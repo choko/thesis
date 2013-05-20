@@ -5,10 +5,12 @@ Při zobrazování rozdílů dvou překladů mohou být zvýrazněna slova či s
   která byla přeložena správně (potvrzené \mbox{n-gramy)},
   nebo která zlepšila či zhoršila překlad.
 
-Druhou možností pro porovnávání překladů je zobrazení rozdílů porovnávaného překladu s~referencí.
-Pomocí této volby můžeme odhalit \mbox{n-gramy},
-  které se nacházejí na špatných pozicích ve větě,
-  což může být způsobeno špatným slovosledem v~překladu.
+Druhou možností pro porovnávání překladů je zobrazení rozdílů porovnávaného překladu s~referencí
+  anebo dvou překladů.
+Pomocí této volby můžeme odhalit větu,
+  která je složená ze samých potvrzených n-gramů a přesto se liší od reference,
+  protože \mbox{n-gramy} se nacházejí na špatných pozících ve větě,
+  což může být způsobeno špatným slovosledem v překladu.
 
 Při hledání potvrzených, zlepšujících \mbox{n-gramů}, zhoršujících \mbox{n-gramů} nebo zobrazování diffu můžeme narazit na několik problémů,
   které si vysvětlíme v~následující kapitole.
@@ -16,7 +18,7 @@ Při hledání potvrzených, zlepšujících \mbox{n-gramů}, zhoršujících \m
 \section{Hledání potvrzených \mbox{n-gramů}}
 Jelikož se ve větách mohou slova či tokeny libovolně opakovat,
   můžeme narazit na situaci,
-  kdy budeme mít více kandidátů na potvrzený \mbox{n-gram}.
+  kdy budeme mít více kandidátů na potvrzený \mbox{n-gram} (viz Obrázek \ref{img:graph-4}).
 Člověk snadno rozezná,
   který \mbox{n-gram} je potvrzený,
   ale v~dlouhých větách by to mohlo být časově náročné,
@@ -25,60 +27,14 @@ Jelikož se ve větách mohou slova či tokeny libovolně opakovat,
   které jsou s~největší pravděpodobností potvrzené \mbox{n-gramy}.
 
 Pro znázornění hledání potvrzených \mbox{n-gramů} je použit graf reprezentující porovnání dvou vět.
-Tento graf se používá i pro výpočtu diffu nebo LCS,
+Tento graf se používá i pro výpočtu diffu nebo LCS (nejdelší společná podposloupnost),
   které později budeme používat.
 Každá hrana v~tomto grafu odpovídá jednomu slovu z~porovnávaných vět.
 Horizontální čáry v~grafu reprezentují slova, která jsou v~překladu navíc oproti referenci. 
 Pro vertikální čáry to platí naopak, t.j. reprezentují slova, která jsou v~referenci navíc oproti překladu.
 Diagonální čáry reprezentují shodu mezi referencí a překladem.
-Kandidáty na potvrzený \mbox{n-gram} mohou být reprezentováni jako diagonální hrany v~grafu,
-  který představuje porovnání dvou vět.
-Ukázkový graf je možné vidět na Obrázku \ref{img:graph-1}.
-
-\begin{figure}[h!]
-	\centering
-	\begin{tikzpicture}
-	  \draw [ ultra thick ] (0,0)--(0,6)--(6,6)--(6,0)--(0,0);
-	  \draw (0,6)--(6,6) node [ midway, above ] { Překlad };
-	  \draw (0,0)--(0,6) node [ midway, above, rotate=90] { Reference };
-
-	  \draw (6,6)--(6,5) node [ midway, right ] { Jájo };
-	  \draw (6,5)--(6,4) node [ midway, right ] {,};
-	  \draw (6,4)--(6,3) node [ midway, right ] {já};
-	  \draw (6,3)--(6,2) node [ midway, right ] {mám};
-	  \draw (6,2)--(6,1) node [ midway, right ] {hlad};
-	  \draw (6,1)--(6,0) node [ midway, right ] {.};
-
-	  \draw (0,0)--(1,0) node [ midway, left, rotate=90] {Jájo};
-	  \draw (1,0)--(2,0) node [ midway, left, rotate=90] {,};
-	  \draw (2,0)--(3,0) node [ midway, left, rotate=90] {já};
-	  \draw (3,0)--(4,0) node [ midway, left, rotate=90] {jsem};
-	  \draw (4,0)--(5,0) node [ midway, left, rotate=90] {hladový};
-	  \draw (5,0)--(6,0) node [ midway, left, rotate=90] {.};
-
-	  \draw (0,1)--(6,1);
-	  \draw (0,2)--(6,2);
-	  \draw (0,3)--(6,3);
-	  \draw (0,4)--(6,4);
-	  \draw (0,5)--(6,5);
-	  \draw (0,6)--(6,6);
-	  \draw (1,0)--(1,6);
-	  \draw (2,0)--(2,6);
-	  \draw (3,0)--(3,6);
-	  \draw (4,0)--(4,6);
-	  \draw (5,0)--(5,6);
-
-	  \draw [thick] (0,6)--(3,3);
-	  \draw [thick] (5,1)--(6,0);
-	\end{tikzpicture}
-
-	\caption{
-		Ukázka grafu porovnání dvou vět. \\
-		\textbf{Reference}: Jájo, já mám hlad. \\
-		\textbf{Překlad}: Jájo, já jsem hladový.
-	}
-	\label{img:graph-1}
-\end{figure}
+Kandidáti na potvrzený \mbox{n-gram} mohou být reprezentováni jako diagonální hrany v~grafu,
+  který představuje porovnání dvou vět (viz Obrázek \ref{img:graph-2}).
 
 V~případě,
   že počet kandidátů na potvrzený \mbox{n-gram} je stejný jako počet potvrzených \mbox{n-gramů},
@@ -90,7 +46,7 @@ V~případě,
   je vždy použit první ještě nepoužitý kandidát.
 Všichni kandidáti na potvrzený \mbox{n-gram} jsou potvrzené \mbox{n-gramy},
   a tak je můžeme patřičně zvýraznit.
-Ve všech obrázcích budou potvrzené \mbox{n-gramy} zvýrazněny červenou barvou (to je možné vidět na Obrázku \ref{img:graph-2}).
+Ve všech obrázcích budou potvrzené \mbox{n-gramy} zvýrazněny červenou barvou (viz Obrázek \ref{img:graph-2}).
 
 \begin{figure}[h!]
 	\centering
@@ -138,70 +94,18 @@ Ve všech obrázcích budou potvrzené \mbox{n-gramy} zvýrazněny červenou bar
 \end{figure}
 
 Těžší situace nastane,
-  když je kandidátů na potvzený \mbox{n-gram} více než výskytů daného \mbox{n-gramů} v~referenci.
-Pro lepší představu je možné se podívat na Obrázek \ref{img:graph-3}.
-
-\begin{figure}[h!]
-	\centering
-	\begin{tikzpicture}
-	  \draw [ ultra thick ] (0,0)--(0,6)--(8,6)--(8,0)--(0,0);
-	  \draw (0,6)--(8,6) node [ midway, above ] { Překlad };
-	  \draw (0,0)--(0,6) node [ midway, above, rotate=90] { Reference };
-
-	  \draw (8,6)--(8,5) node [ midway, right ] { Jájo };
-	  \draw (8,5)--(8,4) node [ midway, right ] {,};
-	  \draw (8,4)--(8,3) node [ midway, right ] {já};
-	  \draw (8,3)--(8,2) node [ midway, right ] {mám};
-	  \draw (8,2)--(8,1) node [ midway, right ] {hlad};
-	  \draw (8,1)--(8,0) node [ midway, right ] {.};
-
-	  \draw (0,0)--(1,0) node [ midway, left, rotate=90] {Jájo};
-	  \draw (1,0)--(2,0) node [ midway, left, rotate=90] {,};
-	  \draw (2,0)--(3,0) node [ midway, left, rotate=90] {Jájo};
-	  \draw (3,0)--(4,0) node [ midway, left, rotate=90] {,};
-	  \draw (4,0)--(5,0) node [ midway, left, rotate=90] {já};
-	  \draw (5,0)--(6,0) node [ midway, left, rotate=90] {jsem};
-	  \draw (6,0)--(7,0) node [ midway, left, rotate=90] {hladový};
-	  \draw (7,0)--(8,0) node [ midway, left, rotate=90] {.};
-
-	  \draw (0,1)--(8,1);
-	  \draw (0,2)--(8,2);
-	  \draw (0,3)--(8,3);
-	  \draw (0,4)--(8,4);
-	  \draw (0,5)--(8,5);
-	  \draw (0,6)--(8,6);
-	  \draw (1,0)--(1,6);
-	  \draw (2,0)--(2,6);
-	  \draw (3,0)--(3,6);
-	  \draw (4,0)--(4,6);
-	  \draw (5,0)--(5,6);
-	  \draw (6,0)--(6,6);
-	  \draw (7,0)--(7,6);
-
-	  \draw [thick] (0,6)--(2,4);
-	  \draw [thick] (2,6)--(5,3);
-	  \draw [thick] (7,1)--(8,0);
-	\end{tikzpicture}
-
-	\caption{
-		Ukázka grafu s~referencí a překladem, ve kterém se nachází více kandidátů pro \mbox{n-gram} \uv{Jájo,}. \\
-		\textbf{Reference}: Jájo, já mám hlad. \\
-		\textbf{Překlad}: Jájo, Jájo, já jsem hladový.
-	}
-	\label{img:graph-3}
-\end{figure}
+  když je kandidátů na potvzený \mbox{n-gram} více než výskytů daného \mbox{n-gramů} v~referenci (viz Obrázek \ref{img:graph-4}).
 
 To je poměrně častý jev,
-  který je k~vidění např. u~předložek, spojek nebo interpunkce.
-V~takovéto situaci by měly být vybrány takoví kandidáti,
+  který je k~vidění např. u~častých slov, předložek, spojek nebo interpunkce.
+V~takovéto situaci by měli být vybráni takoví kandidáti,
   kteří se nacházejí v~nejdelších možných potvrzených \mbox{n-gramech}.
-K~hledaní kandidátů nacházejících se v~nejdelších potvrzených \mbox{n-gramech} je možné použít algoritmus pro hledání nejdelší společné podposloupnosti(LCS).
+K~hledaní kandidátů nacházejících se v~nejdelších potvrzených \mbox{n-gramech} je možné použít algoritmus pro hledání nejdelší společné podposloupnosti (LCS).
 Nejdelší společná podposloupnost leží na nejkratší monotónní cestě v~grafu,
   která vede z~levého horního do pravého dolního rohu.
 V~obrázku budeme znázorňovat tuto cestu zelenou barvou.
 Všichni kandidáti, kteří se nacházejí na této cestě,
-  vždy patří mezi potvrzené \mbox{n-gramy}.
-Výsledek použití algoritmu pro hledání nejdelší společné cesty je možné vidět na Obrázku \ref{img:graph-4}.
+  vždy patří mezi potvrzené \mbox{n-gramy} (viz Obrázek \ref{img:graph-4}).
 
 \begin{figure}[h!]
 	\centering
@@ -445,7 +349,7 @@ Výsledek použítí tohoto algoritmu je zachycen na Obrázku \ref{img:graph-6}.
 	\label{img:graph-6}
 \end{figure}
   
-Aby oba dva přístupy mohly být zkombinovány do jednoho algoritmu a
+Aby oba přístupy (hledání pomocí nejdelší společné podposloupnosti a hledání pomocí počítání skóre jednotlivých slov) mohly být zkombinovány do jednoho algoritmu (viz Algoritmus \ref{alg:confirmed}) a
   jednotlivé případy nemuseli být řešeny odděleně,
   byla přídána bonifikace pro tokeny,
   které se nacházejí v~nejdelší společné podposloupnosti reference a překladu.
@@ -453,6 +357,45 @@ Tyto tokeny budou mít vždy vyšší skóre než jejich konkurenti,
   a proto nemůže dojít k~situaci,
   že by token ležící v~nejdelší společené podposloupnosti nebyl částí potvrzeného \mbox{n-gramu}.
 Nalezení potvrzených \mbox{n-gramů} pak může být provedeno pouze pomocí počítání skóre.
+
+\newfloat{algorithm}{thp}{lop}
+\floatname{algorithm}{Algoritmus}
+
+\begin{algorithm}
+	\begin{verbatim}
+		CANDIDATES := find candidates n-grams for REFERENCE and TRANSLATION
+		LCS := find longest common subsequence of REFERENCE and TRANSLATION
+
+		set all CANDIDATES score to 0
+
+		foreach CANDIDATE in LCS do
+		    increase CANDIDATE's score
+		done
+
+
+		for LENGTH in 4..1 do
+		    foreach CANDIDATE in CANDIDATES with LENGTH do
+		        increase CANDIDATE's score
+		    done
+
+		    foreach CANDIDATE in CANDIDATES with LENGTH grouped by text do
+		        N = count CANDIDATE's occurences in REFERENCE
+		        CONFIRMED = get top N CANDIDATE by their score
+		        confirm CONFIRMED candidates
+		        
+		        foreach CANDIDATE that hasn't been confirmed do
+		            decrease CANDIDATE's score
+		        done
+		    done
+		done
+	\end{verbatim}
+	\caption{
+		Algoritmus ukazující kombinaci hledání potvrzených n-gramů pomocí nejdelší společné podposloupnosti
+		a hledání potvrzených n-gramů pomocí počítání skóre pro jednotlivá slova.
+	}
+	\label{alg:confirmed}
+\end{algorithm}
+
 
 
 Avšak i kombinace těchto dvou přístupů nemusí vždy fungovat.
@@ -470,10 +413,10 @@ V~praxi se ale tyto případy moc nevyskytují -
   proto by tento algoritmus měl ve většině případů fungovat dobře.
 
 
-\section{Počítání diffu mezi dvěma překlady}
+\section{Počítání diffu}
 Pro počítání diffu mezi dvěma překlady může být použit stejný algoritmus,
   který byl použit k~hledání nejdelší společné podposloupnosti dvou překladů.
-Diff je stejně jako nejdelší společná podposloupnost reprezentován nejkratší monotonní cestou vedoucí z~levého horního do pravého dolního rohu v~grafu porovnání reference a překladu.
+Diff je stejně jako nejdelší společná podposloupnost reprezentován nejkratší monotonní cestou vedoucí z~levého horního do pravého dolního rohu v~grafu porovnání dvou překladů.
 Změna je pouze v~tom, že horizontální hrany ležící na této cestě odpovídají tokenům,
   které byly navíc vloženy do překladu.
 V~diagramu budou označeny modrou barvou.
@@ -486,6 +429,8 @@ V~diagramu budou označeny zelenou barvou.
 Výsledek počítání diffu dvou vět ukazuje Obrázek \ref{img:graph-7}.
 Z~takto obarvené cesty může být zjištěn rozdíl mezi porovnávanými větami
   a na jeho základě může být zobrazen rozdíl ve webovém prostředí.
+
+Stejný algoritmus je možné použít i pro hledaní diffu mezi překladem a referencí.
 
 \begin{figure}[h!]
 	\centering
