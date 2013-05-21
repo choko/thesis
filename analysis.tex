@@ -39,9 +39,9 @@ V~nástroji \mbox{MT-ComparEval} jsou metriky počítány na úrovni celých tas
   (viz Obrázek \ref{img:compare_metrics_sentences}).
 
 Metriky vypočtené na úrovni jednotlivých vět slouží i k řazení vět ve webovém rozhraní.
-Věty jsou řazeny podle absolutního rozdílu hodnoty dané metriky u jednotlivých překladů.
-Čím výšší je tento rozdíl, tím došlo k většímu zlepšení při překladu dané věty.
-Proto lze věty řadit podle míry zlepšení, ke kterému překladu došlo během překladu dané věty. 
+Věty jsou řazeny podle absolutního rozdílu hodnoty dané metriky u~jednotlivých překladů.
+Čím vyšší je tento rozdíl, tím došlo k většímu zlepšení při~překladu dané věty.
+Proto lze věty řadit podle míry zlepšení, ke které došlo během překladu dané věty. 
 
 Z vypočítaných metrik lze vytvořit grafy,
   které lépe ilustrují rozdíl v kvalitě jednotlivých překladů.
@@ -79,17 +79,17 @@ Nástroj \mbox{MT-ComparEval} umožňuje procházet věty seřazené podle metri
   a hledat v~těchto větách rozdíly,
   které ovlivnily výsledné metriky.
 Aby uživatelé mohli snadněji vyhledat rozdíly mezi větami,
-  je možné zobrazit potvrzené \mbox{n-gramy} (\mbox{n-gramy}, které se nacházeji v~referenci i strojovém překladu),
+  je možné zobrazit potvrzené \mbox{n-gramy} (\mbox{n-gramy}, které se nachází v~referenci i strojovém překladu),
   zlepšující \mbox{n-gramy} (potvrzené \mbox{n-gramy}, které se nachází pouze v~jednom z~porovnávaných překladů)
   nebo zhoršující \mbox{n-gramy} (nepotvrzené \mbox{n-gramy}, které se nachází pouze v~jednom z~porovnávaných překladů).
 Na Obrázku \ref{img:compare_sentences} je vidět porovnání dvou překladů se zvýrazněnými \mbox{n-gramy}.
 
 Strojové překlady nemusí být porovnávány pouze na základě strojových metrik,
   další informací,
-  díky které je možné si udělat lepší představu o~vlastnostech strojového překladače,
+  díky které je možné si vytvořit lepší představu o~vlastnostech strojového překladače,
   jsou přehledy nejvíce zlepšujících a zhoršujících \mbox{n-gramů} v~jednotlivých překladech (viz Obrázek \ref{img:confirmed_ngrams}).
 
-Přehledy zlepšujících i zhoršujicích \mbox{n-gramů} mohou být použity k~filtrování vět,
+Přehledy zlepšujících i zhoršujících \mbox{n-gramů} mohou být použity k~filtrování vět,
   aby si uživatel mohl snadno prohlédnout věty,
   ve kterých se dané \mbox{n-gramy} nachází.
 Na Obrázku \ref{img:filtered_sentences} je vidět výpis vět obsahujících zlepšující \mbox{n-gram} ??.
@@ -134,7 +134,7 @@ V~\ref{chap:users}. kapitole je možné najít informace,
 \section{Rozšiřitelnost}
 Nástroj \mbox{MT-ComparEval} si neklade za cíl implementovat co nejvíce metrik,
   proto jsou v~něm předprogramovány pouze některé.
-Zárověň je však umožněno doprogramovat si vlastní metriky.
+Zároveň je však umožněno doprogramovat si vlastní metriky.
 
 O~tom, jak si uživatel může doprogramovat vlastní metriky nebo jak byl nástroj \mbox{MT-ComparEval} vyvinut,
   je možné se dočíst v~\ref{chap:programmers}. kapitole.

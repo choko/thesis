@@ -3,8 +3,7 @@
 
 
 \mbox{MT-ComparEval} slouží k~porovnávání a vyhodnocování strojových překladů.
-Hlavním požadavkem při vývoji aplikace bylo,
-  aby bylo možné jednoduše sputit aplikaci na vývojářově počítači.
+Hlavní požadavek při vývoji aplikace byl jednoduché spuštění aplikace na vývojářově počítači.
 Proto byly použity technologie,
   které jsou běžně dostupné na většině linuxových distribucí.
 Jako hlavní programovací jazyk byl použit jazyk PHP ve verzi 5.4 
@@ -29,7 +28,7 @@ Na frontendu byl použit javascript s~frameworkem AngularJS.\footnote{http://www
 \section{Import experimentů}
 Všechny experimenty, které jsou určeny k importu do nástroje \mbox{MT-ComparEval},
   jsou ukládány do adresáře \textbf{./data} v~kořenu aplikace.
-Pokud je do tohoto adresáře vložen nový nový experiment,
+Pokud je do tohoto adresáře vložen nový experiment,
   proces, který hlídá změny v tomto adresáři,
   spustí další proces, který tento experiment naimportuje.
 
@@ -44,12 +43,12 @@ Při importu experimentu jsou nahrány všechny zdrojové věty
 Po úspěšném importu je do adresáře s~experimentem přidán soubor \texttt{.imported},
   který označuje úspěšně importované experimenty.
 Tento soubor je důležitý proto,
-  aby nebyly importovány tasky v jeste neimportovaných experimentech.
-Zárověň  je tento soubor využit k~tomu,
+  aby nebyly importovány tasky v ještě neimportovaných experimentech.
+Zároveň  je tento soubor využit k~tomu,
   aby některý experiment nebyl importován vícekrát.
 
 Při importu experimentů může dojít k~různým chybám,
-  které mohl způsobit uživatele i nástroj \mbox{MT-ComparEval}.
+  které mohl způsobit uživatel i nástroj \mbox{MT-ComparEval}.
 V~případě, že dojde k nějaké chybě,
   je do adresáře s~experimentem přidán soubor \texttt{.notimported}.
 Tento soubor označuje neúspěšně importované experimenty, 
@@ -88,12 +87,12 @@ Mezi tyto hodnoty patří:
 \end{itemize}
 
 \subsection{Načtení a předzpracování vět}
-Aby při importu tasků nemuseli být do paměti nahrávány celé soubory s překladem,
+Aby při importu tasků nemusely být do paměti nahrávány celé soubory s překladem,
   používá nástroj \mbox{MT-ComparEval} iterátory,
   pomocí kterých je možné načítat a upravovat jednotlivé věty ze souboru.
 Pomocí iterátorů je také implementováno předzpracování vět.\footnote{Je použita obdoba funkce \texttt{map} z funkcionálních jazyků}
 Během předzpracování vět jsou všechny věty tokenizovány (všechna slova jsou oddělena mezerou) a
-také vypočteny všechny potvrzené a nepotvrzené n-gramy,
+také vypočteny všechny potvrzené a nepotvrzené \mbox{n-gramy},
   které budou dále použity při zpracování vět.
 
 \subsection{Zpracování vět}
@@ -103,9 +102,9 @@ Metriky jsou počítány vždy v~páru -- \mbox{case-sensitive} a \mbox{case-ins
 Překladače totiž nemusí správně překládat velká písmena
   a pomocí \mbox{case-insensitive} metrik nelze tento problém odhalit.
 Nástroj \mbox{MT-ComparEval} také umožňuje implementaci vlastních metrik.
-O tom jak je možné implementovat vlastní metriku pojednává Kapitola \ref{chap:own-metrics}.
+O tom, jak je možné implementovat vlastní metriku, pojednává Kapitola \ref{chap:own-metrics}.
 
-Před samotným uložením výpočítaných metrik do databáze,
+Před samotným uložením vypočítaných metrik do databáze,
   jsou dopočítány poslední informace,
   které také budou použity na frontendu.
 Mezi tyto informace patří hodnoty vzorků z párového bootstrap resamplingu (viz Kapitola~\ref{chap:bootstrap-resampling})
@@ -143,8 +142,8 @@ Pro takto vygenerované vzorky vět jsou spočteny všechny metriky a
 \subsection{Hledání nejvíce zlepšujících a zhoršujících \mbox{n-gramů}}
 \label{chap:improving-worsening}
 Jelikož zlepšujících \mbox{n-gramů} se v překladech může nacházet velké množství,
-  je třeba, aby nejvíce zlepšující n-gramy byly předpočítány.
-Při importu tasku jsou proto předpočítány nejvíce zlepšující \mbox{n-gramy} pro porovnání daného tasku se všemi ostátními tasky,
+  je třeba, aby nejvíce zlepšující \mbox{n-gramy} byly předpočítány.
+Při importu tasku jsou proto předpočítány nejvíce zlepšující \mbox{n-gramy} pro porovnání daného tasku se všemi ostatními tasky,
   které se nacházejí ve stejném experimentu.
 Algoritmus pro hledání nejvíce zlepšujících \mbox{n-gramů} připomíná algoritmus mergesort (viz Algoritmus \ref{alg:improving}).
 Pomocí obdobného postupu se také hledají nejvíce zhoršující \mbox{n-gramy}.
@@ -191,9 +190,9 @@ Pomocí obdobného postupu se také hledají nejvíce zhoršující \mbox{n-gram
 
 
 %% TODO dodelat vypnuti predpocitani tasku
-Protože předpočítání nejvíce zlepšujících/zhoršujících n-gramů pro všechny tasky může být časově náročné,
+Protože předpočítání nejvíce zlepšujících/zhoršujících \mbox{n-gramů} pro všechny tasky může být časově náročné,
   je možné toto předpočítání v~konfiguraci jednotlivých tasků vypnout.
-V~porovnání dvou tasků pak nebudou předpočítané ihned \mbox{n-gramy} k~dispozici
+V~porovnání dvou tasků pak nebudou předpočítané \mbox{n-gramy} ihned k~dispozici
   a budou se muset při prvním požadavku dopočítat. 
 
 \subsection{Logování importů}
@@ -216,7 +215,7 @@ Pomocí API navíc mohou být získávána pouze data,
   která v~danou chvíli frontend potřebuje.
 To znamená, že se nemusí načítat všechny věty naráz,
   ale mohou být načítány postupně,
-  s~tím jak si je uživatel prohlíží.
+  s~tím, jak si je uživatel prohlíží.
 Stejně tak nemusí být stahována všechna data pro grafy,
   ale stačí stáhnout data pouze pro právě vybranou metriku.
 
@@ -239,22 +238,22 @@ Na frontendu se nacházejí tři typy stránek:
   \item porovnání dvou tasků.
 \end{itemize}
 
-Na frontendu dochází k výpisu dat, která byl předpočítána během importu jednotlivých tasků.
-Pouze pozice potvrzených n-gramů a diff se počítají až při zobrazení jednotlivých vět.
+Na frontendu dochází k výpisu dat, která byla předpočítána během importu jednotlivých tasků.
+Pouze pozice potvrzených \mbox{n-gramů} a diff se počítají až při zobrazení jednotlivých vět.
 Algoritmus, pomocí kterého se hledají pozice potvrzených \mbox{n-gramů}, byl vysvětlen v Kapitole \ref{chap:compare}.
-Způsob jakým jsou potvrzené \mbox{n-gramy} zobrazeny je popsán v následující části.
+Způsob, jakým jsou potvrzené \mbox{n-gramy} zobrazeny, je popsán v následující části.
 
 \subsection{Zobrazení potvrzených \mbox{n-gramů} a diffu pomocí CSS}
 Pro správné zobrazení potvrzených \mbox{n-gramů} a diffu je třeba,
-  aby bylo možné u každému tokenu určit,
+  aby bylo možné u každého tokenu určit,
   zda se nachází v~nějakém potvrzeném \mbox{n-gramu} nebo se jedná o nepotvrzený \mbox{n-gram}.
 Také je důležité,
   aby jednotlivá zvýraznění bylo možné libovolně kombinovat.
 Technicky tento problém byl vyřešen pomocí CSS tříd,
   kdy každému tokenu byly přiřazeny třídy v~závislosti na informacích,
-  které byly vypočítány pomocí při importu tasků.
+  které byly vypočítány při importu tasků.
 Jednotlivé kombinace lze zapnout přiřazením příslušné třídy kořenovému elementu,
-  v~kterém se nacházejí všechny věty.
+  ve~kterém se nacházejí všechny věty.
 
 \section{Implementace vlastních metrik}
 \label{chap:own-metrics}
@@ -288,15 +287,15 @@ Toto rozhraní umožňuje vypočítat metriku na úrovni celého dokumentu nebo 
 	
 	\item \texttt{addSentence(\$reference, \$translation, \$meta)} \\
 		Metoda \texttt{addSentence} slouží k předání informací o právě zpracovávané větě.
-		Zároveň s tím i vrací hodnou metriky pro danou větu.
-		Paremetr \texttt{\$reference} obsahuje text reference, 
+		Zároveň ihned s tím i vrací hodnotu metriky pro danou větu.
+		Parametr \texttt{\$reference} obsahuje text reference, 
                   parametr \texttt{\$translation} obsahuje text překladu a
                   parametr \texttt{\$meta} obsahuje metainformace o větě,
                   které byly předpočítány během importu vět.
-                Mezi tyto metainformace patří např. výčet potvrzených a nepotvrzených n-gramů,
-                  počet potvrzených n-gramů i počet n-gramů v překladu.
+                Mezi tyto metainformace patří např. výčet potvrzených a nepotvrzených \mbox{n-gramů},
+                  počet potvrzených \mbox{n-gramů} i počet \mbox{n-gramů} v překladu.
 		Tyto metainformace pak jsou použity např. při výpočtu BLEU,
-		  aby se nemuseli při každém počítání metriky počítat znovu.
+		  aby se nemusely při každém počítání metriky počítat znovu.
 
 	\item \texttt{getScore()}
 		Metoda \texttt{getScore} vrací výslednou hodnotu metriky pro celý dokument.
@@ -309,7 +308,7 @@ Registrace nové metriky se skládá ze dvou kroků.
 \begin{itemize}
 	\item \textbf{uložení jména nové metriky do tabulky \texttt{metrics}} \\
 		Nejprve je nutné vymyslet jméno pro novou metriku a toto jméno uložit do tabulky \texttt{metrics}. 
-		Jelikož jsou všechny metriky počítáný \mbox{case-sensitive} i \mbox{case-insensitive},
+		Jelikož jsou všechny metriky počítány \mbox{case-sensitive} i \mbox{case-insensitive},
 		  je třeba do tabulky \texttt{metrics} vložit i jméno pro \mbox{case-insensitive} hodnotu. 
 		Ta je určena sufixem \texttt{-cis}.
 

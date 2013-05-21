@@ -2,13 +2,13 @@
 \label{chap:compare}
 
 Při zobrazování rozdílů dvou překladů mohou být zvýrazněna slova či slovní spojení,
-  která byla přeložena správně (potvrzené \mbox{n-gramy)},
+  která byla přeložena správně (potvrzené \mbox{n-gramy}),
   nebo která zlepšila či zhoršila překlad.
 
 Druhou možností pro porovnávání překladů je zobrazení rozdílů porovnávaného překladu s~referencí
   anebo dvou překladů.
 Pomocí této volby můžeme odhalit větu,
-  která je složená ze samých potvrzených n-gramů a přesto se liší od reference,
+  která je složená ze samých potvrzených \mbox{n-gramů} a přesto se liší od reference,
   protože \mbox{n-gramy} se nacházejí na špatných pozících ve větě,
   což může být způsobeno špatným slovosledem v překladu.
 
@@ -18,17 +18,17 @@ Při hledání potvrzených, zlepšujících \mbox{n-gramů}, zhoršujících \m
 \section{Hledání potvrzených \mbox{n-gramů}}
 Jelikož se ve větách mohou slova či tokeny libovolně opakovat,
   můžeme narazit na situaci,
-  kdy budeme mít více kandidátů na potvrzený \mbox{n-gram} (viz Obrázek \ref{img:graph-4}).
+  kdy se v dané věte bude nacházet více kandidátů na potvrzený \mbox{n-gram} (viz Obrázek \ref{img:graph-4}).
 Člověk snadno rozezná,
   který \mbox{n-gram} je potvrzený,
-  ale v~dlouhých větách by to mohlo být časově náročné,
-  proto jsme chtěli najít algoritmus,
+  ale v~dlouhých větách by to mohlo být časově náročné.
+Jedním z cílů této bakalářské práce bylo najít algoritmus,
   který by ze všech kandidátů na potvrzený \mbox{n-gram} našel ty,
   které jsou s~největší pravděpodobností potvrzené \mbox{n-gramy}.
 
 Pro znázornění hledání potvrzených \mbox{n-gramů} je použit graf reprezentující porovnání dvou vět.
 Tento graf se používá i pro výpočtu diffu nebo LCS (nejdelší společná podposloupnost),
-  které později budeme používat.
+  které budou později použity.
 Každá hrana v~tomto grafu odpovídá jednomu slovu z~porovnávaných vět.
 Horizontální čáry v~grafu reprezentují slova, která jsou v~překladu navíc oproti referenci. 
 Pro vertikální čáry to platí naopak, t.j. reprezentují slova, která jsou v~referenci navíc oproti překladu.
@@ -45,7 +45,7 @@ V~případě,
   že se nějaký potvrzený \mbox{n-gram} vyskytuje vícekrát,
   je vždy použit první ještě nepoužitý kandidát.
 Všichni kandidáti na potvrzený \mbox{n-gram} jsou potvrzené \mbox{n-gramy},
-  a tak je můžeme patřičně zvýraznit.
+  a tak mohou být patřičně zvýrazněny.
 Ve všech obrázcích budou potvrzené \mbox{n-gramy} zvýrazněny červenou barvou (viz Obrázek \ref{img:graph-2}).
 
 \begin{figure}[h!]
@@ -103,7 +103,7 @@ V~takovéto situaci by měli být vybráni takoví kandidáti,
 K~hledaní kandidátů nacházejících se v~nejdelších potvrzených \mbox{n-gramech} je možné použít algoritmus pro hledání nejdelší společné podposloupnosti (LCS).
 Nejdelší společná podposloupnost leží na nejkratší monotónní cestě v~grafu,
   která vede z~levého horního do pravého dolního rohu.
-V~obrázku budeme znázorňovat tuto cestu zelenou barvou.
+V~obrázku bude tato cesta znázorněna zelenou barvou.
 Všichni kandidáti, kteří se nacházejí na této cestě,
   vždy patří mezi potvrzené \mbox{n-gramy} (viz Obrázek \ref{img:graph-4}).
 
@@ -152,7 +152,7 @@ Všichni kandidáti, kteří se nacházejí na této cestě,
 		  \draw [ultra thick, blue] (5,3)--(5,1)--(7,1);
 	\end{tikzpicture}
 
-	\caption{Ukázka grafu s~referencí a překladem, ve kterém se nachází více kandidátů pro \mbox{n-gram} \uv{Jájo,}.
+	\caption{Ukázka grafu s~referencí a překladem, ve kterém se vyskytuje více kandidátů pro \mbox{n-gram} \uv{Jájo,}.
 		Zde je už zvýrazněna nejdelší společná podposloupnost, pomocí které je možné určit potvrzené \mbox{n-gramy}. \\
 		\textbf{Reference}: Jájo, já mám hlad.\\
 		\textbf{Překlad}: Jájo, Jájo, já jsem hladový.
@@ -253,10 +253,10 @@ I~tato situace může nastat poměrně často,
 
 
 Při vymýšlení algoritmu pro řešení této situace byl použit stejný předpoklad jako v~minulém případě.
-To je, že z~kadidátů potvrzených \mbox{n-gramů} budou vybráni vždy ti kandidáti,
+To znamená, že z~kadidátů potvrzených \mbox{n-gramů} budou vybráni vždy ti kandidáti,
   kteří se nacházejí uvnitř nejdelších potvrzených \mbox{n-gramů}.
 Každý token v~překladu může být ohodnocen pomocí skóre,
-  které určuje v~kolika kandidátech potvrzených \mbox{n-gramů} a již potvrzených \mbox{n-gramech} se daný token nachází.
+  které určuje, v~kolika kandidátech potvrzených \mbox{n-gramů} a již potvrzených \mbox{n-gramech} se daný token nachází.
 Z~kadidátů na potvrzený \mbox{n-gram} pak jsou vybráni ti,
   kteří mají největší skóre celého \mbox{n-gramu},
   které se spočítá jako součet skóre tokenů v~\mbox{n-gramu}.
@@ -350,15 +350,15 @@ Výsledek použítí tohoto algoritmu je zachycen na Obrázku \ref{img:graph-6}.
 \end{figure}
   
 Aby oba přístupy (hledání pomocí nejdelší společné podposloupnosti a hledání pomocí počítání skóre jednotlivých slov) mohly být zkombinovány do jednoho algoritmu (viz Algoritmus \ref{alg:confirmed}) a
-  jednotlivé případy nemuseli být řešeny odděleně,
-  byla přídána bonifikace pro tokeny,
+  jednotlivé případy nemusely být řešeny odděleně,
+  byla přidána bonifikace pro tokeny,
   které se nacházejí v~nejdelší společné podposloupnosti reference a překladu.
 Tyto tokeny budou mít vždy vyšší skóre než jejich konkurenti,
   a proto nemůže dojít k~situaci,
   že by token ležící v~nejdelší společené podposloupnosti nebyl částí potvrzeného \mbox{n-gramu}.
 Nalezení potvrzených \mbox{n-gramů}\footnote{
   Ve skutečnosti tento algoritmus hledá pouze pozice potvrzených \mbox{1-gramů}.
-  Hledání pozic potvrzených \mbox{n-gramů} různých délek je složitější úkol, protože potvrzené n-gramy se mohou překrývat (viz Obrázek \ref{img:graph-6}),
+  Hledání pozic potvrzených \mbox{n-gramů} různých délek je složitější úkol, protože potvrzené \mbox{n-gramy} se mohou překrývat (viz Obrázek \ref{img:graph-6}),
   a proto se v nástroji \mbox{MT-ComparEval} nachází pouze aproximace hledání pozic potvrzených \mbox{n-gramů} pomocí hledání pozic potvrzených \mbox{1-gramů}.
   }
   pak může být provedeno pouze pomocí počítání skóre.
@@ -396,8 +396,8 @@ Nalezení potvrzených \mbox{n-gramů}\footnote{
 		done
 	\end{verbatim}
 	\caption{
-		Algoritmus ukazující kombinaci hledání potvrzených n-gramů pomocí nejdelší společné podposloupnosti
-		a hledání potvrzených n-gramů pomocí počítání skóre pro jednotlivá slova.
+		Algoritmus ukazující kombinaci hledání potvrzených \mbox{n-gramů} pomocí nejdelší společné podposloupnosti
+		a hledání potvrzených \mbox{n-gramů} pomocí počítání skóre pro jednotlivá slova.
 	}
 	\label{alg:confirmed}
 \end{algorithm}

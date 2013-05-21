@@ -42,6 +42,7 @@
 \usepackage{tikz}
 \usepackage{caption}
 \usepackage{float}
+\usepackage{array}
 
 %% Balíček hyperref, kterým jdou vyrábět klikací odkazy v PDF,
 %% ale hlavně ho používáme k uložení metadat do PDF (včetně obsahu).
@@ -205,7 +206,7 @@ Mezi ně patří porovnání podle metrik strojových překladů počítaných p
   porovnání kvality překladů jednotlivých vět pomocí zvýraznění potvrzených, zlepšujících nebo zhoršujících \mbox{n-gramů}
   nebo podle souhrnu nejvíce zlepšujících či zhoršujících \mbox{n-gramů} v~celém dokumentu.
 Při porovnávání dvou různých překladů nástroj \mbox{MT-ComparEval} také vykresluje graf s~absolutními rozdíly metrik počítaných pro jednotlivé věty a
-  graf s~hodnotami z~párového bootstrap resamplingu.
+  graf s~hodnotami z~párového \mbox{bootstrap} resamplingu.
 
 Klíčová slova:
 porovnání strojových překladů, vyhodnocování strojových překladačů, metriky strojových překladů
@@ -232,7 +233,7 @@ Mgr. Martin Popel
 % mimo MFF UK v angličtině
 
 Abstract:
-This bachelor thesis is about development of a tool for comparison and evaluation of machine translation called \mbox{MT-ComparEval}.
+This bachelor thesis is about development of a tool for comparison and evaluation of machine \mbox{translation} called \mbox{MT-ComparEval}.
 With this tool it is possible to compare translations according to several criteria,
   such as evaluation by metrics of machine translations computed on whole documents or single sentences,
   quality comparison of single sentence translation with highlighting confirmed,

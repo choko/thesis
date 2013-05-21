@@ -16,9 +16,7 @@ Jelikož chceme,
   aby uživatel nemusel používat webserver Apache nebo jiné webservery,
   musí si uživatel před každým spuštěním aplikace zapnout lokální server pomocí skriptu \textbf{./bin/server.sh},
   který spustí aplikaci na adrese \textbf{http://localhost:8080}.
-Poslední věc,
-  kterou je třeba při spouštění aplikace udělat, je,
-  aby uživatel spustil program,
+Poslední krok spočívá ve spuštění programu,
   který kontroluje nově přidané experimenty a tasky.
 Ten se spustí pomocí skriptu \textbf{./bin/watcher.sh}.
 Pro celkové zjednodušení spouštění aplikace byl přidán skript,
@@ -86,21 +84,18 @@ Musí však smazat soubor \textbf{./data/experiment/.notimported},
 
 
 \section{Import tasků}
-Překlad,
-  který cheme importovat k~porovnání v~rámci experimentu,
-  v~nástroji \mbox{MT-ComparEval} nazýváme task.
-Tasky nahráváme jako podadresáře v~adresáři experimentu,
-  s~jehož referenčním překladem chceme daný překlad porovnat.
-Jediný soubor, který musíme do tohoto podadresáře nahrát je \textbf{translation.txt},
+Tasky jsou nahrávány jako podadresáře v~adresáři experimentu,
+  s~jehož referenčním překladem má být daný překlad porovnán.
+Jediný soubor, který musí být do tohoto podadresáře nahrán je soubor \textbf{translation.txt},
   v~kterém budou všechny přeložené věty.
 Opět je nutné, aby soubor s přeloženými větami měl stejný počet řádků jako soubor s referenčním překladem.
-Jméno tasku je stejné jako jméno podadresáře.
+Výchozí jméno tasku je stejné jako jméno podadresáře, v kterém se nachází.
 
 \subsection{Konfigurace tasku}
-Stejně jako je možné konfigurovat experiment je možné konfigurovat i task.
+Stejně jako je možné konfigurovat experiment, je možné konfigurovat i task.
 Task má konfigurovatelné jméno (name), popisek (description),
   relativní cestu k~souboru s překladem (translation) a volbu,
-  zda chceme předpočítávat zlepšující a zhoršující \mbox{n-gramy} (precompute\_ngrams).
+  zda mají být předpočítány zlepšující a zhoršující \mbox{n-gramy} (precompute\_ngrams).
 U~všech tasků, pokud uživatel neřekne jinak, 
   jsou tyto \mbox{n-gramy} předpočítány.
 Konfigurace tasku může vypadat například takto:
@@ -113,8 +108,8 @@ precompute_ngrams: false
 \end{verbatim}
 
 Záznam o~průběhu importu je uložen v~adresáři tasku v~soboru \textbf{import.log},
-  pomocí něhož můžeme odhalit případné problémy při importu
-  a následně je odstranit stejným způsobem jako tomu bylo při importu experimentu.
+  pomocí něhož mohou být odhaleny případné problémy při importu
+  a následně mohou být odstraněny stejným způsobem jako tomu bylo při importu experimentů.
 
 V~obou konfiguračních souborech není nutné konfigurovat všechny položky.
 Pokud bude některá položka vynechána,
@@ -124,7 +119,7 @@ Pokud bude některá položka vynechána,
 Porovnávání tasků je realizováno pomocí webové aplikace,
   která při zapnutém lokálním serveru běží na adrese \textbf{localhost:8080}.
 Uživatel si nejprve musí zvolit experiment,
-  jehož tasky chce porovnávat a následně si z~těchto tasků vybere dva k~porovnání.
+  jehož tasky chce porovnávat, a následně si z~těchto tasků vybere dva k~porovnání.
 %% vložit obrázek s výpisem experimentu
 %% vlozit obrázek s výpisem tasku
 
@@ -135,7 +130,7 @@ V~případě,
 \subsection{Porovnávání tasků}
 K~porovnání dvou tasků je možné přistoupit z~několika pohledů.
 Každému pohledu odpovídá jedna záložka v~horním menu stránky s~porovnáním.
-Kvalitu překladu tasku je možné posuzovat na základě překladu jednotlivých vět,
+Kvalitu překladu tasků je možné posuzovat na základě překladu jednotlivých vět,
   vypočtených metrik nebo nalezených zlepšujících resp. zhoršujících \mbox{n-gramů}.
 Při porovnávání si uživatel může zvolit metriku,
   podle níž se bude řídit výpis vět nebo grafů metrik.

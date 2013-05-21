@@ -3,7 +3,7 @@
 \section{Současný stav aplikace}
 Nástroj \mbox{MT-ComparEval} je v~současné době plně funkční.
 Umožňuje spravovat experimenty a jejich tasky.
-Tasky je možné porovnávat na základě různých kriterií -
+Tasky je možné porovnávat na základě různých kritérií -
   hodnot metrik strojového překladu,
   porovnání jednotlivých vět
   či přehledu nejvíce zlepšujících a zhoršujících \mbox{n-gramů}.
@@ -33,8 +33,7 @@ I~přes to, že metrika BLEU silně odpovídá lidskému hodnocení překladů,
   nemusí být vždy považována za nejvhodnější pro jejich vyhodnocování.
 Některé strojové překladače jsou speciálně optimalizovány na metriku BLEU,
   což ale v~konečném výsledku nemusí dávat zcela vhodné překlady.
-Proto by bylo dalším vhodným rozšířením,
-  vyhodnocování strojových překladačů na základě několika metrik.
+Proto by bylo dalším vhodným rozšířením vyhodnocování strojových překladačů na základě několika metrik.
 Mezi metriky,
   které by bylo možné a vhodné do nástroje \mbox{MT-ComparEval} doprogramovat,
   patří např. NIST, METEOR, PORT,~\dots
@@ -42,7 +41,7 @@ Mezi metriky,
 \subsection{Zobrazení alignmentu}
 Při porovnávání dvou překladů jedné věty je velmi užitečná funkce pro zvýraznění slov,
   které odpovídají danému slovu v~referenci či dalším strojovém překladu -- word alignment (zarovnání slov).
-Díky této funkci je pak snadnější analyzovat chovaní strojových překladačů.
+Díky této funkci je pak snadnější analyzovat chování strojových překladačů.
 
 Na Obrázku \ref{img:alignment} je ukázáno, jak zvýrazňuje aligment překladač Google Translate.
 \begin{figure}
@@ -67,7 +66,7 @@ Tento skript je celosvětově používaný,
   že je metrika BLEU v~\mbox{MT-ComparEval} počítána správně.
 
 V~současné době už existuje verze mteval-13a.pl,
-  v~které mimo jiné přibyla možnost počítat metriky pro jednotlivé segmenty v~překladu.
+  ve~které mimo jiné přibyla možnost počítat metriky pro jednotlivé segmenty v~překladu.
 
 \subsection{iBLEU}
 Nástroj iBLEU umožňuje vyhodnocovat a porovnávat strojové překlady.
@@ -119,7 +118,7 @@ Pro \mbox{n-gramy} také počítá precision a recall.
 
 Ve webovém prostředí je také možné vyhledávat věty,
   ve kterých byl použit zvolený \mbox{n-gram}.
-Jednotlivá užití \mbox{n-gramů} jsou pak rozřazena do skupin podle správnosti překladu (viz Obrázek \ref{img:ems-word}).
+Jednotlivá užití \mbox{n-gramů} jsou pak rozřazena do skupin podle správnosti překladu (viz Obrázek \ref{img:ems-word}),
   ve kterých bylo použito slovo ??.
 
 \begin{figure}
@@ -127,7 +126,7 @@ Jednotlivá užití \mbox{n-gramů} jsou pak rozřazena do skupin podle správno
   \label{img:ems-word}
 \end{figure}
 
-Další věcí, kterou můžeme použít při porovnávání dvou překladů,
+Další informace, které můžeme použít při porovnávání dvou překladů,
   jsou grafy správně přeložených vs. špatně přeložených slov.
 Takové grafy je možné vidět na Obrázku \ref{img:ems-charts}.
 
@@ -150,14 +149,13 @@ Bohužel bylo hodně času věnováno odhalování chyb,
   způsobených tím,
   že SQLite 3 zamyká zvláštním způsobem datový soubor,
   a proto není možné používat databázi v~dalších procesech.
-Při normálním použití na webu se s~touto chybou nepotkáme,
+Při normálním použití na webu se tato chyba nevyskytuje,
   protože procesy databázi používají pouze během zpracování HTTP požadavku.
 Avšak při použití dlouho trvajících procesů pro import experimentů a tasků
   vždy docházelo ke kolizím při přístupu k~databázi,
   které vyústily v~pád importu.
 Proto musel být návrh importu zcela přepracován a nyní by měl fungovat podle představ.
 Nyní už import funguje správně a neměl by při něm nastat výše zmíněný problém.
-
 
 V~duchu TDD\footnote{Test-Driven-Development}
   jsem se snažil před vlastní implementací napsat testy pomocí nástroje Behat.\footnote{http://www.behat.org}
