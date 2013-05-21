@@ -1,7 +1,7 @@
 \chapter{Závěr}
 
 \section{Současný stav aplikace}
-Nástroj MT-ComparEval je v~současné době plně funkční.
+Nástroj \mbox{MT-ComparEval} je v~současné době plně funkční.
 Umožňuje spravovat experimenty a jejich tasky.
 Tasky je možné porovnávat na základě různých kriterií -
   hodnot metrik strojového překladu,
@@ -13,12 +13,12 @@ Při porovnání překladů jedné věty je možné si nechat zvýraznit
 
 
 \section{Nápady na vylepšení}
-I~přes to, že nástroj MT-ComparEval umožňuje porovnávat dvě různé verze překladů,
+I~přes to, že nástroj \mbox{MT-ComparEval} umožňuje porovnávat dvě různé verze překladů,
   existuje mnoho způsobů,
   jak by tento nástroj šlo vylepšit.
 
 \subsection{Podpora více referencí}
-Při vyhodnocování strojových překladů a počítání metrik používá nástroj MT-ComparEval pouze porovnání s~jednou referencí.
+Při vyhodnocování strojových překladů a počítání metrik používá nástroj \mbox{MT-ComparEval} pouze porovnání s~jednou referencí.
 Protože většina vět může být přeložena různými způsoby,
   může nastat situace,
   kdy daný překlad neodpovídá zvolené referenci.
@@ -36,7 +36,7 @@ Některé strojové překladače jsou speciálně optimalizovány na metriku BLE
 Proto by bylo dalším vhodným rozšířením,
   vyhodnocování strojových překladačů na základě několika metrik.
 Mezi metriky,
-  které by bylo možné a vhodné do nástroje MT-ComparEval doprogramovat,
+  které by bylo možné a vhodné do nástroje \mbox{MT-ComparEval} doprogramovat,
   patří např. NIST, METEOR, PORT,~\dots
 
 \subsection{Zobrazení alignmentu}
@@ -53,7 +53,7 @@ Na Obrázku \ref{img:alignment} je ukázáno, jak zvýrazňuje aligment překlad
 \end{figure}
 
 \section{Podobné aplikace}
-Vývoj nástroje MT-ComparEval byl v~určitých oblastech inspirován nástroji,
+Vývoj nástroje \mbox{MT-ComparEval} byl v~určitých oblastech inspirován nástroji,
   které už jsou volně dostupné.
 Z~těchto nástrojů byly vybrány nejdůležitější vlastnosti,
   které byly sloučeny do jednoho funkčního celku.
@@ -64,7 +64,7 @@ Je skript napsaný v~jazyce Perl,
   který umožňuje počítat metriky BLEU a NIST.
 Tento skript je celosvětově používaný,
   a proto byl použit pro kontrolu,
-  že je metrika BLEU v~MT-ComparEval počítána správně.
+  že je metrika BLEU v~\mbox{MT-ComparEval} počítána správně.
 
 V~současné době už existuje verze mteval-13a.pl,
   v~které mimo jiné přibyla možnost počítat metriky pro jednotlivé segmenty v~překladu.
@@ -90,7 +90,7 @@ V~případě, že uživatel porovnává dva strojové překlady,
 
 Tento nástroj je možné používat lokálně jako webovou aplikaci bez použití webového serveru,
   protože je celý napsán v~HTML 5, CSS a javascriptu.
-Stejně jako MT-ComparEval i iBLEU používá pro počítání BLEU jako referenční implementaci mteval-13a.pl.
+Stejně jako \mbox{MT-ComparEval} i iBLEU používá pro počítání BLEU jako referenční implementaci mteval-13a.pl.
 
 Na Obrázku \ref{img:ibleu} je možné vidět porování dvou překladů v~nástroji iBLEU.
 \begin{figure}
@@ -140,10 +140,10 @@ Webové prostředí nástroje EMS nabízí i další možnosti porovnání přek
   o~kterých je možné se více dozvědět v~dokumentaci tohoto nástroje.
 
 \section{Problémy při řešení}
-Při vývoji nástroje MT-ComparEval jsem narazil na mnoho problémů.
+Při vývoji nástroje \mbox{MT-ComparEval} jsem narazil na mnoho problémů.
 Ať už se jednalo o~volbu jazyka, frameworku či databáze.
 
-Aby bylo možné snadno nainstalovat nástroj MT-ComparEval na vybraném počítači,
+Aby bylo možné snadno nainstalovat nástroj \mbox{MT-ComparEval} na vybraném počítači,
   byla jako databáze zvolena databáze SQLite 3.
 Ta vyhovuje většině požadavků.
 Bohužel bylo hodně času věnováno odhalování chyb,

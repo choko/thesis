@@ -356,7 +356,13 @@ Aby oba přístupy (hledání pomocí nejdelší společné podposloupnosti a hl
 Tyto tokeny budou mít vždy vyšší skóre než jejich konkurenti,
   a proto nemůže dojít k~situaci,
   že by token ležící v~nejdelší společené podposloupnosti nebyl částí potvrzeného \mbox{n-gramu}.
-Nalezení potvrzených \mbox{n-gramů} pak může být provedeno pouze pomocí počítání skóre.
+Nalezení potvrzených \mbox{n-gramů}\footnote{
+  Ve skutečnosti tento algoritmus hledá pouze pozice potvrzených \mbox{1-gramů}.
+  Hledání pozic potvrzených \mbox{n-gramů} různých délek je složitější úkol, protože potvrzené n-gramy se mohou překrývat (viz Obrázek \ref{img:graph-6}),
+  a proto se v nástroji \mbox{MT-ComparEval} nachází pouze aproximace hledání pozic potvrzených \mbox{n-gramů} pomocí hledání pozic potvrzených \mbox{1-gramů}.
+  }
+  pak může být provedeno pouze pomocí počítání skóre.
+
 
 \newfloat{algorithm}{thp}{lop}
 \floatname{algorithm}{Algoritmus}
@@ -426,7 +432,7 @@ V~diagramu budou označeny červenou barvou.
 Diagonální hrany ležící na výše definované cestě reprezentují tokeny,
   které se nacházejí i v~referenci i v~překladu.
 V~diagramu budou označeny zelenou barvou.
-Výsledek počítání diffu dvou vět ukazuje Obrázek \ref{img:graph-7}.
+Výsledek počítání diffu dvou vět ukazuje Obrázek \ref{img:graph-diff}.
 Z~takto obarvené cesty může být zjištěn rozdíl mezi porovnávanými větami
   a na jeho základě může být zobrazen rozdíl ve webovém prostředí.
 
@@ -484,5 +490,5 @@ Stejný algoritmus je možné použít i pro hledaní diffu mezi překladem a re
 		\textbf{Reference}: Jájo, já mám hlad.\\
 		\textbf{Překlad}: Jájo, Jájo, já jsem hladový.
 	}
-	\label{img:graph-4}
+	\label{img:graph-diff}
 \end{figure}

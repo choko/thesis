@@ -1,5 +1,5 @@
 \chapter{Návrh aplikace}
-MT-ComparEval slouží k~porovnávání a vyhodnocování strojových překladů.
+\mbox{MT-ComparEval} slouží k~porovnávání a vyhodnocování strojových překladů.
 Hlavním požadavkem při vývoji aplikace bylo,
   aby bylo možné jednoduše sputit aplikaci na vývojářově počítači.
 Proto byly použity technologie,
@@ -17,7 +17,7 @@ Pokud by měla aplikace zpracovávat velké množství překladů,
 Na frontendu byl použit javascript s~frameworkem AngularJS.
 
 
-MT-ComparEval je webová aplikace skládající se ze tří částí:
+\mbox{MT-ComparEval} je webová aplikace skládající se ze tří částí:
 
 \begin{itemize}
 	\item serverové části pro import jednotlivých překladů
@@ -26,7 +26,7 @@ MT-ComparEval je webová aplikace skládající se ze tří částí:
 \end{itemize}
 
 \section{Import překladů}
-Aplikace MT-ComparEval byla navržena tak,
+Aplikace \mbox{MT-ComparEval} byla navržena tak,
   aby ji bylo možné snadno zasadit do vývojového procesu strojových překladů.
 Nepředpokládali jsme,
   že by si uživatel manuálně nahrával jednotlivé překlady k~porovnání.
@@ -78,7 +78,7 @@ Zárověň tento zámek využijeme k~tomu,
 
 %% TODO zamek pro neuspesne importy
 Při importu experimentů může dojít k~různým chybám -
-  ať už na straně uživatele nebo na straně MT-ComparEval.
+  ať už na straně uživatele nebo na straně \mbox{MT-ComparEval}.
 V~případě, že nějaká chyba nastane,
   je do adresáře s~experimentem přidán soubor,
   který nám označí,
@@ -87,7 +87,7 @@ V~případě, že nějaká chyba nastane,
 Když uživatel opraví chybu,
   která způsobila neúspěch importu,
   může tento soubor odstranit
-  a MT-ComparEval se pokusí daný experiment znovu naimportovat.
+  a \mbox{MT-ComparEval} se pokusí daný experiment znovu naimportovat.
 
 \subsection{Import tasků}
 Tasky, které chceme naimportovat do naší aplikace,
@@ -126,7 +126,7 @@ S~takto získanými tokeny můžeme počítat libovolné metriky,
 
 Dalším krokem při předzpracování je získaní všech n-gramů z~referenčního a strojového překladu.
 N-gramem rozumíme posloupnout n po sobě jdoucích slov.
-V~nástroji MT-ComparEval počítáme pouze s~n-gramy délky 1-4,
+V~nástroji \mbox{MT-ComparEval} počítáme pouze s~n-gramy délky 1-4,
   tudíž při předzpracování hledáme pouze n-gramy těchto délek. 
 
 Z~n-gramů ze strojového překladu najdeme potvrzené n-gramy
@@ -194,7 +194,7 @@ Náhodné vzorky počítáme pro všechny dostupné metriky,
 
 
 \subsubsection{Hledání nejvíce zlepšujících/zhoršujících n-gramů}
-Nástroj MT-ComparEval nabízí i výpis nejvíce zlepšujících resp. nejvíce zhoršujících n-gramů.
+Nástroj \mbox{MT-ComparEval} nabízí i výpis nejvíce zlepšujících resp. nejvíce zhoršujících n-gramů.
 Ty získáme tak, že vezmeme všechny potvrzené resp. nepotvrzené n-gramy
   a uděláme rozdíl obou porovnávaných překladů.
 N-gramy,
@@ -391,7 +391,7 @@ Dobrý obrázek o~zlepšení / zhoršení překladu si můžeme udělat,
   když se podíváme,
   v~kterých n-gramech se dané překlady nejvíce liší,
   ať už se jedná o~zlepšující n-gramy nebo n-gramy zhoršující.
-Nástroj MT-ComparEval vypisuje seznam zlepšujících resp. zhoršujících n-gramů seskupených podle délky,
+Nástroj \mbox{MT-ComparEval} vypisuje seznam zlepšujících resp. zhoršujících n-gramů seskupených podle délky,
   pomocí něhož můžeme filtrovat věty a prohlížet si pouze ty,
   v~kterých se daný zlepšující resp. zhoršující n-gram nachází.
 Vybraný n-gram je následně ve všech větách zvýrazněn,
