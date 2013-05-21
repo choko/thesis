@@ -31,8 +31,8 @@ Proto je třeba,
 
 \section{BLEU}
 Nejvíce používanou metrikou pro vyhodnocování překladů je metrika BLEU.
-Hlavní důvod spočívá v tom,
-  že koreluje s lidským hodnocením překladu
+Hlavní důvod spočívá v~tom,
+  že koreluje s~lidským hodnocením překladu
   a je možné ji rychle spočítat.
 Rychlost výpočtu metrik je pro vývojáře překladových systémů velmi důležitá,
   protože vývojáři potřebují každou změnu v~systému otestovat,
@@ -43,12 +43,12 @@ Při počítání metriky BLEU počítá \textbf{modified precision} \mbox{n-gra
   která říká,
   kolik procent \mbox{n-gramů} z~vyhodnocovaného překladu se nachází i v~referenčním překladu.	
 Výpočet modified precision \mbox{n-gramů} se liší od běžného výpočtu precision tím,
-  že je místo počtu kandidátů potvrzených \mbox{n-gramů} použit počet potvrzených \mbox{n-gramů} (viz definice v \ref{chap:motivation}.~Kapitole).
+  že je místo počtu kandidátů potvrzených \mbox{n-gramů} použit počet potvrzených \mbox{n-gramů} (viz definice v~\ref{chap:motivation}.~Kapitole).
 
 $$ \text{MODIFIED PRECISION} = \frac{\lvert \lbrace \text{potvrzené \mbox{n-gramy}} \rbrace \rvert }{ \lvert \lbrace \text{ \mbox{n-gramy} ze strojového překladu } \rbrace \rvert } $$
 
 Tímto způsobem je možné spočítat modified precision pro libovolné délky \mbox{n-gramů}.
-Avšak při výpočtu metriky BLEU se počítá pouze s \mbox{1-gramy}, \mbox{2-gramy}, \mbox{3-gramy} a \mbox{4-gramy}.
+Avšak při výpočtu metriky BLEU se počítá pouze s~\mbox{1-gramy}, \mbox{2-gramy}, \mbox{3-gramy} a \mbox{4-gramy}.
 Modified precision pro jednotlivé délky \mbox{n-gramů} jsou pak zkombinovány pomocí geometrického průměru.
 
 Aby bylo zaručeno,
@@ -57,13 +57,13 @@ Aby bylo zaručeno,
   která zhoršuje skóre větám, které jsou kratší než reference.
 Věty, které jsou delší než reference,
   nemusí být takto postihovány,
-  protože postih za rozdíl v délkach vět je již zahrnut ve výpočtu modified precision.
+  protože postih za rozdíl v~délkach vět je již zahrnut ve výpočtu modified precision.
 
 $$
 \text{BP} = \left\{
 	\begin{array}{l l l}
-		1 & \quad \text{r $\leq$ t} & \text{r je počet slov v referenci} \\
-		e^{(1-r/t)} & \quad \text{r $>$ t} & \text{t je počet slov v překladu}
+		1 & \quad \text{r $\leq$ t} & \text{r je počet slov v~referenci} \\
+		e^{(1-r/t)} & \quad \text{r $>$ t} & \text{t je počet slov v~překladu}
 	\end{array}
 \right.
 $$
@@ -91,17 +91,17 @@ Skript mteval-13a.pl,\footnote{ftp://jaguar.ncsl.nist.gov/mt/resources/mteval-v1
   vytvořený americkým Národním institutem pro standardizaci a technologie NIST,\footnote{http://www.nist.gov}
   používá jiný způsob vyhlazování.
 Místo přičítání +1 ke všem \mbox{n-gramům} má speciální vzoreček pro počítání precision u~chybějících potvrzených \mbox{n-gramů}.
-Nástroj mteval-13a.pl nalezne nejmenší možné číslo k takové,
+Nástroj mteval-13a.pl nalezne nejmenší možné číslo k~takové,
   že věta, pro kterou je počítáno BLEU,
   neobsahuje žádný potvrzený \mbox{n-gram} délky k.
 Pak je modified precision počítána dvěma způsoby.
-U \mbox{n-gramů} délky menší než k je použit běžný vzoreček pro výpočet modified precision a
-  u \mbox{n-gramů} délky větší nebo rovné k je pro výpočet modified precision použit následující vzoreček:
+U~\mbox{n-gramů} délky menší než k~je použit běžný vzoreček pro výpočet modified precision a
+  u~\mbox{n-gramů} délky větší nebo rovné k~je pro výpočet modified precision použit následující vzoreček:
 
 $$ \text{MODIFIED PRECISION} = \frac{1}{2^{n-k+1} \cdot \lvert \lbrace \text{ \mbox{n-gramy} ze strojového překladu } \rbrace \rvert }$$
 
 Rozdíl obou metrik je možné demonstrovat na větě obsahující 4 slova,
-  v níž se nachází jeden potvrzený \mbox{2-gram}
+  v~níž se nachází jeden potvrzený \mbox{2-gram}
   (z~čehož plyne, že obsahuje i dva potvrzené \mbox{1-gramy}).
 
 \begin{tabular}{| l | c | c || c | c |}
@@ -125,16 +125,16 @@ To, že se způsoby vyhlazování liší,
   ničemu nevadí,
   protože obě metriky ve většině případů dokáží rozpoznat lepší překlad od horšího.
 
-V nástroji \mbox{MT-ComparEval} bylo pro výpočet metriky BLEU u jednotlivých vět použito vyhlazování BLEU${}_S$,
-  u výpočtu metriky BLEU pro celé dokumenty se v nástroji \mbox{MT-ComparEval} vyhlazování nepoužívá.
+V~nástroji \mbox{MT-ComparEval} bylo pro výpočet metriky BLEU u~jednotlivých vět použito vyhlazování BLEU${}_S$,
+  u~výpočtu metriky BLEU pro celé dokumenty se v~nástroji \mbox{MT-ComparEval} vyhlazování nepoužívá.
 Ale pro zjednodušení uživatelského rozhraní jsou obě dvě metriky nazvány BLEU.
 
 \section{Potvrzené \mbox{n-gramy}}
-Další metrikou, kterou lze použít k řazení vět, je celkový počet potvrzených \mbox{n-gramů}.
+Další metrikou, kterou lze použít k~řazení vět, je celkový počet potvrzených \mbox{n-gramů}.
 Problémem této metriky je, 
   že v~delších větách může být více potvrzených \mbox{n-gramů}.
 Dlouhé věty se tedy mohou ve webovém rozhraní nacházet před kratšími větami,
-  i když u kratších vět je rozdíl BLEU${}_S$ větší než u dlouhých vět.
+  i když u~kratších vět je rozdíl BLEU${}_S$ větší než u~dlouhých vět.
 
 \section{Recall}
 Při výpočtu BLEU se počítá modified precision \mbox{n-gramů} ze strojového překladu.
@@ -163,20 +163,20 @@ $$ \text{F-MEASURE} = \sqrt[4]{ \prod_{i=1}^{4} \left( 2 \cdot \frac{\text{MODIF
 \section{Rozdělení rozdílů hodnot metrik ve větách}
 Ve webovém rozhraní nástroje \mbox{MT-ComparEval} se nachází graf,
   který znázorňuje rozdělení (distribuci) rozdílů hodnot metrik ve větách porovnávaných systémů.
-Z tohoto grafu je patrné, kolik překladů vět bylo zlepšeno a jak moc byl daný překlad zlepšen (označeno zelenou barvou v Obrázku \ref{img:chart-metrics-sentences}).
-To samé lze z tohoto grafu zjistit pro věty, jejichž překlad byl zhoršen (označeno červeně).
+Z~tohoto grafu je patrné, kolik překladů vět bylo zlepšeno a jak moc byl daný překlad zlepšen (označeno zelenou barvou v~Obrázku \ref{img:chart-metrics-sentences}).
+To samé lze z~tohoto grafu zjistit pro věty, jejichž překlad byl zhoršen (označeno červeně).
 
 \section{Párový bootstrap resampling}
 Pokud se při porovnání hodnoty metrik spočtených na celých dokumentech příliš neliší,
-  není možné tvrdit, že překlad s vyšším skóre je automaticky lepší.
-Aby bylo možné spolehlivě prohlásit, že překlad s vyšším skóre je lepší než překlad s nižším skóre,
+  není možné tvrdit, že překlad s~vyšším skóre je automaticky lepší.
+Aby bylo možné spolehlivě prohlásit, že překlad s~vyšším skóre je lepší než překlad s~nižším skóre,
   je nutné ověřit, že rozdíl mezi těmito hodnotami je signifikantní.
-K tomuto účelu se používá metoda \textbf{Paired bootstrap resampling}, %% citace
-  při které jsou vytvořeny \uv{nové} vzorky náhodným výběrem vět (s opakováním) z překladu.
-Pro každý takto získaný vzorek je spočtena metrika a z těchto výsledků je vybrán 95\% interval spolehlivosti.
-Z tohoto intervalu spolehlivosti lze určit, jestli je daný překlad signifikantně lepší, signifikantně horší nebo není signifikatně ani lepší ani horší.
+K~tomuto účelu se používá metoda \textbf{Paired bootstrap resampling}, %% citace
+  při které jsou vytvořeny \uv{nové} vzorky náhodným výběrem vět (s~opakováním) z~překladu.
+Pro každý takto získaný vzorek je spočtena metrika a z~těchto výsledků je vybrán 95\% interval spolehlivosti.
+Z~tohoto intervalu spolehlivosti lze určit, jestli je daný překlad signifikantně lepší, signifikantně horší nebo není signifikatně ani lepší ani horší.
 
-V nástroji \mbox{MT-ComparEval} se nachází i graf, který zobrazuje výsledky rozdílů metrik získaných během paired bootstrap resamplingu.
+V~nástroji \mbox{MT-ComparEval} se nachází i graf, který zobrazuje výsledky rozdílů metrik získaných během paired bootstrap resamplingu.
 
 
 

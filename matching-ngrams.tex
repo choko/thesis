@@ -10,7 +10,7 @@ Druhou možností pro porovnávání překladů je zobrazení rozdílů porovná
 Pomocí této volby můžeme odhalit větu,
   která je složená ze samých potvrzených \mbox{n-gramů} a přesto se liší od reference,
   protože \mbox{n-gramy} se nacházejí na špatných pozících ve větě,
-  což může být způsobeno špatným slovosledem v překladu.
+  což může být způsobeno špatným slovosledem v~překladu.
 
 Při hledání potvrzených, zlepšujících \mbox{n-gramů}, zhoršujících \mbox{n-gramů} nebo zobrazování diffu můžeme narazit na několik problémů,
   které si vysvětlíme v~následující kapitole.
@@ -18,11 +18,11 @@ Při hledání potvrzených, zlepšujících \mbox{n-gramů}, zhoršujících \m
 \section{Hledání potvrzených \mbox{n-gramů}}
 Jelikož se ve větách mohou slova či tokeny libovolně opakovat,
   můžeme narazit na situaci,
-  kdy se v dané věte bude nacházet více kandidátů na potvrzený \mbox{n-gram} (viz Obrázek \ref{img:graph-4}).
+  kdy se v~dané věte bude nacházet více kandidátů na potvrzený \mbox{n-gram} (viz Obrázek \ref{img:graph-4}).
 Člověk snadno rozezná,
   který \mbox{n-gram} je potvrzený,
   ale v~dlouhých větách by to mohlo být časově náročné.
-Jedním z cílů této bakalářské práce bylo najít algoritmus,
+Jedním z~cílů této bakalářské práce bylo najít algoritmus,
   který by ze všech kandidátů na potvrzený \mbox{n-gram} našel ty,
   které jsou s~největší pravděpodobností potvrzené \mbox{n-gramy}.
 
@@ -359,7 +359,7 @@ Tyto tokeny budou mít vždy vyšší skóre než jejich konkurenti,
 Nalezení potvrzených \mbox{n-gramů}\footnote{
   Ve skutečnosti tento algoritmus hledá pouze pozice potvrzených \mbox{1-gramů}.
   Hledání pozic potvrzených \mbox{n-gramů} různých délek je složitější úkol, protože potvrzené \mbox{n-gramy} se mohou překrývat (viz Obrázek \ref{img:graph-6}),
-  a proto se v nástroji \mbox{MT-ComparEval} nachází pouze aproximace hledání pozic potvrzených \mbox{n-gramů} pomocí hledání pozic potvrzených \mbox{1-gramů}.
+  a proto se v~nástroji \mbox{MT-ComparEval} nachází pouze aproximace hledání pozic potvrzených \mbox{n-gramů} pomocí hledání pozic potvrzených \mbox{1-gramů}.
   }
   pak může být provedeno pouze pomocí počítání skóre.
 

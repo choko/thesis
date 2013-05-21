@@ -26,16 +26,16 @@ Na frontendu byl použit javascript s~frameworkem AngularJS.\footnote{http://www
 \end{itemize}
 
 \section{Import experimentů}
-Všechny experimenty, které jsou určeny k importu do nástroje \mbox{MT-ComparEval},
+Všechny experimenty, které jsou určeny k~importu do nástroje \mbox{MT-ComparEval},
   jsou ukládány do adresáře \textbf{./data} v~kořenu aplikace.
 Pokud je do tohoto adresáře vložen nový experiment,
-  proces, který hlídá změny v tomto adresáři,
+  proces, který hlídá změny v~tomto adresáři,
   spustí další proces, který tento experiment naimportuje.
 
 Při importu experimentu jsou nahrány všechny zdrojové věty
   a referenční překlady \footnote{
 	V~současné době je možné mít pouze jeden referenční překlad v~experimentu,
-	protože ve veřejně dostupných datech ze soutěží WMT je k dispozici pouze jeden. }
+	protože ve veřejně dostupných datech ze soutěží WMT je k~dispozici pouze jeden. }
   do databáze,
   aby je bylo možné později použít při importu tasků
   nebo zobrazování výsledků.
@@ -43,13 +43,13 @@ Při importu experimentu jsou nahrány všechny zdrojové věty
 Po úspěšném importu je do adresáře s~experimentem přidán soubor \texttt{.imported},
   který označuje úspěšně importované experimenty.
 Tento soubor je důležitý proto,
-  aby nebyly importovány tasky v ještě neimportovaných experimentech.
+  aby nebyly importovány tasky v~ještě neimportovaných experimentech.
 Zároveň  je tento soubor využit k~tomu,
   aby některý experiment nebyl importován vícekrát.
 
 Při importu experimentů může dojít k~různým chybám,
   které mohl způsobit uživatel i nástroj \mbox{MT-ComparEval}.
-V~případě, že dojde k nějaké chybě,
+V~případě, že dojde k~nějaké chybě,
   je do adresáře s~experimentem přidán soubor \texttt{.notimported}.
 Tento soubor označuje neúspěšně importované experimenty, 
   které nemají být znovu importovány.
@@ -60,10 +60,10 @@ Když uživatel opraví chybu,
 
 
 \section{Import tasků}
-Tasky, které jsou určeny k importu do nástroje \mbox{MT-ComparEval},
+Tasky, které jsou určeny k~importu do nástroje \mbox{MT-ComparEval},
   jsou uloženy do adresářů experimentů,
   ke kterým daný task patří.
-Změny v těchto adresářích hlídá stejný proces,
+Změny v~těchto adresářích hlídá stejný proces,
   který hledá nové experimenty.
 Pokud nalezne nový task,
   spustí další proces,
@@ -87,10 +87,10 @@ Mezi tyto hodnoty patří:
 \end{itemize}
 
 \subsection{Načtení a předzpracování vět}
-Aby při importu tasků nemusely být do paměti nahrávány celé soubory s překladem,
+Aby při importu tasků nemusely být do paměti nahrávány celé soubory s~překladem,
   používá nástroj \mbox{MT-ComparEval} iterátory,
   pomocí kterých je možné načítat a upravovat jednotlivé věty ze souboru.
-Pomocí iterátorů je také implementováno předzpracování vět.\footnote{Je použita obdoba funkce \texttt{map} z funkcionálních jazyků}
+Pomocí iterátorů je také implementováno předzpracování vět.\footnote{Je použita obdoba funkce \texttt{map} z~funkcionálních jazyků}
 Během předzpracování vět jsou všechny věty tokenizovány (všechna slova jsou oddělena mezerou) a
 také vypočteny všechny potvrzené a nepotvrzené \mbox{n-gramy},
   které budou dále použity při zpracování vět.
@@ -102,18 +102,18 @@ Metriky jsou počítány vždy v~páru -- \mbox{case-sensitive} a \mbox{case-ins
 Překladače totiž nemusí správně překládat velká písmena
   a pomocí \mbox{case-insensitive} metrik nelze tento problém odhalit.
 Nástroj \mbox{MT-ComparEval} také umožňuje implementaci vlastních metrik.
-O tom, jak je možné implementovat vlastní metriku, pojednává Kapitola \ref{chap:own-metrics}.
+O~tom, jak je možné implementovat vlastní metriku, pojednává Kapitola \ref{chap:own-metrics}.
 
 Před samotným uložením vypočítaných metrik do databáze,
   jsou dopočítány poslední informace,
   které také budou použity na frontendu.
-Mezi tyto informace patří hodnoty vzorků z párového bootstrap resamplingu (viz Kapitola~\ref{chap:bootstrap-resampling})
+Mezi tyto informace patří hodnoty vzorků z~párového bootstrap resamplingu (viz Kapitola~\ref{chap:bootstrap-resampling})
   a nejvíce zlepšující a zhoršující \mbox{n-gramy} (viz Kapitola \ref{chap:improving-worsening}).
 
 \subsection{Uložení vypočtených hodnot do databáze}
 Hodnoty vypočtené při vyhodnocování tasku jsou na závěr uloženy do databáze.
-Celý proces ukládání probíhá v jedné transakci,
-  což zabezpečí, že v případě, kdy dojde k chybě při importu, nebudou zobrazena na frontendu.
+Celý proces ukládání probíhá v~jedné transakci,
+  což zabezpečí, že v~případě, kdy dojde k~chybě při importu, nebudou zobrazena na frontendu.
 Celý proces ukládání do databáze je také díky zabalení do transakce mnohem rychlejší,
   než kdyby se data ukládala mimo transakci.
 Schéma databáze, do kterého jsou předpočítaná data uložena, je vidět na Obrázku \ref{img:schema}.
@@ -137,11 +137,11 @@ Proto jsou pro každý experiment náhodně zafixována čísla vět,
 	při generování vzorků stačí nastavit vždy stejné jadérko pro generátor náhodných čísel.
   }
 Pro takto vygenerované vzorky vět jsou spočteny všechny metriky a
-  z jejich výsledků je na frontendu vykreslen graf.
+  z~jejich výsledků je na frontendu vykreslen graf.
 
 \subsection{Hledání nejvíce zlepšujících a zhoršujících \mbox{n-gramů}}
 \label{chap:improving-worsening}
-Jelikož zlepšujících \mbox{n-gramů} se v překladech může nacházet velké množství,
+Jelikož zlepšujících \mbox{n-gramů} se v~překladech může nacházet velké množství,
   je třeba, aby nejvíce zlepšující \mbox{n-gramy} byly předpočítány.
 Při importu tasku jsou proto předpočítány nejvíce zlepšující \mbox{n-gramy} pro porovnání daného tasku se všemi ostatními tasky,
   které se nacházejí ve stejném experimentu.
@@ -183,7 +183,7 @@ Pomocí obdobného postupu se také hledají nejvíce zhoršující \mbox{n-gram
 		choose top 10 improving n-grams for TASK_B
 	\end{verbatim}
 
-	\caption{Algoritmus pro nalezení 10 nejvíce zlepšujících \mbox{n-gramů} v porovnávaných tascích}
+	\caption{Algoritmus pro nalezení 10 nejvíce zlepšujících \mbox{n-gramů} v~porovnávaných tascích}
 	\label{alg:improving}
 \end{algorithm}
 
@@ -220,7 +220,7 @@ Stejně tak nemusí být stahována všechna data pro grafy,
   ale stačí stáhnout data pouze pro právě vybranou metriku.
 
 Pomocí API je možné získat většinu dat pro porovnání dvou překladů,
-  ať už se jedná o dostupné metriky,
+  ať už se jedná o~dostupné metriky,
   data pro vykreslení grafů právě vybrané metriky,
   nejvíce zlepšující a zhoršující \mbox{n-gramy}
   nebo věty,
@@ -238,15 +238,15 @@ Na frontendu se nacházejí tři typy stránek:
   \item porovnání dvou tasků.
 \end{itemize}
 
-Na frontendu dochází k výpisu dat, která byla předpočítána během importu jednotlivých tasků.
+Na frontendu dochází k~výpisu dat, která byla předpočítána během importu jednotlivých tasků.
 Pouze pozice potvrzených \mbox{n-gramů} a diff se počítají až při zobrazení jednotlivých vět.
-Algoritmus, pomocí kterého se hledají pozice potvrzených \mbox{n-gramů}, byl vysvětlen v Kapitole \ref{chap:compare}.
-Způsob, jakým jsou potvrzené \mbox{n-gramy} zobrazeny, je popsán v následující části.
+Algoritmus, pomocí kterého se hledají pozice potvrzených \mbox{n-gramů}, byl vysvětlen v~Kapitole \ref{chap:compare}.
+Způsob, jakým jsou potvrzené \mbox{n-gramy} zobrazeny, je popsán v~následující části.
 
 \subsection{Zobrazení potvrzených \mbox{n-gramů} a diffu pomocí CSS}
 Pro správné zobrazení potvrzených \mbox{n-gramů} a diffu je třeba,
-  aby bylo možné u každého tokenu určit,
-  zda se nachází v~nějakém potvrzeném \mbox{n-gramu} nebo se jedná o nepotvrzený \mbox{n-gram}.
+  aby bylo možné u~každého tokenu určit,
+  zda se nachází v~nějakém potvrzeném \mbox{n-gramu} nebo se jedná o~nepotvrzený \mbox{n-gram}.
 Také je důležité,
   aby jednotlivá zvýraznění bylo možné libovolně kombinovat.
 Technicky tento problém byl vyřešen pomocí CSS tříd,
@@ -262,7 +262,7 @@ Nástroj \mbox{MT-ComparEval} umožňuje doprogramování vlastních metrik stro
 Stačí pouze doprogramovat implementaci rozhraní \textbf{IMetrics} a
   zaregistrovat ji jako novou metriku.
 
-Jednotlivé kroky budou v následující části podrobně rozebrány.
+Jednotlivé kroky budou v~následující části podrobně rozebrány.
 
 \subsection{Rozhraní IMetrics}
 \begin{verbatim}
@@ -278,7 +278,7 @@ Toto rozhraní umožňuje vypočítat metriku na úrovni celého dokumentu nebo 
 
 \begin{itemize}
 	\item \texttt{init()} \\
-		Metoda \texttt{init} slouží k inicializaci metriky před začátkem výpočtu.	
+		Metoda \texttt{init} slouží k~inicializaci metriky před začátkem výpočtu.	
 		Jelikož jsou instance jednotlivých metrik znovupoužívány,
 		  je třeba,
 		  aby byly před každým výpočtem znovu inicializovány,
@@ -286,14 +286,14 @@ Toto rozhraní umožňuje vypočítat metriku na úrovni celého dokumentu nebo 
 
 	
 	\item \texttt{addSentence(\$reference, \$translation, \$meta)} \\
-		Metoda \texttt{addSentence} slouží k předání informací o právě zpracovávané větě.
-		Zároveň ihned s tím i vrací hodnotu metriky pro danou větu.
+		Metoda \texttt{addSentence} slouží k~předání informací o~právě zpracovávané větě.
+		Zároveň ihned s~tím i vrací hodnotu metriky pro danou větu.
 		Parametr \texttt{\$reference} obsahuje text reference, 
                   parametr \texttt{\$translation} obsahuje text překladu a
-                  parametr \texttt{\$meta} obsahuje metainformace o větě,
+                  parametr \texttt{\$meta} obsahuje metainformace o~větě,
                   které byly předpočítány během importu vět.
                 Mezi tyto metainformace patří např. výčet potvrzených a nepotvrzených \mbox{n-gramů},
-                  počet potvrzených \mbox{n-gramů} i počet \mbox{n-gramů} v překladu.
+                  počet potvrzených \mbox{n-gramů} i počet \mbox{n-gramů} v~překladu.
 		Tyto metainformace pak jsou použity např. při výpočtu BLEU,
 		  aby se nemusely při každém počítání metriky počítat znovu.
 
@@ -319,7 +319,7 @@ Registrace nové metriky se skládá ze dvou kroků.
 			sqlite> INSERT INTO metrics (name) VALUES ('bleu-cis');
 		\end{verbatim}
 
-	\item \textbf{zaregistrování nové metriky v konfiguraci aplikace} \\
+	\item \textbf{zaregistrování nové metriky v~konfiguraci aplikace} \\
 		Framework Nette používá ke konfiguraci aplikací konfigurační soubory ve formátu neon.\footnote{
 			Pro pochopení konfigurace je třeba přečíst http://doc.nette.org/cs/configuring\#toc-vlastni-sluzby
 		}

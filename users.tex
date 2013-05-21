@@ -40,7 +40,7 @@ U~všech souborů s~větami se předpokladá,
   že každá věta či souvětí je na vlastním řádku
   a je zachováno pořadí vět.
 To znamená, že první řádek v~souboru se zdrojovým textem je přeložen na prvním řádku souboru s~referenčním a strojovým překladem,
-  druhý řádek v~souboru se zdrojovým textem odpovídá druhému řádku v souboru s referencí atd..
+  druhý řádek v~souboru se zdrojovým textem odpovídá druhému řádku v~souboru s~referencí atd..
 Pro správný běh aplikace je nutné, aby soubory se zdrojovým textem a referenčním překladem měly stejný počet řádků.
 Pokud nebudou mít stejný počet řádků, experiment nebude importován.
 Jako jméno experimentu je použito jméno adresáře.
@@ -88,13 +88,13 @@ Tasky jsou nahrávány jako podadresáře v~adresáři experimentu,
   s~jehož referenčním překladem má být daný překlad porovnán.
 Jediný soubor, který musí být do tohoto podadresáře nahrán je soubor \textbf{translation.txt},
   v~kterém budou všechny přeložené věty.
-Opět je nutné, aby soubor s přeloženými větami měl stejný počet řádků jako soubor s referenčním překladem.
-Výchozí jméno tasku je stejné jako jméno podadresáře, v kterém se nachází.
+Opět je nutné, aby soubor s~přeloženými větami měl stejný počet řádků jako soubor s~referenčním překladem.
+Výchozí jméno tasku je stejné jako jméno podadresáře, v~kterém se nachází.
 
 \subsection{Konfigurace tasku}
 Stejně jako je možné konfigurovat experiment, je možné konfigurovat i task.
 Task má konfigurovatelné jméno (name), popisek (description),
-  relativní cestu k~souboru s překladem (translation) a volbu,
+  relativní cestu k~souboru s~překladem (translation) a volbu,
   zda mají být předpočítány zlepšující a zhoršující \mbox{n-gramy} (precompute\_ngrams).
 U~všech tasků, pokud uživatel neřekne jinak, 
   jsou tyto \mbox{n-gramy} předpočítány.
@@ -139,7 +139,7 @@ Změnou metriky se tak mění pořadí vět,
   a grafem s~hodnotami z~párového bootstrap resamplingu.
 Ve výchozím nastavení se věty zobrazují od nejvíce zlepšujících po nejvíce zhoršující,
   ale toto pořadí lze stejně jako metrika snadno změnit.\footnote{
-    Míra zlepšení daného překladu je určena rozdílem aktivní metriky u porovnávaných překladů.
+    Míra zlepšení daného překladu je určena rozdílem aktivní metriky u~porovnávaných překladů.
   }
 
 V~případě potřeby je možné přímo v~porovnání měnit jaké tasky se mají porovnávat,

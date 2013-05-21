@@ -35,13 +35,13 @@ Proto budou všechny tyto termíny v~této části vysvětleny,
   aby pozdější výklad byl jasný a nemuselo se odbíhat od tématu.
 
 Posloupnost n po sobě jdoucích slov\footnote{
-  V této práci se za slova považují i interpunkční znaménka, a \textbf{slovo} tedy znamená totéž co \textbf{token}.}
+  V~této práci se za slova považují i interpunkční znaménka, a \textbf{slovo} tedy znamená totéž co \textbf{token}.}
   se nazývá \textbf{\mbox{n-gram}}.
 N-gramy,
   které se nacházejí i v~referenci i ve strojovém překladu,
   se v~rámci nástroje \mbox{MT-ComparEval} nazývají \textbf{kandidáti potvrzených \mbox{n-gramů}}.
-Z těchto kandidátů je možné vybrat \textbf{potvrzené \mbox{n-gramy}}.
-Ty jsou vybrány z kandidátů potvrzených \mbox{n-gramů} tak,
+Z~těchto kandidátů je možné vybrat \textbf{potvrzené \mbox{n-gramy}}.
+Ty jsou vybrány z~kandidátů potvrzených \mbox{n-gramů} tak,
   aby počet výskytů daného potvrzeného \mbox{n-gramu} nebyl větší než počet výskytů daného \mbox{n-gramu} v~referenci.
 
 Potvrzené \mbox{n-gramy},
@@ -53,7 +53,7 @@ N-gramy,
   jsou nazývany \textbf{zhoršující \mbox{n-gramy}}.
 O~významu jednotlivých typů \mbox{n-gramů} je možné si udělat lepší představu na Obrázku \ref{img:n-grams}.
 
-V nástroji \mbox{MT-ComparEval} je možné nalézt i přehled \textbf{nejvíce zlepšujících \mbox{n-gramů}}.
+V~nástroji \mbox{MT-ComparEval} je možné nalézt i přehled \textbf{nejvíce zlepšujících \mbox{n-gramů}}.
 Nejvíce zlepšující \mbox{n-gramy} jsou ty \mbox{n-gramy},
   které byly nejčastěji prohlášeny za zlepšující.
 Stejně tak je možné nalézt i přehled \textbf{nejvíce zhoršujících \mbox{n-gramů}},
@@ -62,7 +62,7 @@ Stejně tak je možné nalézt i přehled \textbf{nejvíce zhoršujících \mbox
 To,
   že byl některý \mbox{n-gram} prohlášen za zlepšující,
   neznamená, že zlepšil kvalitu překladu.
-Zlepšení je posuzováno pouze vzhledem k metrice BLEU.
+Zlepšení je posuzováno pouze vzhledem k~metrice BLEU.
 Stejně tak i zhoršující \mbox{n-gram} nemusel zhoršit kvalitu překladu.
 
 \begin{figure}
@@ -78,7 +78,7 @@ Stejně tak i zhoršující \mbox{n-gram} nemusel zhoršit kvalitu překladu.
 \section{Diff dvou vět}
 Nástroj \mbox{MT-ComparEval} umožňuje zobrazit \textbf{diff} dvou překladů anebo překladu a reference.
 Pojmem diff dvou vět se rozumí rozdíl těchto vět.
-Rozdíl vět je možné pro každou z těchto vět definovat jako slova,
-  která se nachází v dané větě
-  a zároveň se nenachází v nejdelší společné podposloupnosti porovnávaných vět
+Rozdíl vět je možné pro každou z~těchto vět definovat jako slova,
+  která se nachází v~dané větě
+  a zároveň se nenachází v~nejdelší společné podposloupnosti porovnávaných vět
 
